@@ -1,11 +1,19 @@
 {
   "name": "developer-docs-skills",
-  "description": "Two Agent Skills for building and enforcing world-class developer documentation: developer-docs (authoring/architecture) and developer-docs-auditor (adversarial validation and release gating).",
-  "version": "2.0.0",
+  "description": "Ten Agent Skills for building and enforcing world-class developer experience: docs authoring and auditing, end-to-end adversarial DX testing, onboarding design, API review, local development, SDK engineering, error experience, quality engineering, and release gating, all backed by a shared dx-standards constitution.",
+  "version": "2.1.0",
   "license": "MIT",
   "repository": "https://github.com/devarispbrown/devex-skills",
   "skills": [
     "./skills/developer-docs",
-    "./skills/developer-docs-auditor"
+    "./skills/developer-docs-auditor",
+    "./skills/developer-experience-auditor",
+    "./skills/developer-onboarding",
+    "./skills/api-design-reviewer",
+    "./skills/local-development",
+    "./skills/sdk-engineer",
+    "./skills/error-experience",
+    "./skills/quality-engineer",
+    "./skills/release-guardian"
   ]
 }

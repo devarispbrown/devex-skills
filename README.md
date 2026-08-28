@@ -1,19 +1,35 @@
-# Developer Docs Skills
+# Developer Experience Skills Suite
 
-Two complementary Claude/Agent Skills for building and enforcing world-class developer documentation:
+Ten complementary Claude/Agent Skills covering the full developer lifecycle, backed by one shared constitution of measurable DX standards.
 
-- **`developer-docs`**: authoring, information architecture, onboarding, API/SDK/CLI/config documentation, READMEs, examples, code docs, and stakeholder documentation.
-- **`developer-docs-auditor`**: adversarial testing, documentation drift detection, executable-doc validation, API/SDK parity, scoring, and release gating.
+The suite splits naturally into authoring, auditing, and product-surface skills:
 
-The system uses [Diátaxis](https://diataxis.fr/) as the information-architecture model, then adds product/DX review, docs-as-code, executable examples, lifecycle controls, and a hard onboarding standard inspired by the best developer platforms.
+- **Author**: `developer-docs`, `developer-onboarding`, `sdk-engineer`
+- **Audit**: `developer-docs-auditor`, `developer-experience-auditor`
+- **Product surface**: `api-design-reviewer`, `local-development`, `error-experience`, `quality-engineer`, `release-guardian`
 
-## The core standard: magic in 15 minutes
+The `developer-experience-auditor` is the orchestration layer: it runs the entire developer journey adversarially and delegates deep dives to the specialized skills when they are available.
+
+## The core standards
+
+Every skill references the same shared thresholds from `dx-standards/` (synced into each skill's `references/standards.md`):
+
+| Standard | Value | Meaning |
+|---|---|---|
+| Magic path | **≤15 min** | a brand-new developer with zero product knowledge reaches a verified, meaningful, end-to-end product outcome |
+| Local development | **≤10 min** | a clean clone reaches the productive state (tests run, dev loop exercised) |
+| First contribution | **≤30 min** | fork to first PR-ready change (target, not a hard gate) |
+| Time to Recovery | **≤5 min** | from hitting an expected error to completing its corrective action |
+
+Hard gates carry names: `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`.
+
+Evidence is always labeled **Observed**, **CI-observed**, or **Estimated**. An estimate can never prove a PASS. Verdicts are exactly **PASS**, **PASS WITH DEBT**, **FAIL**, or **UNVERIFIED**, and a high score can never override a failing gate.
+
+### The core standard: magic in 15 minutes
 
 A brand-new developer with **zero product knowledge** should be able to open the canonical Quickstart and reach a **meaningful, verified, end-to-end product outcome in 15 minutes or less**.
 
-This is a hard quality gate, not a writing guideline.
-
-The timer includes product-specific installation, signup/authentication when required, configuration, execution, waiting, and verification. You cannot make the metric pass by moving product setup into a prerequisites section. If production setup requires manual approval or slow provisioning, the product should provide a sandbox, local mode, test environment, or seeded fixture.
+This is a hard quality gate, not a writing guideline. The timer includes product-specific installation, signup/authentication when required, configuration, execution, waiting, and verification. Setup cannot be moved into a prerequisites section to game the metric. If production setup requires manual approval or slow provisioning, the product should provide a sandbox, local mode, test environment, or seeded fixture.
 
 | Time to verified end-to-end value | Rating |
 |---|---|
@@ -23,44 +39,62 @@ The timer includes product-specific installation, signup/authentication when req
 | >15 min | **P1 onboarding/DX failure** |
 | No reproducible E2E quickstart | **P1 failure** |
 
-A project cannot receive a **world-class** verdict if it fails this gate, regardless of how good the prose or reference coverage is.
+No verdict can be **world-class** while this gate fails, regardless of how good the prose or reference coverage is.
 
-## Why two skills?
+## Skill index
 
-Authoring and auditing have different incentives.
-
-`developer-docs` asks: **What is the clearest, most maintainable documentation and developer journey we can build?**
-
-`developer-docs-auditor` asks: **How can I prove this is wrong, stale, slow, contradictory, or non-executable before a developer discovers it?**
-
-Keeping them separate reduces self-review bias and makes it natural to run the auditor as a PR or release gate.
+| Skill | What it does | Use instead |
+|---|---|---|
+| `developer-docs` | Author world-class docs: Diátaxis architecture, quickstarts, API/SDK/CLI/config docs, READMEs, examples, lifecycle | `developer-experience-auditor` for product/DX measurement |
+| `developer-docs-auditor` | Adversarially audit and release-gate documentation: drift, executable examples, parity, scoring | `developer-experience-auditor` for whole-product DX |
+| `developer-experience-auditor` | Run the full 14-stage developer journey, measure friction, score DX, produce the DX Report; orchestrates the other skills | `developer-docs-auditor` for documentation-only audits |
+| `developer-onboarding` | Design zero-to-value onboarding: install modes, step elimination, sandbox-first magic paths | `developer-experience-auditor` to validate a path |
+| `api-design-reviewer` | Review an API as a product: guessability, consistency, reliability semantics; API DX score separate from OpenAPI correctness | `developer-docs-auditor` for docs parity |
+| `local-development` | Make clone→productive boring: toolchains, services, fixtures, dev targets, reproducibility | `developer-onboarding` for onboarding design |
+| `sdk-engineer` | Design idiomatic Go/Python/TypeScript/Rust SDKs with semantic parity and capability matrices | `api-design-reviewer` for the API surface |
+| `error-experience` | Six-question error standard, per-surface contracts, Time to Recovery | `api-design-reviewer` for error-model design |
+| `quality-engineer` | Test strategy by system type: contracts, property/fuzz, failure injection | `release-guardian` for gate decisions |
+| `release-guardian` | Gate releases: diff classification, behavioral compatibility, SemVer recommendation, migrations | `developer-docs-auditor` for docs release gating |
 
 ## Repository layout
 
 ```text
-developer-docs-skills/
+devex-skills/
 ├── README.md
 ├── LICENSE
+├── CHANGELOG.md
+├── .claude-plugin/plugin.json
+├── dx-standards/                 # canonical standards: source of truth
+│   ├── principles.md  metrics.md  severity.md  release-gates.md
+│   ├── compatibility.md  terminology.md  magic-path.md
+│   ├── api-dx.md  sdks.md  lifecycle.md  llm-ready-docs.md  style.md
+│   ├── inventory_docs.py
+│   ├── sync-map.json             # maps standards sections to skill files
+│   └── README.md
+├── scripts/
+│   ├── sync-standards.py         # distribute standards into skills
+│   └── validate_skills.py        # suite structural lint
+├── .github/workflows/ci.yml      # drift + structure enforcement
 └── skills/
     ├── developer-docs/
-    │   ├── SKILL.md
-    │   ├── references/
-    │   ├── assets/
-    │   └── scripts/
-    └── developer-docs-auditor/
-        ├── SKILL.md
-        ├── references/
-        ├── assets/
-        └── scripts/
+    ├── developer-docs-auditor/
+    ├── developer-experience-auditor/
+    ├── developer-onboarding/
+    ├── api-design-reviewer/
+    ├── local-development/
+    ├── sdk-engineer/
+    ├── error-experience/
+    ├── quality-engineer/
+    └── release-guardian/
 ```
 
-There is intentionally **no README inside either skill directory**. Agent Skills use `SKILL.md` as the skill entry point; the repository-level README is for humans browsing the OSS project.
+There is intentionally **no README inside any skill directory**. Agent Skills use `SKILL.md` as the entry point; the repository-level README is for humans browsing the OSS project.
 
 ## Install
 
 ### Claude Code plugin
 
-This repository is packaged as a Claude Code plugin (`developer-docs-skills`), which installs both skills at once and keeps them updatable:
+The repository is packaged as a Claude Code plugin (`developer-docs-skills`) that installs all ten skills at once:
 
 ```bash
 claude plugin marketplace add devarispbrown/devex-skills
@@ -74,210 +108,87 @@ Or interactively from inside Claude Code:
 /plugin install developer-docs-skills@devex-skills
 ```
 
-Claude can then invoke them automatically from their descriptions, or you can explicitly use `/developer-docs` and `/developer-docs-auditor`.
+Claude invokes skills automatically from their descriptions, or explicitly with `/developer-docs`, `/developer-experience-auditor`, and so on.
 
 ### Claude Code manual copy
 
-To install without the plugin, copy the two folders directly.
+Every skill directory is self-contained — including its generated `references/standards.md` — so any subset can be copied directly.
 
 For a project-scoped install:
 
 ```text
-<your-repo>/.claude/skills/developer-docs/
-<your-repo>/.claude/skills/developer-docs-auditor/
+<your-repo>/.claude/skills/<skill-name>/
 ```
 
 For a personal install that is available across projects:
 
 ```text
-~/.claude/skills/developer-docs/
-~/.claude/skills/developer-docs-auditor/
+~/.claude/skills/<skill-name>/
 ```
 
 ### Other Agent Skills-compatible clients
 
-Copy each skill directory as-is into the client's Agent Skills directory. Each contains a required `SKILL.md` plus optional `references/`, `assets/`, and `scripts/` that are loaded progressively as needed.
+Copy each skill directory as-is into the client's Agent Skills directory. Each contains a required `SKILL.md` plus optional `references/`, `assets/`, and `scripts/` that are loaded progressively as needed. Cross-skill references are by name only ("if available"), so a skill installed alone still works.
 
-## `developer-docs`
+## Recommended workflows
 
-Use this skill while designing or writing documentation.
+### Author → Audit → Gate
 
-It covers:
+1. **Author** with `developer-docs` and `developer-onboarding`. Start from product truth, design the canonical magic path, then add how-to, reference, explanation, troubleshooting, and production material.
+2. **Audit** with `developer-experience-auditor` (whole journey) and `developer-docs-auditor` (documentation correctness). Execute what can safely be executed and label all evidence.
+3. **Fix the right layer.** Findings are classified into nine problem classes — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party. Do not add three paragraphs of documentation to compensate for a bad API.
+4. **Gate releases** with `release-guardian` (product contract) and `developer-docs-auditor` (docs contract). A release fails when a hard gate fails, including a broken magic path, stale public reference, broken canonical install/auth, unsafe examples, or missing migration guidance.
 
-- Diátaxis classification and documentation architecture
-- the ≤15-minute canonical Quickstart
-- repository README design
-- API, CLI, configuration, event, and error documentation
-- SDK documentation and cross-language semantic parity
-- runnable examples and tutorials
-- public code comments and symbol docs
-- troubleshooting and production transition
-- migration/deprecation/release documentation
-- internal engineering and external stakeholder docs
-- terminology, accessibility, and coding-agent/LLM usability
-- product/DX review when an interface is difficult to document cleanly
+### Onboarding → Local dev → DX audit
 
-Example prompts:
+Design the zero-to-value path with `developer-onboarding`, make the clone experience boring with `local-development`, then measure both against their SLOs with `developer-experience-auditor`.
 
-```text
-Use developer-docs to redesign this project's documentation architecture around Diátaxis.
-```
+## Deterministic tools
 
-```text
-Build a Quickstart where a new developer reaches the complete end-to-end magic path in under 15 minutes. Treat anything that prevents that as a product/DX problem, not just a writing problem.
-```
+The suite ships small dependency-free helpers intended to complement, not replace, repository-native CI:
 
-```text
-Update the README, API docs, Go SDK docs, examples, and migration guide for this feature. Establish truth from the implementation before writing.
-```
-
-```text
-Create an external integration guide for a technical partner. Assume they know the domain but know nothing about our product or internal terminology.
-```
-
-## `developer-docs-auditor`
-
-Use this after authoring, on pull requests, before releases, or periodically against a documentation system.
-
-It covers:
-
-- adversarial cold-start review
-- observed/CI-observed/estimated magic-path timing
-- hard ≤15-minute onboarding release gate
-- git-diff documentation impact analysis
-- documentation drift detection
-- executable snippets/examples
-- local Markdown link checks
-- API/CLI/config contract correctness
-- SDK/API parity
-- error and troubleshooting quality
-- terminology consistency
-- lifecycle/migration/deprecation checks
-- human and coding-agent retrieval quality
-- independent Documentation Quality and Developer Experience scores
-- PASS / PASS WITH DEBT / FAIL / UNVERIFIED release verdicts
-
-Example prompts:
-
-```text
-Use developer-docs-auditor to audit this repo as if you had never seen the product. Actually test the canonical Quickstart where safe and prove whether the magic path is under 15 minutes.
-```
-
-```text
-Review this PR for documentation impact and drift. Fail the review if public behavior changed without the required docs, examples, SDK, changelog, or migration updates.
-```
-
-```text
-Audit our OpenAPI spec, TypeScript/Python/Go SDKs, examples, and API reference for semantic parity. Separate documentation bugs from API or SDK design bugs.
-```
-
-```text
-Score the docs and underlying developer experience independently. Do not call them world-class if the 15-minute magic path is unverified or fails.
-```
-
-## Recommended workflow
-
-### 1. Author
-
-Use `developer-docs` while building a feature or designing a new documentation surface. Start from product truth, design the canonical magic path, then add how-to, reference, explanation, troubleshooting, and production material.
-
-### 2. Audit
-
-Use `developer-docs-auditor` from a clean developer perspective. Execute what can safely be executed. Check drift against source/specs, inspect SDK parity, and time the magic path.
-
-### 3. Fix the right layer
-
-The auditor classifies root causes as:
-
-- **Docs**: documentation can fix it.
-- **Product/DX**: the API, SDK, CLI, config, auth, errors, or workflow need redesign.
-- **Infrastructure**: build/provision/runtime latency or reliability.
-- **External dependency**: third-party approvals, services, quotas, etc.
-
-Do not add three paragraphs of documentation to compensate for a bad API.
-
-### 4. Gate releases
-
-A release should fail when a P0/P1 documentation contract is broken, including a failed magic path, materially stale public reference, broken canonical install/auth, unsafe examples, or missing breaking-change migration guidance.
-
-## Magic-path measurement
-
-The auditor supports three evidence levels:
-
-- **Observed**: a human/agent actually executes the path from a clean or representative environment.
-- **CI-observed**: automation executes the product steps; useful for detecting drift, though it may undercount human reading/signup time.
-- **Estimated**: the steps are analyzed but not executed. An estimate cannot prove a passing gate.
-
-The included `magic_path_runner.py` can run a project-owned JSON manifest in sandbox/local/test environments:
-
-```bash
-python skills/developer-docs-auditor/scripts/magic_path_runner.py \
-  .docs/magic-path.json --execute
-```
-
-Start from `skills/developer-docs-auditor/assets/magic-path-manifest.example.json`.
-
-## Included deterministic tools
-
-The auditor includes small dependency-free helpers intended to complement, not replace, repository-native CI:
-
-```bash
-# Candidate documentation impact from a git diff
-python skills/developer-docs-auditor/scripts/docs_impact.py --base main --head HEAD
-
-# Missing local Markdown link targets
-python skills/developer-docs-auditor/scripts/check_markdown_links.py docs
-
-# Forbidden terminology aliases using a project policy
-python skills/developer-docs-auditor/scripts/check_terminology.py \
-  .docs/terminology.json --root .
-
-# Time an explicitly defined sandbox/local magic path
-python skills/developer-docs-auditor/scripts/magic_path_runner.py \
-  .docs/magic-path.json --execute
-```
+| Tool | Skill | Purpose |
+|---|---|---|
+| `magic_path_runner.py` | docs-auditor | Execute and time a magic-path manifest (`--execute` opt-in, no shell) |
+| `journey_runner.py` | experience-auditor | Orchestrate the 14-stage journey and produce timing/counts |
+| `estimate_magic_path.py` | onboarding | Estimate a design against `MAGIC_PATH_MAX_MIN` without executing |
+| `check_openapi_shape.py` / `guessability_check.py` | api-design-reviewer | Structural OpenAPI lint and convention candidates |
+| `check_parity.py` | sdk-engineer | Find operations missing from an SDK source tree |
+| `check_local_dev.py` | local-development | Inventory setup surfaces (never fails) |
+| `error_inventory.py` | error-experience | Catalog error sources by surface |
+| `assess_test_suite.py` | quality-engineer | Map test coverage to system-type gaps |
+| `classify_diff.py` / `scan_compat_consumers.py` | release-guardian | Heuristic change classification and consumer scan |
+| `sync-standards.py` | repo | Distribute `dx-standards/` into skill `references/`; `--check` detects drift |
+| `validate_skills.py` | repo | Structural lint: plugin/directory/frontmatter agreement, versions, mentions |
 
 For snippets, schemas, SDKs, CLI help, and integration examples, prefer the target project's actual compiler, test runner, schema tooling, code generator, and sandbox infrastructure.
 
-## Quality model
+## Shared standards and sync
 
-The auditor reports two scores because excellent prose can hide a poor interface:
+`dx-standards/` is the single source of truth for the suite's vocabulary and thresholds. `scripts/sync-standards.py` writes each skill's subset into its `references/standards.md`; the generated files are committed, so every skill directory stays self-contained.
 
-### Documentation Quality
+```bash
+python3 scripts/sync-standards.py           # regenerate all targets
+python3 scripts/sync-standards.py --check   # exit 1 on drift
+```
 
-Correctness, onboarding, reference completeness, how-to coverage, SDK consistency, examples/testability, troubleshooting, information architecture, lifecycle, production guidance, maintainability, and agent usability.
+Generated files carry a header — never hand-edit them. Change the source in `dx-standards/` and re-sync. Hand-written skill references are procedural only; normative numbers always flow through the standards layer. CI enforces both sync cleanliness and structural lint on every push.
 
-### Developer Experience
+## Roadmap
 
-Magic-path friction, API/CLI/config coherence, errors/recovery, auth/setup ergonomics, SDK quality, observability/debuggability, versioning, production transition, and self-service support.
+The strategy for this suite covers the whole developer lifecycle. Planned skills, in rough priority order:
 
-A numerical score never overrides hard release gates.
+```text
+cli-designer          security-supply-chain
+observability-readiness
+configuration-dx      golden-path-scaffolder
+performance-engineer  compatibility-engineer
+contributor-experience
+dependency-health     integration-certifier
+agent-native-dx       developer-feedback-analyst
+```
 
-## Diátaxis
-
-These skills use [Diátaxis](https://diataxis.fr/) to keep documentation aligned with user intent:
-
-| Mode | User need | Documentation job |
-|---|---|---|
-| Tutorial | Learn | Provide a successful guided learning experience |
-| How-to | Work | Help an experienced user complete a task |
-| Reference | Work | Provide accurate, complete technical facts |
-| Explanation | Study | Build understanding, context, and mental models |
-
-The 15-minute Quickstart is treated as a specially constrained tutorial: it must deliver a successful learning experience **and** demonstrate meaningful end-to-end product value under the onboarding budget.
-
-## Design principles
-
-1. **Truth before prose.** Source/spec/tests outrank stale narrative docs.
-2. **Time to value is a documentation metric.** The getting-started experience has an explicit SLA.
-3. **Docs expose product design.** Hard-to-document interfaces should trigger DX review.
-4. **Examples should be executable.** Plausible-looking snippets are not proof.
-5. **One canonical onboarding route.** Choices come after success.
-6. **Reference should be generated where possible.** Hand-written material adds tasks, context, examples, and recovery.
-7. **SDKs are products.** Each official language deserves parity and idiomatic UX.
-8. **Failures are part of the product.** Error semantics and troubleshooting are first-class docs.
-9. **Docs ship with code.** Public behavior changes imply documentation impact review.
-10. **Humans and agents share the corpus.** Structure docs so both can retrieve current authoritative facts.
+Contributions that advance any of these are welcome; see below.
 
 ## Contributing
 
@@ -285,21 +196,28 @@ Contributions should improve a repeatable developer outcome rather than merely a
 
 Useful contributions include:
 
-- additional language-specific documentation tests
+- additional language-specific documentation and SDK tests
 - better OpenAPI/AsyncAPI/protobuf/GraphQL parity checks
 - SDK coverage tooling
 - CLI/config drift checks
 - quickstart measurement patterns
 - new documentation templates
-- real-world examples of Product/DX defects discovered through documentation work
+- real-world examples of Product/DX defects discovered through developer-experience work
 
-When changing a skill, keep the main `SKILL.md` focused and move detailed specialist guidance into `references/` so agents can load it progressively.
+When changing a skill, keep the main `SKILL.md` focused and move detailed specialist guidance into `references/` so agents can load it progressively. Keep normative numbers in `dx-standards/` and re-run `python3 scripts/sync-standards.py`.
 
 ## References and influences
 
 - [Diátaxis](https://diataxis.fr/)
 - [Agent Skills open specification](https://agentskills.io/)
 - [Anthropic: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+- [DORA platform engineering capabilities](https://dora.dev/capabilities/platform-engineering/)
+- [Semantic Versioning](https://semver.org/)
+- [Command Line Interface Guidelines](https://clig.dev/)
+- [OpenSSF Scorecard](https://www.scorecard.dev/)
+- [OpenTelemetry](https://opentelemetry.io/docs/concepts/signals/)
+- [Backstage Software Templates](https://backstage.io/docs/features/software-templates/)
+- [GitHub dev containers](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers)
 - [Stripe API documentation](https://docs.stripe.com/api)
 - [Twilio documentation](https://www.twilio.com/docs)
 
