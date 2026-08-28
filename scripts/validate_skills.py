@@ -20,6 +20,10 @@ STALE_PHRASES = ('Two Agent Skills', 'Two complementary')
 
 
 def frontmatter(text):
+    # NOTE: relies on the flat line format `metadata:\n  version: "X.Y.Z"` —
+    # the version check below flattens the nested key. If this parser is
+    # refactored to real YAML, keep extracting version the same way or the
+    # version-matrix enforcement silently disables.
     if not text.startswith('---'):
         return None
     end = text.find('\n---', 4)
@@ -31,6 +35,19 @@ def frontmatter(text):
             k, v = line.split(':', 1)
             fm[k.strip()] = v.strip()
     return fm
+
+
+def number_word(n):
+    ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+            'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen',
+            'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+    tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy',
+            'eighty', 'ninety']
+    if n < 20:
+        return ones[n]
+    if n < 100:
+        return tens[n // 10] + ('-' + ones[n % 10] if n % 10 else '')
+    return str(n)
 
 
 def words(text):
@@ -115,6 +132,37 @@ def main() -> int:
             for phrase in STALE_PHRASES:
                 if phrase in p.read_text():
                     failures.append(f'{p.name}: stale phrase {phrase!r}')
+
+    # plugin description must carry the current skill count in words
+    n = len(skill_names)
+    if n and number_word(n) not in plugin.get('description', ''):
+        failures.append(f'plugin.json: description missing skill count {number_word(n)!r}')
+
+    # CHANGELOG must contain a heading matching the plugin version
+    changelog = ROOT / 'CHANGELOG.md'
+    if changelog.exists():
+        if f'## {plugin_version} ' not in changelog.read_text() and f'## {plugin_version}\n' not in changelog.read_text():
+            failures.append(f'CHANGELOG.md: no entry for version {plugin_version}')
+
+    # README must mention every plugin-listed skill and stay under the size cap
+    readme = (ROOT / 'README.md').read_text()
+    for name in skill_names:
+        if name not in readme:
+            failures.append(f'README.md: does not mention skill {name}')
+    if (ROOT / 'README.md').stat().st_size > 25600:
+        failures.append('README.md: exceeds 25KB cap')
+
+    # domains.md must list every plugin skill exactly once; extra rows allowed
+    # (forward-looking for skills landing later in the release)
+    domains = ROOT / 'dx-standards' / 'domains.md'
+    if domains.exists():
+        dtext = domains.read_text()
+        for name in skill_names:
+            count = len([l for l in dtext.splitlines() if name in l])
+            if count == 0:
+                failures.append(f'domains.md: skill {name} not mapped to a domain')
+            elif count > 1:
+                failures.append(f'domains.md: skill {name} appears in {count} rows')
 
     # cross-check: every skills/ dir listed in plugin.json
     for d in sorted((ROOT / 'skills').glob('*')):
