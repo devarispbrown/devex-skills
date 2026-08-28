@@ -2,6 +2,26 @@
 
 Forty-two Agent Skills that build, audit, and gate every surface of a developer tool — onboarding, API, CLI, SDK, docs, errors, community, releases, operations — backed by one shared constitution of measurable DX standards.
 
+## What this is and why it matters
+
+Developers don't leave tools because of missing features. They leave because the magic path took forty minutes, the error said "authentication failed" and nothing else, the quickstart lied about prerequisites, or their first PR sat unreviewed for a month. These failures are invisible in feature backlogs and fatal in adoption curves.
+
+This repo turns that experience into engineering practice. Built from DeVaris Brown's work building developer tools and communities at Microsoft, Zendesk, Heroku, Twitter, and Meroxa, it packages the patterns that repeatedly separated tools developers adopted from tools they abandoned — as skills an agent can actually run:
+
+- **Time to value is the first metric.** A brand-new developer reaches a verified, end-to-end outcome in ≤15 minutes. Everything else — docs, sandbox, auth, fixtures — exists to protect that number.
+- **Every surface is a product.** The API, the CLI, the error messages, the config model, and the community are all interfaces. Each gets the same rigor as the product itself.
+- **Build and audit are different jobs with different incentives.** An author wants the path to work; an auditor tries to prove it broken. The suite pairs a builder with an auditor for every surface so self-review bias can't hide drift, stale examples, or untested claims.
+- **Evidence beats opinion.** Scores and timings are labeled Observed, CI-observed, or Estimated; estimates can never prove a PASS, and no high score overrides a failing gate.
+
+## The methodology
+
+The skills share one constitution — `dx-standards/`, synced into every skill's `references/standards.md`:
+
+- **Named SLOs with owners.** Magic path ≤15 min, clone-to-productive ≤10 min, community onboarding ≤30 min, Time to Recovery ≤5 min, explicit feedback budgets. Every constant has one home and one owning skill; skills cite constants by name, never restate values.
+- **Named gates.** `BROKEN_QUICKSTART`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `NO_CONTRIBUTING_WHILE_WELCOMING`, and the rest. A failing gate forces FAIL; a score never averages it away.
+- **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings are classified by root cause — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party — so fixes land where they belong.
+- **One vocabulary.** Fourteen journey stages, nine problem classes, one severity scale (P0–P4), one verdict vocabulary (PASS / PASS WITH DEBT / FAIL / UNVERIFIED). CHAOSS metric names for community, Diátaxis for documentation architecture, SemVer for compatibility.
+
 ## Install
 
 The repository is packaged as a Claude Code plugin (`developer-docs-skills`) that installs all forty-two skills at once:
@@ -22,16 +42,7 @@ Claude invokes skills automatically from their descriptions, or explicitly with 
 
 **Manual copy**: every skill directory is self-contained (including its generated `references/standards.md`), so any subset can be copied into `<your-repo>/.claude/skills/<skill-name>/` or `~/.claude/skills/<skill-name>/`, or into any Agent Skills-compatible client. Cross-skill references are by name only ("if available"), so a skill installed alone still works.
 
-**First day**: install, then ask Claude to run `developer-experience-auditor` on your repository. You get a DX Report: per-area scores, gate failures, and a prioritized backlog. Fix the P1s with the surface skills below, then re-run the audit.
-
-## The loop
-
-Each surface has a build skill and an audit skill. The loop is the same everywhere:
-
-1. **Build or fix** with the surface's design skill. Start from product truth; don't document around a bad interface.
-2. **Audit** with the surface's audit skill (or the end-to-end `developer-experience-auditor`). Execute what can safely be executed; label all evidence Observed, CI-observed, or Estimated — an estimate can never prove a PASS.
-3. **Fix the right layer.** Findings are classified into nine problem classes — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party. Three paragraphs of docs never compensate for a bad API.
-4. **Gate releases** with `release-guardian` and `developer-docs-auditor`. A release fails when a hard gate fails.
+**First day**: install, then ask Claude to run `developer-experience-auditor` on your repository. You get a DX Report: per-area scores, gate failures, and a prioritized backlog. Fix the P1s with the surface skills below, then re-run the audit — that loop, applied surface by surface, is the whole methodology.
 
 ## Skills by surface
 
