@@ -2,24 +2,28 @@
 
 Forty-two Agent Skills that build, audit, and gate every surface of a developer tool — onboarding, API, CLI, SDK, docs, errors, community, releases, operations — backed by one shared constitution of measurable DX standards.
 
-## What this is and why it matters
+## Why I built this
 
-Developers don't leave tools because of missing features. They leave because the magic path took forty minutes, the error said "authentication failed" and nothing else, the quickstart lied about prerequisites, or their first PR sat unreviewed for a month. These failures are invisible in feature backlogs and fatal in adoption curves.
+I've spent my career building developer tools and communities at Microsoft, Zendesk, Heroku, Twitter, and Meroxa, and I've watched the same story play out over and over.
 
-This repo turns that experience into engineering practice. Built from DeVaris Brown's work building developer tools and communities at Microsoft, Zendesk, Heroku, Twitter, and Meroxa, it packages the patterns that repeatedly separated tools developers adopted from tools they abandoned — as skills an agent can actually run:
+A team ships a genuinely useful tool. The docs look fine. The API is well-tested. And adoption still flatlines — because the getting-started path takes 45 minutes instead of 15, because the error message says `Authentication failed` and nothing else, because the quickstart quietly assumes you have a Postgres instance running, because a first-time contributor's PR sits unreviewed for a month and they never come back.
 
-- **Time to value is the first metric.** A brand-new developer reaches a verified, end-to-end outcome in ≤15 minutes. Everything else — docs, sandbox, auth, fixtures — exists to protect that number.
-- **Every surface is a product.** The API, the CLI, the error messages, the config model, and the community are all interfaces. Each gets the same rigor as the product itself.
-- **Build and audit are different jobs with different incentives.** An author wants the path to work; an auditor tries to prove it broken. The suite pairs a builder with an auditor for every surface so self-review bias can't hide drift, stale examples, or untested claims.
-- **Evidence beats opinion.** Scores and timings are labeled Observed, CI-observed, or Estimated; estimates can never prove a PASS, and no high score overrides a failing gate.
+None of that shows up in a feature backlog. All of it decides whether developers stay.
+
+The frustrating part: these failures are predictable. I've seen the same handful of patterns separate tools people adopt from tools people abandon, across companies and across decades. This repo is those patterns, turned into skills an agent can actually run against your repo — not essays, checks.
+
+- **The 15-minute magic path.** A brand-new developer with zero product knowledge reaches a verified, end-to-end outcome in fifteen minutes or less — or you have a problem, no matter how good the docs read.
+- **Errors are product surface.** "Authentication failed" costs you a user. "Token expired 37 minutes ago — run `conduit auth login`, or set CONDUIT_API_TOKEN. Request ID: req_01K98..." keeps one.
+- **Authors and auditors are different people.** I've watched good teams ship stale quickstarts and contradictory SDKs because the person who wrote the docs also judged them. So every surface here gets a builder *and* an auditor, and the auditor's job is to try to prove the thing broken.
+- **Evidence beats vibes.** Timings are Observed, CI-observed, or Estimated. An estimate never proves a PASS, and no pretty score overrides a failing gate.
 
 ## The methodology
 
-The skills share one constitution — `dx-standards/`, synced into every skill's `references/standards.md`:
+All forty-two skills share one constitution — `dx-standards/`, synced into every skill's `references/standards.md`. Four rules hold it together:
 
-- **Named SLOs with owners.** Magic path ≤15 min, clone-to-productive ≤10 min, community onboarding ≤30 min, Time to Recovery ≤5 min, explicit feedback budgets. Every constant has one home and one owning skill; skills cite constants by name, never restate values.
-- **Named gates.** `BROKEN_QUICKSTART`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `NO_CONTRIBUTING_WHILE_WELCOMING`, and the rest. A failing gate forces FAIL; a score never averages it away.
-- **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings are classified by root cause — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party — so fixes land where they belong.
+- **Named SLOs, each with an owner.** Magic path ≤15 min, clone-to-productive ≤10 min, community onboarding ≤30 min, Time to Recovery ≤5 min, explicit feedback budgets. Every constant has one home and one owning skill; skills cite constants by name, never restate values.
+- **Named gates.** `BROKEN_QUICKSTART`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `NO_CONTRIBUTING_WHILE_WELCOMING`, and the rest. A failing gate fails the release; a score never averages it away.
+- **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings get classified by root cause — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party — because three paragraphs of docs never fixed a bad API.
 - **One vocabulary.** Fourteen journey stages, nine problem classes, one severity scale (P0–P4), one verdict vocabulary (PASS / PASS WITH DEBT / FAIL / UNVERIFIED). CHAOSS metric names for community, Diátaxis for documentation architecture, SemVer for compatibility.
 
 ## Install
@@ -42,7 +46,7 @@ Claude invokes skills automatically from their descriptions, or explicitly with 
 
 **Manual copy**: every skill directory is self-contained (including its generated `references/standards.md`), so any subset can be copied into `<your-repo>/.claude/skills/<skill-name>/` or `~/.claude/skills/<skill-name>/`, or into any Agent Skills-compatible client. Cross-skill references are by name only ("if available"), so a skill installed alone still works.
 
-**First day**: install, then ask Claude to run `developer-experience-auditor` on your repository. You get a DX Report: per-area scores, gate failures, and a prioritized backlog. Fix the P1s with the surface skills below, then re-run the audit — that loop, applied surface by surface, is the whole methodology.
+**First day**: install, then ask Claude to run `developer-experience-auditor` on your repository. In a few minutes you get a DX Report — per-area scores, gate failures, and a prioritized backlog with owners. Fix the P1s using the surface skills below, re-run the audit, and watch the number move. That loop, applied surface by surface, is the whole methodology.
 
 ## Skills by surface
 
@@ -163,7 +167,7 @@ Tools: `journey_runner.py`, `check_agent_readiness.py`, `check_experiment_metric
 
 ## The standards
 
-All skills agree on one constitution in `dx-standards/`, synced into each skill's `references/standards.md`:
+The numbers below are why the skills can trust each other's verdicts. They live in `dx-standards/`, the suite's single source of truth, synced into each skill's `references/standards.md`:
 
 | SLO | Value | Owned by |
 |---|---|---|
@@ -183,7 +187,7 @@ Evidence is labeled **Observed**, **CI-observed**, or **Estimated**; an estimate
 
 A brand-new developer with **zero product knowledge** should be able to open the canonical Quickstart and reach a **meaningful, verified, end-to-end product outcome in 15 minutes or less**.
 
-This is a hard quality gate, not a writing guideline. The timer includes product-specific installation, signup/authentication when required, configuration, execution, waiting, and verification. Setup cannot be moved into a prerequisites section to game the metric. If production setup requires manual approval or slow provisioning, the product should provide a sandbox, local mode, test environment, or seeded fixture.
+I mean this literally. The timer includes installation, signup and authentication when required, configuration, execution, waiting, and verification — and no, you can't move the slow parts into a "prerequisites" section to make the metric pass. If production setup needs manual approval or slow provisioning, ship a sandbox, local mode, test environment, or seeded fixtures. Products that respect this get adopted; products that don't get blogged about.
 
 | Time to verified end-to-end value | Rating |
 |---|---|
