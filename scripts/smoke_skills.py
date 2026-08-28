@@ -15,9 +15,12 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def run_one(skill, script, spec):
     results = []
-    for kind in ('clean', 'broken'):
-        args = [sys.executable, str(ROOT / 'skills' / skill / 'scripts' / script)] + spec[kind]
-        cp = subprocess.run(args, capture_output=True, text=True, timeout=60)
+    kinds = [k for k in ('clean', 'broken') if k in spec]
+    skill_dir = ROOT / 'skills' / skill
+    for kind in kinds:
+        args = [sys.executable, str(skill_dir / 'scripts' / script)] + spec[kind]
+        # fixtures and relative paths resolve inside the skill's assets directory
+        cp = subprocess.run(args, capture_output=True, text=True, timeout=60, cwd=str(skill_dir / 'assets'))
         expected = spec.get(f'{kind}_exit', 0 if kind == 'clean' else 1)
         ok = cp.returncode == expected
         results.append(ok)

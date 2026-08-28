@@ -1,0 +1,10 @@
+{
+  "check_catalog_metadata.py": {
+    "broken": [
+      "catalog.example.json"
+    ],
+    "clean": [
+      "catalog.clean.json"
+    ]
+  }
+}

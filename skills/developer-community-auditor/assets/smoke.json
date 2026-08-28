@@ -1,0 +1,10 @@
+{
+  "check_community_health.py": {
+    "broken": [
+      "community-health.example.json"
+    ],
+    "clean": [
+      "community-health.clean.json"
+    ]
+  }
+}

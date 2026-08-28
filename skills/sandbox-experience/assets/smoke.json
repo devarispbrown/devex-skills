@@ -1,0 +1,10 @@
+{
+  "check_sandbox_coverage.py": {
+    "broken": [
+      "sandbox-manifest.example.json"
+    ],
+    "clean": [
+      "sandbox-manifest.clean.json"
+    ]
+  }
+}
