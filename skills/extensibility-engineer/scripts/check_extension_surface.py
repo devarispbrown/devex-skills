@@ -54,6 +54,8 @@ def scan_manifest(p):
         try: data=json.loads(open(p,encoding='utf-8').read())
         except (OSError,ValueError) as e:
             raise SystemExit(f'ERROR: unparsable manifest {p}: {e}')
+        if not isinstance(data, dict):
+            raise SystemExit(f'ERROR: {p} must contain a JSON object')
         ok_name=bool(data.get('name')); ok_version=bool(data.get('version'))
         caps=len(data.get('capabilities',[])) if isinstance(data.get('capabilities'),list) else 0
         hooks=[str(h.get('name')) for h in data.get('hooks',[]) if isinstance(h,dict) and h.get('name')]

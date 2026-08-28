@@ -2,7 +2,9 @@
   "check_change_notices.py": {
     "broken": [
       "--root",
-      "notice-sample"
+      "notice-sample",
+      "--changelog",
+      "notice-sample/CHANGELOG.md"
     ]
   }
 }

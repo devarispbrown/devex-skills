@@ -11,7 +11,7 @@ MAX_BYTES = 2_000_000
 MARKERS = [
     ('DEPRECATION', re.compile(
         r'@deprecated\b|@Deprecated\b|@available\([^)]*\bdeprecated\b'
-        r'|\#\[deprecated\]|\bObsolete\]|DeprecationWarning\b')),
+        r'|\#\[deprecated\]|\bObsolete(?:\]|\()|DeprecationWarning\b')),
     ('BREAKING', re.compile(r'BREAKING CHANGE:|BREAKING:\s|@breaking\b')),
     ('REMOVAL', re.compile(r'\bTODO\b(?=[^\n]{0,80}\bremove\b)', re.I)),
 ]
@@ -61,7 +61,7 @@ def scan(root, changelog_abs, changelog_text):
                     if not rx.search(line):
                         continue
                     key = enclosing_symbol(lines, lineno, stem)
-                    if key and key in changelog_text:
+                    if key and key.lower() in changelog_text:
                         continue
                     findings.append((os.path.relpath(path, root), lineno, kind, key))
     return findings
