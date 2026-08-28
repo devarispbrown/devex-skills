@@ -39,7 +39,9 @@
     "first_pr_review_p50_h": 10.0,
     "first_pr_review_p90_h": 40.0,
     "useful_answer_p90_h": 20.0,
-    "non_bot_activity_30d": 480
+    "non_bot_activity_30d": 480,
+    "unacknowledged_pr_max_days": 9.0,
+    "community_answer_share": 0.35
   },
   "funnel": {
     "participants": 200,
@@ -60,7 +62,9 @@
     "maintainers": true,
     "ladder": true,
     "governance_quality": 0.95,
-    "ladder_quality": 0.95
+    "ladder_quality": 0.95,
+    "license": false,
+    "license_quality": 0.0
   },
   "issues": {
     "good_first_issues_open": 6,
@@ -81,5 +85,25 @@
     "issue_templates": true,
     "pr_templates": true,
     "dev_environment_documented": true
-  }
+  },
+  "maintainers": [
+    {
+      "name": "alice",
+      "review_share": 0.62,
+      "merge_share": 0.55,
+      "response_share": 0.4
+    },
+    {
+      "name": "bob",
+      "review_share": 0.21,
+      "merge_share": 0.3,
+      "response_share": 0.35
+    },
+    {
+      "name": "charlie",
+      "review_share": 0.09,
+      "merge_share": 0.1,
+      "response_share": 0.15
+    }
+  ]
 }

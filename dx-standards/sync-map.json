@@ -743,10 +743,11 @@
             {
               "source": "community.md",
               "sections": [
-                "Community magic path",
-                "Community stage gates",
-                "Community hard gates",
                 "CHAOSS metrics",
+                "Community hard gates",
+                "Community magic path",
+                "Community response SLOs",
+                "Community stage gates",
                 "Community standards files"
               ]
             },

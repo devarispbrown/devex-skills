@@ -4,7 +4,7 @@ description: Make first meaningful open-source contribution take under 30 minute
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git and repository access.
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 ---
 
 # Contributor Experience Audit and Repair

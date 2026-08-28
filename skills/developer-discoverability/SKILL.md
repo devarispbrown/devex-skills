@@ -4,7 +4,7 @@ description: Make APIs, services, owners, versions, and docs findable: package, 
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and platform metadata.
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 ---
 
 # Developer Discoverability
