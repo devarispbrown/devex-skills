@@ -135,7 +135,7 @@ def main() -> int:
 
     # plugin description must carry the current skill count in words
     n = len(skill_names)
-    if n and number_word(n) not in plugin.get('description', ''):
+    if n and number_word(n) not in plugin.get('description', '').lower():
         failures.append(f'plugin.json: description missing skill count {number_word(n)!r}')
 
     # CHANGELOG must contain a heading matching the plugin version
@@ -158,7 +158,8 @@ def main() -> int:
     if domains.exists():
         dtext = domains.read_text()
         for name in skill_names:
-            count = len([l for l in dtext.splitlines() if name in l])
+            pat = rf'(?<![a-z0-9-]){re.escape(name)}(?![a-z0-9-])'
+            count = len([l for l in dtext.splitlines() if re.search(pat, l)])
             if count == 0:
                 failures.append(f'domains.md: skill {name} not mapped to a domain')
             elif count > 1:
