@@ -1,0 +1,59 @@
+{
+  "name": "acme-messaging-sandbox-audit",
+  "tasks": [
+    {
+      "id": "delete-customer",
+      "task": "Delete a customer record",
+      "risky": true,
+      "risk_type": "destructive",
+      "sandbox_route": false,
+      "characteristics": []
+    },
+    {
+      "id": "marketing-blast",
+      "task": "Send a marketing message blast",
+      "risky": true,
+      "risk_type": "quota_consuming",
+      "sandbox_route": true,
+      "characteristics": ["no_credit_card", "no_production_account", "resettable", "deterministic_state", "safe_by_construction"]
+    },
+    {
+      "id": "bulk-import",
+      "task": "Import 10k rows into the contacts database",
+      "risky": true,
+      "risk_type": "destructive",
+      "sandbox_route": true,
+      "characteristics": ["no_credit_card", "no_production_account", "resettable", "deterministic_state", "safe_by_construction"]
+    },
+    {
+      "id": "billing-webhook",
+      "task": "Trigger a billing webhook and verify the ledger update",
+      "risky": true,
+      "risk_type": "production_touching",
+      "sandbox_route": false,
+      "characteristics": []
+    },
+    {
+      "id": "key-rotation",
+      "task": "Rotate API keys and confirm old keys fail",
+      "risky": true,
+      "risk_type": "production_touching",
+      "sandbox_route": true,
+      "characteristics": ["no_credit_card", "no_production_account", "resettable", "deterministic_state", "safe_by_construction"]
+    },
+    {
+      "id": "sample-orders",
+      "task": "Generate sample order data for the tutorial",
+      "risky": false,
+      "sandbox_route": true,
+      "characteristics": ["no_credit_card", "no_production_account", "resettable", "deterministic_state", "safe_by_construction"]
+    },
+    {
+      "id": "changelog-draft",
+      "task": "Draft a changelog entry",
+      "risky": false,
+      "sandbox_route": true,
+      "characteristics": ["no_credit_card", "no_production_account", "resettable", "deterministic_state", "safe_by_construction"]
+    }
+  ]
+}

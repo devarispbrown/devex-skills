@@ -1,0 +1,61 @@
+name: Bug report
+description: File a bug against the Widget SDK or API
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Product version
+      description: Version of the product you are using
+    validations:
+      required: true
+  - type: input
+    id: sdk_version
+    attributes:
+      label: SDK version
+      description: Version of the Widget SDK
+    validations:
+      required: true
+  - type: input
+    id: request_id
+    attributes:
+      label: Request ID
+      description: Copy from the error output or response headers
+    validations:
+      required: true
+  - type: input
+    id: trace_id
+    attributes:
+      label: Trace ID
+      description: Copy from the error output or response headers
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, runtime, and region
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Non-secret configuration only; remove any secrets before pasting
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Relevant log excerpt with secrets and personal data removed
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What you ran and what you expected
+    validations:
+      required: true

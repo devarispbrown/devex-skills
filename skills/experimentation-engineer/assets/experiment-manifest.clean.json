@@ -1,0 +1,26 @@
+{
+  "name": "quickstart-step-count-ab",
+  "hypothesis": "Reducing the canonical quickstart from 8 to 5 steps raises task completion from about 60% to at least 75% without raising error rate above 10%.",
+  "variants": [
+    {"id": "control", "control": true, "flag": "quickstart-steps", "value": "8-steps"},
+    {"id": "treatment", "control": false, "flag": "quickstart-steps", "value": "5-steps"}
+  ],
+  "metrics": [
+    {"name": "task_completion_rate", "direction": "up", "definition": "Share of sessions that reach and independently verify the quickstart outcome."},
+    {"name": "time_to_first_value_s", "direction": "down", "definition": "Wall-clock seconds from opening the quickstart to verified first value, per the magic-path timer."},
+    {"name": "error_rate", "direction": "down", "definition": "Share of sessions with at least one unresolved error or failed step."},
+    {"name": "drop_off_per_step", "direction": "down", "definition": "Share of sessions abandoning before the outcome at each step."},
+    {"name": "support_load_per_100", "direction": "down", "definition": "Tickets or escalations attributable to the flow per 100 sessions."}
+  ],
+  "guardrails": [
+    {"metric": "error_rate", "threshold": 0.1, "comparison": "lt"},
+    {"metric": "task_completion_rate", "threshold": 0.5, "comparison": "gte"}
+  ],
+  "flag": {
+    "key": "quickstart-steps",
+    "provider": "openfeature",
+    "targeting": "stable cohort, even split",
+    "rollout": "start 10%, ramp while guardrails hold",
+    "default": "8-steps"
+  }
+}

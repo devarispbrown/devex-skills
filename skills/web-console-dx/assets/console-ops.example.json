@@ -1,0 +1,53 @@
+{
+  "name": "example-console",
+  "operations": [
+    {
+      "name": "Create project",
+      "has_api_equivalent": true,
+      "has_cli_equivalent": true,
+      "docs_link": "https://docs.example.com/api/create-project"
+    },
+    {
+      "name": "Rotate API key",
+      "has_api_equivalent": true,
+      "has_cli_equivalent": false,
+      "docs_link": "https://docs.example.com/api/rotate-key"
+    },
+    {
+      "name": "Export request logs",
+      "has_api_equivalent": false,
+      "has_cli_equivalent": false,
+      "docs_link": ""
+    },
+    {
+      "name": "Configure metrics retention",
+      "has_api_equivalent": false,
+      "has_cli_equivalent": false,
+      "docs_link": ""
+    },
+    {
+      "name": "Create webhook subscription",
+      "has_api_equivalent": true,
+      "has_cli_equivalent": false,
+      "docs_link": "https://docs.example.com/api/create-webhook"
+    },
+    {
+      "name": "Replay event",
+      "has_api_equivalent": true,
+      "has_cli_equivalent": true,
+      "docs_link": "https://docs.example.com/api/replay-event"
+    },
+    {
+      "name": "Grant teammate permissions",
+      "has_api_equivalent": false,
+      "has_cli_equivalent": false,
+      "docs_link": ""
+    },
+    {
+      "name": "View usage breakdown",
+      "has_api_equivalent": true,
+      "has_cli_equivalent": true,
+      "docs_link": "https://docs.example.com/api/get-usage"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://app:app@db:5432/app
+      APP_STAGE: local
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

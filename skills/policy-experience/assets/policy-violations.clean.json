@@ -1,0 +1,30 @@
+[
+  {
+    "policy_id": "POL-102",
+    "what_happened": "deploy.yaml:34 uses image tag \"latest\"; policy POL-102 requires immutable pinned tags",
+    "why": "Mutable tags make rollback and provenance unverifiable",
+    "how_to_fix": "Run `pin-images deploy.yaml` or replace the tag with the build job output",
+    "request_exception": "polx request POL-102 --scope deploy.yaml --until 2026-10-01"
+  },
+  {
+    "policy_id": "POL-204",
+    "what_happened": "terraform/main.tf:12 provisions resource group in region east-2; policy POL-204 requires region west-1",
+    "why": "Data residency requirements only permit the approved region",
+    "how_to_fix": "Change `location = \"east-2\"` to `location = \"west-1\"` in terraform/main.tf:12 and re-plan",
+    "request_exception": "polx request POL-204 --scope terraform/main.tf --until 2026-09-15"
+  },
+  {
+    "policy_id": "POL-501",
+    "what_happened": "requirements.lock:88 pins example-lib 1.2.0 with CVE-2026-0001; policy POL-501 requires no known-vulnerable pins",
+    "why": "A known-vulnerable dependency is an exploitable surface until patched",
+    "how_to_fix": "Run `polx bump example-lib --to 1.2.1` and commit the lockfile",
+    "request_exception": "polx request POL-501 --scope requirements.lock --until 2026-09-01"
+  },
+  {
+    "policy_id": "POL-302",
+    "what_happened": "Dockerfile:21 installs `curl` without a checksum; policy POL-302 requires verified downloads",
+    "why": "Unverified downloads allow tampered artifacts into the image",
+    "how_to_fix": "Pin the download to a checksummed release: fetch the file, verify with `sha256sum -c sha256s.txt`, then install",
+    "request_exception": "polx request POL-302 --scope Dockerfile --until 2026-09-10"
+  }
+]

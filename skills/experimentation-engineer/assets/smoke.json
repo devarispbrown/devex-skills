@@ -1,0 +1,10 @@
+{
+  "check_experiment_metrics.py": {
+    "broken": [
+      "experiment-manifest.example.json"
+    ],
+    "clean": [
+      "experiment-manifest.clean.json"
+    ]
+  }
+}

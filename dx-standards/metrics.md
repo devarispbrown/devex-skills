@@ -25,6 +25,29 @@ Canonical metrics for the entire skills suite. Skills reference these constants 
 
 - `TTR_TARGET_MIN` = 5. Time to Recovery target for expected errors: from hitting the error to completing the corrective action. >10 min = P2.
 
+## Workflow feedback budgets
+
+Inner/outer loop feedback budgets (guidance; one exceeded = P2, two or more = P1):
+
+- `FEEDBACK_FORMATTER_MAX_S` = 2 — formatter/linter feedback.
+- `FEEDBACK_INCREMENTAL_COMPILE_MAX_S` = 5 — incremental compile.
+- `FEEDBACK_UNIT_TEST_MAX_S` = 10 — unit test result.
+- `FEEDBACK_FOCUSED_INTEGRATION_MAX_S` = 60 — focused integration result.
+- `FEEDBACK_LOCAL_RELOAD_MAX_S` = 3 — local reload.
+- `FEEDBACK_CI_FIRST_SIGNAL_MAX_MIN` = 3 — CI first useful signal.
+- `FEEDBACK_FULL_CI_MAX_MIN` = 10 — full CI.
+
+Any forced wait >30 seconds between edit and feedback breaks flow state (P2).
+
+## Architecture comprehension
+
+- `ARCHITECTURE_COMPREHENSION_MAX_MIN` = 30. Architecture Magic Path: a competent engineer explains where a new feature belongs AND traces one representative request end-to-end in 30 minutes or less. Bands: ≤10 exceptional; >10 to ≤20 strong; >20 to ≤30 pass; >30 P1 FAIL.
+
+## Sandbox gate
+
+- `NO_SANDBOX_FOR_RISKY_PATH` (P1): every learning task that is destructive, quota-consuming, or production-touching must have a sandbox route that is free (no credit card), resettable, and safe by construction.
+- `SANDBOX_COVERAGE_GATE` = 100%: quickstart coverage of risky tasks must be complete.
+
 ## Evidence labels
 
 - **Observed**: a human or agent actually executed the path from a clean or representative environment.
