@@ -24,7 +24,7 @@ KEY_PATTERNS=(
     (re.compile(r'\bAIza[0-9A-Za-z_-]{35}\b'),'Google API key'),
     (re.compile(r'\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b'),'JWT-like token'),
 )
-ASSIGN_RE=re.compile(r'\b(?:api[_-]?key|secret|token|password|passwd|access[_-]?key)\s*[=:]\s*["\']?([A-Za-z0-9._/+=-]{16,})["\']?',re.I)
+ASSIGN_RE=re.compile(r'\b(?:api[_-]?key|secret|token|password|passwd|access[_-]?key|aws[_-]?key)\s*["\']?\s*[=:]\s*["\']?([A-Za-z0-9._/+=-]{16,})["\']?',re.I)
 PROD_RE=re.compile(r'(?i)\b(?:production|prod)(?:[\w -]{0,24}?(?:backup|dump|export|snapshot|database|db|cluster|instance|server))\b')
 PROD_RE2=re.compile(r'(?i)\b(?:backup|dump|export|snapshot)[\w -]{0,24}?(?:production|prod)\b')
 IP_RE=re.compile(r'\b(?<!\d)(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})(?!\d)\b')
@@ -113,6 +113,8 @@ def main():
     if not root.exists(): raise SystemExit('path does not exist: %s' % a.path)
     total=0; files_with_findings=set()
     for p in root.rglob('*'):
+        # never follow symlinks: they can escape the intended fixture tree
+        if p.is_symlink(): continue
         if not p.is_file(): continue
         if any(part.startswith('.') for part in p.relative_to(root).parts): continue
         findings=scan_file(p)
