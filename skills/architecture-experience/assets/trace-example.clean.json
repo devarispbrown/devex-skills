@@ -1,0 +1,12 @@
+{
+  "type": "trace",
+  "budget_constant": "ARCHITECTURE_COMPREHENSION_MAX_MIN",
+  "request": "GET /healthz - liveness check",
+  "hops": [
+    {"layer": "gateway", "name": "edge-gateway"},
+    {"layer": "api", "name": "health-api"},
+    {"layer": "service", "name": "health-service"},
+    {"layer": "domain", "name": "health-domain"},
+    {"layer": "db", "name": "health-db"}
+  ]
+}

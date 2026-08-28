@@ -1,0 +1,10 @@
+{
+  "check_change_notices.py": {
+    "broken": [
+      "--root",
+      "notice-sample",
+      "--changelog",
+      "notice-sample/CHANGELOG.md"
+    ]
+  }
+}

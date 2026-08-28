@@ -18,3 +18,5 @@ jobs:
         run: python3 scripts/validate_skills.py
       - name: Compile all scripts
         run: python3 -m py_compile scripts/*.py skills/*/scripts/*.py
+      - name: Skill fixture smoke tests
+        run: python3 scripts/smoke_skills.py

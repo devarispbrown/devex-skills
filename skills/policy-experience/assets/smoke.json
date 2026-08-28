@@ -1,0 +1,10 @@
+{
+  "check_policy_actionability.py": {
+    "broken": [
+      "policy-violations.example.json"
+    ],
+    "clean": [
+      "policy-violations.clean.json"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "location": "docs/errors/403.md#forbidden",
+    "text": "The `reports:read` operation requires the `reports:read` permission. Your current role is viewer; roles containing it are analyst and admin. Ask your admin to grant access; approval takes one business day."
+  },
+  {
+    "location": "dashboards/reporting.md#access",
+    "text": "Access to the reporting dashboard requires the `reports:read` permission. Your current role is member. Request `reports:read` from the analytics team via https://go.example.com/access."
+  },
+  {
+    "location": "api/errors.md#403-billing",
+    "text": "Operation requires the `billing:write` permission. Your current role is accountant; roles containing it are finance-admin and billing-admin. Contact the billing admin to request it, or open an access request in the console."
+  }
+]

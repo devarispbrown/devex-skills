@@ -1,10 +1,10 @@
 ---
 name: developer-docs
-description: Design, write, restructure, and update world-class documentation for developer-facing and open-source products. Use for READMEs, 15-minute quickstarts, Diátaxis tutorials/how-tos/reference/explanation, API/SDK/CLI/config docs, code comments, examples, integration guides, stakeholder docs, migration docs, and documentation architecture. Establish implementation truth first and flag product/DX design problems instead of documenting around them. For whole-product developer-experience audits use developer-experience-auditor.
+description: Design, write, restructure, and update world-class documentation for developer-facing and open-source products. Use for READMEs, 15-minute quickstarts, Diátaxis tutorials/how-tos/reference/explanation, API/SDK/CLI/config docs, code comments, examples, integration guides, stakeholder docs, migration docs, and documentation architecture. Establish implementation truth first and flag product/DX design problems instead of documenting around them. For adversarial documentation audits use developer-docs-auditor; for whole-product developer-experience audits use developer-experience-auditor.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and normal build/test tooling.
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
 ---
 
 # Developer Docs Authoring and Architecture

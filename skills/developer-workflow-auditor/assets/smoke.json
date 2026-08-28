@@ -1,0 +1,10 @@
+{
+  "audit_feedback_loops.py": {
+    "broken": [
+      "loop-manifest.example.json"
+    ],
+    "clean": [
+      "loop-manifest.clean.json"
+    ]
+  }
+}

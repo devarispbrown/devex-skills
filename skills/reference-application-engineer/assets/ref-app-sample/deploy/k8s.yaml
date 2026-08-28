@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: refapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: refapp }
+  template:
+    metadata:
+      labels: { app: refapp }
+    spec:
+      containers:
+        - name: refapp
+          image: example/refapp:latest
+          ports: [{ containerPort: 8000 }]
+          env:
+            - name: REFAPP_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef: { name: refapp, key: auth-token }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: refapp
+spec:
+  selector: { app: refapp }
+  ports: [{ port: 80, targetPort: 8000 }]

@@ -1,0 +1,10 @@
+{
+  "check_403_explanations.py": {
+    "broken": [
+      "403-examples.json"
+    ],
+    "clean": [
+      "403-examples.clean.json"
+    ]
+  }
+}

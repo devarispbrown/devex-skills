@@ -1,0 +1,8 @@
+{
+  "check_ide_config.py": {
+    "broken": [
+      "--root",
+      "ide-sample"
+    ]
+  }
+}

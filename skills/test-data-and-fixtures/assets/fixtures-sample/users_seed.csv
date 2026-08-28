@@ -1,0 +1,6 @@
+id,email,plan,region,created_at
+1,alice@example.com,free,us-east,2026-01-15T00:00:00Z
+2,bob@example.com,pro,eu-west,2026-01-15T00:00:00Z
+3,carol@example.com,team,ap-south,2026-02-02T00:00:00Z
+4,dave@example.com,free,us-west,2026-03-11T00:00:00Z
+5,erin@example.com,pro,eu-central,2026-04-05T00:00:00Z

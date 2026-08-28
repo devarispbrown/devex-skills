@@ -1,0 +1,7 @@
+{
+  "check_reference_app.py": {
+    "broken": [
+      "ref-app-sample"
+    ]
+  }
+}

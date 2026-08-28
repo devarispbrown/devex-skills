@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.3.0 - 2026-08-28
+
+- Added twenty new skills: `developer-community`, `developer-community-auditor`, `developer-workflow-auditor`, `sandbox-experience`, `architecture-experience`, `developer-discoverability`, `developer-support`, `access-and-permissions-dx`, `extensibility-engineer`, `developer-economics`, `environment-lifecycle`, `change-awareness`, `operational-trust`, `test-data-and-fixtures`, `ide-experience`, `policy-experience`, `web-console-dx`, `experimentation-engineer`, `accessibility-dx`, and `reference-application-engineer`. The suite now ships 42 skills.
+- Added `dx-standards/community.md`: the 30-minute community onboarding path, response SLOs with trailing-30-day windows, ratio-based stage gates, ten named community gates with a hard-failure set, CHAOSS metric names, and the Community Health Score.
+- Added `dx-standards/slo.md` (SLO-to-owner table, values by reference) and `dx-standards/domains.md` (six-domain canonical map of all 42 skills).
+- Extended `dx-standards/metrics.md` with workflow feedback budgets, architecture comprehension, and the sandbox gate.
+- Added `scripts/smoke_skills.py`: per-skill fixture smoke tests declared in `assets/smoke.json`, enforced as a fourth CI gate. Fixed a PII/secret redaction issue in the fixture hygiene scanner.
+- Extended `scripts/validate_skills.py` with domains three-way mapping, CHANGELOG version check, plugin description skill count, README coverage and size cap.
+- README reorganized around the six domains (Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve); the roadmap section is gone — the suite is complete.
+- Merge workflow: PR template with commit-by-commit review checklist; releases merge only on green CI.
+
 ## 2.2.0 - 2026-08-28
 
 - Added twelve new skills: `cli-designer`, `security-supply-chain`, `observability-readiness`, `configuration-dx`, `golden-path-scaffolder`, `performance-engineer`, `compatibility-engineer`, `contributor-experience`, `dependency-health`, `integration-certifier`, `agent-native-dx`, and `developer-feedback-analyst`.
