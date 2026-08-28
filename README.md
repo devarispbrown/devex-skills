@@ -26,6 +26,22 @@ All forty-two skills share one constitution, `dx-standards/`, synced into every 
 - **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings get classified by root cause: Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party. Because three paragraphs of docs never fixed a bad API.
 - **One vocabulary.** Fourteen journey stages, nine problem classes, one severity scale (P0–P4), one verdict vocabulary (PASS / PASS WITH DEBT / FAIL / UNVERIFIED). CHAOSS metric names for community, Diátaxis for documentation architecture, SemVer for compatibility.
 
+## The core standard: magic in 15 minutes
+
+A brand-new developer with **zero product knowledge** should be able to open the canonical Quickstart and reach a **meaningful, verified, end-to-end product outcome in 15 minutes or less**.
+
+I mean this literally. The timer includes installation, signup and authentication when required, configuration, execution, waiting, and verification. And no, you can't move the slow parts into a "prerequisites" section to make the metric pass. If production setup needs manual approval or slow provisioning, ship a sandbox, local mode, test environment, or seeded fixtures. Products that respect this get adopted; products that don't get blogged about.
+
+| Time to verified end-to-end value | Rating |
+|---|---|
+| ≤5 min | Exceptional |
+| >5 to ≤10 min | Strong |
+| >10 to ≤15 min | Pass |
+| >15 min | **P1 onboarding/DX failure** |
+| No reproducible E2E quickstart | **P1 failure** |
+
+No verdict can be **world-class** while this gate fails, regardless of how good the prose or reference coverage is.
+
 ## Install
 
 The repository is packaged as a Claude Code plugin (`developer-docs-skills`) that installs all forty-two skills at once:
@@ -198,22 +214,6 @@ The numbers below are why the skills can trust each other's verdicts. They live 
 Hard gates carry names: `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`, and the community gates (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `STALE_GOOD_FIRST_ISSUES`, `UNACKNOWLEDGED_PRS`, `NO_LICENSE`, and more). The full SLO table lives in `dx-standards/slo.md`.
 
 Evidence is labeled **Observed**, **CI-observed**, or **Estimated**; an estimate can never prove a PASS. Verdicts are exactly **PASS**, **PASS WITH DEBT**, **FAIL**, or **UNVERIFIED**, and a high score never overrides a failing gate.
-
-### The core standard: magic in 15 minutes
-
-A brand-new developer with **zero product knowledge** should be able to open the canonical Quickstart and reach a **meaningful, verified, end-to-end product outcome in 15 minutes or less**.
-
-I mean this literally. The timer includes installation, signup and authentication when required, configuration, execution, waiting, and verification. And no, you can't move the slow parts into a "prerequisites" section to make the metric pass. If production setup needs manual approval or slow provisioning, ship a sandbox, local mode, test environment, or seeded fixtures. Products that respect this get adopted; products that don't get blogged about.
-
-| Time to verified end-to-end value | Rating |
-|---|---|
-| ≤5 min | Exceptional |
-| >5 to ≤10 min | Strong |
-| >10 to ≤15 min | Pass |
-| >15 min | **P1 onboarding/DX failure** |
-| No reproducible E2E quickstart | **P1 failure** |
-
-No verdict can be **world-class** while this gate fails, regardless of how good the prose or reference coverage is.
 
 ## Repository layout
 
