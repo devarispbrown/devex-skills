@@ -40,7 +40,7 @@ Every entry answers five questions. A missing field is a missing notice.
 ### Breaking
 
 - **`legacy_transform` removed** — affects all callers of `lib.legacy_utils`.
-  Replace with `transform()` (see [Migration to 3.0](migrations/3.0.md)).
+  Replace with `transform()` (see the migration guide (e.g. `migrations/3.0.md`)).
   Action due: before upgrading to 3.x. If ignored: imports fail at build time.
 ```
 
