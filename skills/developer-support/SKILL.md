@@ -4,7 +4,7 @@ description: Design post-self-service support routing: bug, feature, how-to, sec
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and support tooling context.
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
 ---
 
 # Developer Support Routing

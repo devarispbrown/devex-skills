@@ -27,8 +27,8 @@ Clone the repository and run `npm test` to run the test suite.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See CONTRIBUTING.md for contribution guidelines.
 
 ## License
 
-[MIT](LICENSE)
+MIT

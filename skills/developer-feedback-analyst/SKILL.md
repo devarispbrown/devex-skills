@@ -4,7 +4,7 @@ description: Convert developer behavior and support signals into DX improvements
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with access to issue trackers, telemetry, and support data.
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
 ---
 
 # Developer Feedback Analyst
