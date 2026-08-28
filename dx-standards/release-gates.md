@@ -16,6 +16,10 @@ Canonical named gates for the suite. Each gate names a release-blocking conditio
 | `UNSAFE_EXAMPLES` | P1 | security-sensitive examples encourage unsafe credential handling |
 | `BROKEN_CANONICAL_INSTALL` | P1 | canonical install/auth path is broken |
 
+## Community gates
+
+Community gate constants (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `BROKEN_CONTRIBUTION_PATH`, and the rest) live in `community.md` and use the same severity levels and verdict vocabulary as this file.
+
 ## Gate semantics
 
 - Hard gates cannot be averaged away by any score. A failing gate forces FAIL regardless of the Overall DX number.

@@ -1,6 +1,6 @@
 # dx-standards
 
-Single source of truth for the suite's shared vocabulary: principles, metrics, severity, release gates, compatibility, terminology, plus shared methodology files promoted from the original two skills (`magic-path.md`, `api-dx.md`, `sdks.md`, `lifecycle.md`, `llm-ready-docs.md`, `style.md`, `inventory_docs.py`).
+Single source of truth for the suite's shared vocabulary: principles, metrics, severity, release gates, compatibility, terminology, community, SLOs, and domain mapping, plus shared methodology files promoted from the original two skills (`magic-path.md`, `api-dx.md`, `sdks.md`, `lifecycle.md`, `llm-ready-docs.md`, `style.md`, `inventory_docs.py`).
 
 ## Model
 

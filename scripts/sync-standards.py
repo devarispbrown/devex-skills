@@ -83,6 +83,8 @@ def main() -> int:
     ap.add_argument('--skill', help='sync only this skill')
     a = ap.parse_args()
     sm = json.loads((STANDARDS / 'sync-map.json').read_text())
+    if sm.get('version') != 2:
+        raise SystemExit(f'sync-map.json version {sm.get("version")!r} unsupported; expected 2')
     skills = [a.skill] if a.skill else list(sm['skills'])
     if a.list:
         for sk in skills:
