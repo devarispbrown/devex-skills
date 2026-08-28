@@ -58,25 +58,41 @@ There is intentionally **no README inside either skill directory**. Agent Skills
 
 ## Install
 
-### Claude Code
+### Claude Code plugin
 
-For a project-scoped install, copy the two folders into:
+This repository is packaged as a Claude Code plugin (`developer-docs-skills`), which installs both skills at once and keeps them updatable:
+
+```bash
+claude plugin marketplace add devarispbrown/devex-skills
+claude plugin install developer-docs-skills@devex-skills
+```
+
+Or interactively from inside Claude Code:
+
+```text
+/plugin marketplace add devarispbrown/devex-skills
+/plugin install developer-docs-skills@devex-skills
+```
+
+Claude can then invoke them automatically from their descriptions, or you can explicitly use `/developer-docs` and `/developer-docs-auditor`.
+
+### Claude Code manual copy
+
+To install without the plugin, copy the two folders directly.
+
+For a project-scoped install:
 
 ```text
 <your-repo>/.claude/skills/developer-docs/
 <your-repo>/.claude/skills/developer-docs-auditor/
 ```
 
-For a personal install that is available across projects, copy them into:
+For a personal install that is available across projects:
 
 ```text
 ~/.claude/skills/developer-docs/
 ~/.claude/skills/developer-docs-auditor/
 ```
-
-Claude can invoke them automatically from their descriptions, or you can explicitly use `/developer-docs` and `/developer-docs-auditor`.
-
-This repository also includes `.claude-plugin/plugin.json`, so it can be distributed as a multi-skill Claude Code plugin or marketplace entry without changing the skill layout.
 
 ### Other Agent Skills-compatible clients
 
