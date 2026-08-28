@@ -1,0 +1,85 @@
+{
+  "repo": "acme/widgets",
+  "stage": "growing",
+  "welcomes_contributions": true,
+  "evidence": {
+    "funnel_health": "CI-observed",
+    "responsiveness": "Observed",
+    "standards_presence": "Observed",
+    "contribution_opportunities": "Observed",
+    "governance_and_ladder": "Observed",
+    "review_experience": "CI-observed",
+    "contributor_retention": "CI-observed",
+    "maintainer_sustainability": "CI-observed",
+    "qa_support": "Observed",
+    "recognition_and_automation": "Observed"
+  },
+  "journey": {
+    "contribution_path_minutes": 22.0
+  },
+  "activity": {
+    "unique_contributors_90d": 60,
+    "new_contributors_90d": 18,
+    "returning_contributors_90d": 25,
+    "contributors_prior_90d": 45,
+    "unique_reviewers_90d": 8,
+    "bus_factor": 3,
+    "core_maintainers": 4,
+    "critical_areas": 2,
+    "areas_with_multiple_owners": 2,
+    "top_5_contributor_pr_share": 0.55,
+    "non_maintainer_prs_submitted_90d": 30,
+    "non_maintainer_prs_merged_90d": 21,
+    "community_questions_30d": 12,
+    "useful_answers_30d": 10
+  },
+  "responsiveness": {
+    "issue_first_response_p50_h": 6.0,
+    "issue_first_response_p90_h": 30.0,
+    "first_pr_review_p50_h": 10.0,
+    "first_pr_review_p90_h": 40.0,
+    "useful_answer_p90_h": 20.0,
+    "non_bot_activity_30d": 480
+  },
+  "funnel": {
+    "participants": 200,
+    "contributors": 120,
+    "first_prs": 40,
+    "merged": 28,
+    "second_contributions": 12,
+    "regulars": 8,
+    "reviewers": 5,
+    "maintainers": 1
+  },
+  "files": {
+    "contributing": true,
+    "code_of_conduct": true,
+    "security": true,
+    "support": true,
+    "governance": true,
+    "maintainers": true,
+    "ladder": true,
+    "governance_quality": 0.95,
+    "ladder_quality": 0.95
+  },
+  "issues": {
+    "good_first_issues_open": 6,
+    "usable_good_first_issues": 4,
+    "stale_good_first_issues": 2,
+    "queued_newcomer_prs_unreviewed": 1
+  },
+  "process": {
+    "response_slo_monitoring": true,
+    "triage_process": true,
+    "recognition_program": true,
+    "contributor_analytics": true,
+    "moderation": true,
+    "coc_enforcement": true,
+    "succession_defined": false,
+    "foundation_governance": false,
+    "security_response_team": false,
+    "issue_templates": true,
+    "pr_templates": true,
+    "dev_environment_documented": true
+  }
+}
