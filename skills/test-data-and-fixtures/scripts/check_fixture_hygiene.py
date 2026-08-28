@@ -52,10 +52,17 @@ def private_or_doc_ip(o):
     if a==198 and b==18: return True
     return False
 
+def redact(value):
+    value = str(value).strip('"\'')
+    if len(value) <= 4:
+        return '*' * len(value)
+    return value[:4] + '...'
+
 def check_email(line):
     for m in EMAIL_RE.findall(line):
         if not placeholder_domain(m.rsplit('@',1)[1].lower()):
-            return ('email','email address that looks real: %s' % m)
+            # never print the full address; findings land in logs and CI output
+            return ('email','email address that looks real (%s)' % redact(m))
     return None
 
 def check_key(line):
@@ -63,7 +70,8 @@ def check_key(line):
         if pat.search(line): return ('key','key-like string (%s)' % label)
     m=ASSIGN_RE.search(line)
     if m and m.group(1).lower() not in PLACEHOLDER_VALUES:
-        return ('key','key-like string (secret value in %s)' % m.group(1).strip('"\''))
+        # never print the matched secret value
+        return ('key','key-like string (secret value in %s)' % redact(m.group(1)))
     return None
 
 def check_card(line):
