@@ -1,29 +1,29 @@
 # Developer Experience Skills Suite
 
-Forty-two Agent Skills that build, audit, and gate every surface of a developer tool — onboarding, API, CLI, SDK, docs, errors, community, releases, operations — backed by one shared constitution of measurable DX standards.
+Forty-two Agent Skills that build, audit, and gate every surface of a developer tool. Onboarding, the API, the CLI, SDKs, docs, errors, your community, releases, operations: all of it, backed by one shared constitution of measurable DX standards.
 
 ## Why I built this
 
 I've spent my career building developer tools and communities at Microsoft, Zendesk, Heroku, Twitter, and Meroxa, and I've watched the same story play out over and over.
 
-A team ships a genuinely useful tool. The docs look fine. The API is well-tested. And adoption still flatlines — because the getting-started path takes 45 minutes instead of 15, because the error message says `Authentication failed` and nothing else, because the quickstart quietly assumes you have a Postgres instance running, because a first-time contributor's PR sits unreviewed for a month and they never come back.
+A team ships a genuinely useful tool. The docs look fine. The API is well-tested. And adoption still flatlines. The getting-started path takes 45 minutes instead of 15. The error message says `Authentication failed` and nothing else. The quickstart quietly assumes you have a Postgres instance running. A first-time contributor's PR sits unreviewed for a month and they never come back.
 
 None of that shows up in a feature backlog. All of it decides whether developers stay.
 
-The frustrating part: these failures are predictable. I've seen the same handful of patterns separate tools people adopt from tools people abandon, across companies and across decades. This repo is those patterns, turned into skills an agent can actually run against your repo — not essays, checks.
+The frustrating part: these failures are predictable. I've seen the same handful of patterns separate tools people adopt from tools people abandon, across companies and across decades. This repo is those patterns, turned into skills an agent can actually run against your repo. Not essays. Checks.
 
-- **The 15-minute magic path.** A brand-new developer with zero product knowledge reaches a verified, end-to-end outcome in fifteen minutes or less — or you have a problem, no matter how good the docs read.
-- **Errors are product surface.** "Authentication failed" costs you a user. "Token expired 37 minutes ago — run `conduit auth login`, or set CONDUIT_API_TOKEN. Request ID: req_01K98..." keeps one.
+- **The 15-minute magic path.** A brand-new developer with zero product knowledge reaches a verified, end-to-end outcome in fifteen minutes or less. If they can't, you have a problem, no matter how good the docs read.
+- **Errors are product surface.** "Authentication failed" costs you a user. "Token expired 37 minutes ago. Run `conduit auth login`, or set CONDUIT_API_TOKEN. Request ID: req_01K98..." keeps one.
 - **Authors and auditors are different people.** I've watched good teams ship stale quickstarts and contradictory SDKs because the person who wrote the docs also judged them. So every surface here gets a builder *and* an auditor, and the auditor's job is to try to prove the thing broken.
 - **Evidence beats vibes.** Timings are Observed, CI-observed, or Estimated. An estimate never proves a PASS, and no pretty score overrides a failing gate.
 
 ## The methodology
 
-All forty-two skills share one constitution — `dx-standards/`, synced into every skill's `references/standards.md`. Four rules hold it together:
+All forty-two skills share one constitution, `dx-standards/`, synced into every skill's `references/standards.md`. Four rules hold it together:
 
 - **Named SLOs, each with an owner.** Magic path ≤15 min, clone-to-productive ≤10 min, community onboarding ≤30 min, Time to Recovery ≤5 min, explicit feedback budgets. Every constant has one home and one owning skill; skills cite constants by name, never restate values.
 - **Named gates.** `BROKEN_QUICKSTART`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `NO_CONTRIBUTING_WHILE_WELCOMING`, and the rest. A failing gate fails the release; a score never averages it away.
-- **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings get classified by root cause — Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party — because three paragraphs of docs never fixed a bad API.
+- **The loop.** Build with the surface's design skill, audit with its audit skill (or the end-to-end `developer-experience-auditor`), fix the right layer, gate the release. Findings get classified by root cause: Product, API, CLI, SDK, Configuration, Environment, Documentation, Infrastructure, Third-party. Because three paragraphs of docs never fixed a bad API.
 - **One vocabulary.** Fourteen journey stages, nine problem classes, one severity scale (P0–P4), one verdict vocabulary (PASS / PASS WITH DEBT / FAIL / UNVERIFIED). CHAOSS metric names for community, Diátaxis for documentation architecture, SemVer for compatibility.
 
 ## Install
@@ -54,7 +54,7 @@ Don't read the rest of this page yet. Three steps:
 2. Ask Claude: "run `developer-experience-auditor` on this repo."
 3. Read the DX Report.
 
-That's the lay of the land. You do not need to learn forty-two skills — you need one. The report gives you a verdict, magic-path timing, per-area scores, and a prioritized backlog of gate failures, and every P1 names the skill that fixes it. That's how you discover the rest of the suite: by the problem in front of you, not by the catalog.
+That's the lay of the land. You do not need to learn forty-two skills. You need one. The report gives you a verdict, magic-path timing, per-area scores, and a prioritized backlog of gate failures, and every P1 names the skill that fixes it. That's how you discover the rest of the suite: by the problem in front of you, not by the catalog.
 
 Then it's a loop:
 
@@ -62,7 +62,7 @@ Then it's a loop:
 - **Re-run** the auditor and watch the score move.
 - **Gate every release** with `release-guardian` and `developer-docs-auditor`; a release fails when a hard gate fails.
 
-Running an open-source project? Same pattern: start with `developer-community-auditor` instead. The Community Health Report works exactly the same way — gates, owners, backlog.
+Running an open-source project? Same pattern: start with `developer-community-auditor` instead. The Community Health Report works exactly the same way: gates, owners, backlog.
 
 ## Skills by surface
 
@@ -73,7 +73,7 @@ Pick the surface you're building today.
 | Skill | Role | One-liner |
 |---|---|---|
 | `developer-onboarding` | Build | Design zero-to-value onboarding: install modes, step elimination, sandbox-first magic paths |
-| `developer-docs` | Build | Author quickstarts, READMEs, tutorials — Diátaxis architecture, truth before prose |
+| `developer-docs` | Build | Author quickstarts, READMEs, tutorials with Diátaxis architecture, truth before prose |
 | `developer-docs-auditor` | Audit | Prove docs wrong, stale, or non-executable; gate documentation releases |
 | `golden-path-scaffolder` | Build | Turn repeated workflows into generators |
 | `reference-application-engineer` | Build | Production-grade example apps demonstrating auth, config, retries, shutdown |
@@ -96,7 +96,7 @@ Tools: `check_openapi_shape.py`, `guessability_check.py`, `check_parity.py`, `ch
 
 | Skill | Role | One-liner |
 |---|---|---|
-| `cli-designer` | Build | Command hierarchy, output contract, exit codes, automation modes — great for humans, stable for scripts |
+| `cli-designer` | Build | Command hierarchy, output contract, exit codes, automation modes: great for humans, stable for scripts |
 | `configuration-dx` | Build | Config as public API: deterministic precedence, validation, secrets handling |
 | `accessibility-dx` | Audit | No red/green-only errors; terminal output consumable by screen readers |
 
@@ -150,10 +150,10 @@ Tools: `classify_diff.py`, `scan_compat_consumers.py`, `check_change_notices.py`
 
 | Skill | Role | One-liner |
 |---|---|---|
-| `observability-readiness` | Build | Logs, metrics, traces, correlation IDs — diagnose at 2am without new instrumentation |
-| `operational-trust` | Build | Status pages, incident comms, SLO publication — "is it you or is it me" |
+| `observability-readiness` | Build | Logs, metrics, traces, correlation IDs so you can diagnose at 2am without new instrumentation |
+| `operational-trust` | Build | Status pages, incident comms, SLO publication, so users can tell "is it you or is it me" |
 | `access-and-permissions-dx` | Build | Auth/RBAC as self-service: the 403-explanation standard |
-| `policy-experience` | Build | Policy-as-code, guardrails, self-service exceptions — not Jira ticket-ops |
+| `policy-experience` | Build | Policy-as-code, guardrails, self-service exceptions instead of Jira ticket-ops |
 | `web-console-dx` | Audit | Console friction: every UI operation maps to an API/CLI equivalent |
 
 Tools: `check_observability.py`, `check_trust_surface.py`, `check_403_explanations.py`, `check_policy_actionability.py`, `check_console_ops.py`
@@ -195,7 +195,7 @@ The numbers below are why the skills can trust each other's verdicts. They live 
 | Feedback budgets | 2s–10min per loop | `developer-workflow-auditor` |
 | Community response SLOs | P50/P90 per channel | `developer-community-auditor` |
 
-Hard gates carry names — `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`, and the community gates (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `STALE_GOOD_FIRST_ISSUES`, `UNACKNOWLEDGED_PRS`, `NO_LICENSE`, and more). The full SLO table lives in `dx-standards/slo.md`.
+Hard gates carry names: `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`, and the community gates (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `STALE_GOOD_FIRST_ISSUES`, `UNACKNOWLEDGED_PRS`, `NO_LICENSE`, and more). The full SLO table lives in `dx-standards/slo.md`.
 
 Evidence is labeled **Observed**, **CI-observed**, or **Estimated**; an estimate can never prove a PASS. Verdicts are exactly **PASS**, **PASS WITH DEBT**, **FAIL**, or **UNVERIFIED**, and a high score never overrides a failing gate.
 
@@ -203,7 +203,7 @@ Evidence is labeled **Observed**, **CI-observed**, or **Estimated**; an estimate
 
 A brand-new developer with **zero product knowledge** should be able to open the canonical Quickstart and reach a **meaningful, verified, end-to-end product outcome in 15 minutes or less**.
 
-I mean this literally. The timer includes installation, signup and authentication when required, configuration, execution, waiting, and verification — and no, you can't move the slow parts into a "prerequisites" section to make the metric pass. If production setup needs manual approval or slow provisioning, ship a sandbox, local mode, test environment, or seeded fixtures. Products that respect this get adopted; products that don't get blogged about.
+I mean this literally. The timer includes installation, signup and authentication when required, configuration, execution, waiting, and verification. And no, you can't move the slow parts into a "prerequisites" section to make the metric pass. If production setup needs manual approval or slow provisioning, ship a sandbox, local mode, test environment, or seeded fixtures. Products that respect this get adopted; products that don't get blogged about.
 
 | Time to verified end-to-end value | Rating |
 |---|---|
@@ -247,7 +247,7 @@ python3 scripts/sync-standards.py           # regenerate all targets
 python3 scripts/sync-standards.py --check   # exit 1 on drift
 ```
 
-Generated files carry a header — never hand-edit them. Change the source in `dx-standards/` and re-sync. Hand-written skill references are procedural only; normative numbers always flow through the standards layer. CI enforces sync cleanliness, structural lint, compilation, and fixture smoke tests on every push. See `CHANGELOG.md` for release history.
+Generated files carry a header. Never hand-edit them. Change the source in `dx-standards/` and re-sync. Hand-written skill references are procedural only; normative numbers always flow through the standards layer. CI enforces sync cleanliness, structural lint, compilation, and fixture smoke tests on every push. See `CHANGELOG.md` for release history.
 
 ## Contributing
 
