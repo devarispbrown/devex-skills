@@ -10,7 +10,7 @@ For each active maintainer, collect shares per axis over the trailing 90 days:
 - `merge_share` — fraction of all merges.
 - `response_share` — fraction of all first human responses.
 
-Concentration = the maximum single-maintainer share across the three axes. The checker reports it as its own line: `Maintainer Concentration Index: 0.62 (max single-maintainer share across review/merge/response)`.
+Concentration = the maximum single-maintainer share across the three axes. The checker reports it as its own line: `Maintainer Concentration Index: <max share> (max single-maintainer share across review/merge/response)`.
 
 Risk bands (report with the index):
 

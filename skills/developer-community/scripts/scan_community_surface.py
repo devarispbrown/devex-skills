@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Static inventory of a repo's community surface: seven standards files, quality signals, stage checklist. Stdlib only."""
+"""Static inventory of a repo's community surface: eight standards files, quality signals, stage checklist. Stdlib only."""
 import argparse
 import re
 from pathlib import Path
 
+LICENSE_NAMES = ("LICENSE", "LICENSE.md", "LICENSE.txt", "COPYING")
 CONTRIBUTING_NAMES = ("CONTRIBUTING.md", "CONTRIBUTING.rst", "CONTRIBUTING.txt", "CONTRIBUTING")
 COC_NAMES = ("CODE_OF_CONDUCT.md", "CODE_OF_CONDUCT.rst")
 SECURITY_NAMES = ("SECURITY.md", "SECURITY.rst")
@@ -59,6 +60,7 @@ SECURITY_TEAM_RE = re.compile(r"\bteam\b|\bresponse\b|\bcoordinator\w*\b", re.IG
 # check = keyword signal, info = metric/process, not statically verifiable.
 STAGE_REQUIREMENTS = {
     0: [
+        ("LICENSE", "file", "license"),
         ("CONTRIBUTING.md", "file", "contributing"),
         ("CODE_OF_CONDUCT.md", "file", "coc"),
         ("Issue template", "file", "issue_template"),
@@ -124,6 +126,7 @@ def main():
     def find(names):
         return find_first(root, names) or find_first(root / ".github", names) or find_first(root / "docs", names)
 
+    license_file = find(LICENSE_NAMES)
     contributing = find(CONTRIBUTING_NAMES)
     coc = find(COC_NAMES)
     security = find(SECURITY_NAMES)
@@ -281,8 +284,9 @@ def main():
                 status = "INFO"
             elif kind == "file":
                 present = {
-                    "contributing": contributing, "coc": coc, "issue_template": issue_templates,
-                    "pr_template": pr_template, "governance": governance, "ladder": ladder,
+                    "license": license_file, "contributing": contributing, "coc": coc,
+                    "issue_template": issue_templates, "pr_template": pr_template,
+                    "governance": governance, "ladder": ladder,
                 }[key]
                 status = "OK" if present else "GAP"
             else:

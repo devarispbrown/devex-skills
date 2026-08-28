@@ -345,10 +345,11 @@ def main():
     maintainers = d.get("maintainers", [])
     concentration = None
     if maintainers:
-        shares = [max(float(m.get("review_share", 0) or 0),
-                      float(m.get("merge_share", 0) or 0),
-                      float(m.get("response_share", 0) or 0)) for m in maintainers]
-        concentration = max(shares) if shares else 0.0
+        shares = [max(clamp(float(m.get("review_share", 0) or 0)),
+                      clamp(float(m.get("merge_share", 0) or 0)),
+                      clamp(float(m.get("response_share", 0) or 0))) for m in maintainers]
+        top = max(shares) if shares else 0.0
+        concentration = top if top > 0 else None
     gates = check_gates(d, c)
     verdict = verdict_for(gates)
     failed_gates = [g for g in gates if g["failed"]]
