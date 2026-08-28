@@ -1,0 +1,96 @@
+[
+  {
+    "name": "acme-core",
+    "kind": "package",
+    "version": "4.2.1",
+    "description": "Core client library for the Acme API.",
+    "owner": "acme-platform",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/reference/acme-core",
+    "last_verified": "2026-08-01"
+  },
+  {
+    "name": "acme-python",
+    "kind": "sdk",
+    "version": "3.1.0",
+    "description": "Official Python SDK for the Acme API.",
+    "owner": "acme-sdks",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/sdks/python",
+    "parity_status": "full",
+    "last_verified": "2026-07-15"
+  },
+  {
+    "name": "acme-vscode",
+    "kind": "plugin",
+    "version": "2.0.3",
+    "description": "VS Code plugin for Acme projects.",
+    "owner": "acme-tooling",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/plugins/vscode",
+    "host": "vscode",
+    "last_verified": "2026-07-22"
+  },
+  {
+    "name": "acme-salesforce",
+    "kind": "connector",
+    "version": "1.4.0",
+    "description": "Acme to Salesforce data connector.",
+    "owner": "acme-integrations",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/connectors/salesforce",
+    "host": "salesforce",
+    "last_verified": "2026-06-20"
+  },
+  {
+    "name": "acme-cli",
+    "kind": "package",
+    "version": "2.7.0",
+    "description": "Command-line interface for the Acme platform.",
+    "owner": "acme-platform",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/cli",
+    "last_verified": "2026-08-10"
+  },
+  {
+    "name": "acme-grafana",
+    "kind": "extension",
+    "version": "0.9.2",
+    "description": "Grafana dashboard extension for Acme metrics.",
+    "owner": "acme-observability",
+    "lifecycle": "experimental",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/extensions/grafana",
+    "host": "grafana",
+    "last_verified": "2026-05-30"
+  },
+  {
+    "name": "acme-go",
+    "kind": "sdk",
+    "version": "2.4.1",
+    "description": "Official Go SDK for the Acme API.",
+    "owner": "acme-sdks",
+    "lifecycle": "production",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/sdks/go",
+    "parity_status": "full",
+    "last_verified": "2026-07-01"
+  },
+  {
+    "name": "acme-slack",
+    "kind": "connector",
+    "version": "1.1.5",
+    "description": "Acme notifications connector for Slack.",
+    "owner": "acme-integrations",
+    "lifecycle": "maintenance",
+    "status": "active",
+    "docs_link": "https://docs.acme.dev/connectors/slack",
+    "host": "slack",
+    "last_verified": "2026-06-05"
+  }
+]

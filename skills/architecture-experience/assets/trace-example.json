@@ -1,0 +1,19 @@
+{
+  "type": "trace",
+  "budget_constant": "ARCHITECTURE_COMPREHENSION_MAX_MIN",
+  "request": "POST /api/v1/orders - place an order",
+  "hops": [
+    {"layer": "gateway", "name": "edge-gateway"},
+    {"layer": "api", "name": "orders-api"},
+    {"layer": "auth", "name": "identity-service"},
+    {"layer": "middleware", "name": "auth-middleware"},
+    {"layer": "service", "name": "orders-service"},
+    {"layer": "domain", "name": "orders-domain"},
+    {"layer": "repository", "name": "orders-repository"},
+    {"layer": "data", "name": "orders-db"},
+    {"layer": "cache", "name": "redis-cache"},
+    {"layer": "worker", "name": "order-worker"},
+    {"layer": "integration", "name": "payment-gateway"},
+    {"layer": "external", "name": "payment-provider"}
+  ]
+}

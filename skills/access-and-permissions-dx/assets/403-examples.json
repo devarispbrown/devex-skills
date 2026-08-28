@@ -1,0 +1,14 @@
+[
+  {
+    "location": "docs/errors/403.md#forbidden",
+    "text": "Your current role is viewer. Ask your admin to grant access."
+  },
+  {
+    "location": "dashboards/reporting.md#access",
+    "text": "Access to the reporting dashboard requires the `reports:read` permission. Your current role is member."
+  },
+  {
+    "location": "api/errors.md#403-billing",
+    "text": "Operation requires the `billing:write` permission. Contact the billing admin to request it."
+  }
+]

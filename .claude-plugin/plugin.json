@@ -1,12 +1,14 @@
 {
   "name": "developer-docs-skills",
-  "description": "Twenty-four Agent Skills for building and enforcing world-class developer experience: docs authoring and auditing, end-to-end adversarial DX testing, onboarding design, API review, local development, SDK engineering, error experience, quality engineering, release gating, CLI design, supply-chain security, observability, configuration UX, scaffolding, performance, compatibility, contributor experience, dependency health, integration certification, agent-native DX, and feedback analytics, all backed by a shared dx-standards constitution.",
+  "description": "Thirty Agent Skills for building and enforcing world-class developer experience: docs authoring and auditing, end-to-end adversarial DX testing, onboarding design, API review, local development, SDK engineering, error experience, quality engineering, release gating, CLI design, supply-chain security, observability, configuration UX, scaffolding, performance, compatibility, contributor experience, dependency health, integration certification, agent-native DX, and feedback analytics, all backed by a shared dx-standards constitution.",
   "version": "2.2.0",
   "license": "MIT",
   "repository": "https://github.com/devarispbrown/devex-skills",
   "skills": [
+    "./skills/access-and-permissions-dx",
     "./skills/agent-native-dx",
     "./skills/api-design-reviewer",
+    "./skills/architecture-experience",
     "./skills/cli-designer",
     "./skills/compatibility-engineer",
     "./skills/configuration-dx",
@@ -14,11 +16,14 @@
     "./skills/dependency-health",
     "./skills/developer-community",
     "./skills/developer-community-auditor",
+    "./skills/developer-discoverability",
     "./skills/developer-docs",
     "./skills/developer-docs-auditor",
     "./skills/developer-experience-auditor",
     "./skills/developer-feedback-analyst",
     "./skills/developer-onboarding",
+    "./skills/developer-support",
+    "./skills/developer-workflow-auditor",
     "./skills/error-experience",
     "./skills/golden-path-scaffolder",
     "./skills/integration-certifier",
@@ -27,6 +32,7 @@
     "./skills/performance-engineer",
     "./skills/quality-engineer",
     "./skills/release-guardian",
+    "./skills/sandbox-experience",
     "./skills/sdk-engineer",
     "./skills/security-supply-chain"
   ]
