@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """Run and time a project-defined magic path manifest. JSON + stdlib only.
 
-Only runs commands explicitly supplied by the repository/user. Prefer sandbox/local/test environments.
+Commands are executed directly, never through a shell. Prefer sandbox/local/test environments.
+If shell syntax is unavoidable, opt in explicitly with a list step like
+["bash", "-lc", "cmd1 && cmd2"].
 """
-import argparse, json, subprocess, time, os, sys
+import argparse, json, subprocess, time, os, sys, shlex
 from pathlib import Path
 
 VALID_SEGMENTS={'orientation','install','account_auth','configure','execute','wait','verify','recovery'}
+
+def argv(cmd):
+    if isinstance(cmd, list): return cmd
+    if isinstance(cmd, str): return shlex.split(cmd)
+    raise SystemExit('command must be a string or a list of argv tokens')
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('manifest'); ap.add_argument('--cwd', default='.')
@@ -18,11 +25,11 @@ def main():
     for step in m.get('steps',[]):
         name=step['name']; seg=step.get('segment','execute')
         if seg not in VALID_SEGMENTS: raise SystemExit(f'Invalid segment {seg!r}')
-        cmd=step['command']; timeout=step.get('timeout_seconds',300)
+        cmd=argv(step['command']); timeout=step.get('timeout_seconds',300)
         env=os.environ.copy(); env.update(step.get('env',{}))
         start=time.monotonic()
         try:
-            cp=subprocess.run(cmd, cwd=a.cwd, shell=True, text=True, capture_output=True, timeout=timeout, env=env)
+            cp=subprocess.run(cmd, cwd=a.cwd, text=True, capture_output=True, timeout=timeout, env=env)
             elapsed=time.monotonic()-start
             ok=cp.returncode==step.get('expected_exit_code',0)
             needle=step.get('stdout_contains')

@@ -5,31 +5,31 @@
     {
       "name": "install",
       "segment": "install",
-      "command": "your-install-command",
+      "command": ["your-install-command"],
       "timeout_seconds": 120
     },
     {
       "name": "authenticate",
       "segment": "account_auth",
-      "command": "your-test-auth-command",
+      "command": ["your-test-auth-command"],
       "timeout_seconds": 180
     },
     {
       "name": "configure",
       "segment": "configure",
-      "command": "your-config-command",
+      "command": ["your-config-command"],
       "timeout_seconds": 180
     },
     {
       "name": "execute",
       "segment": "execute",
-      "command": "your-core-command",
+      "command": ["your-core-command"],
       "timeout_seconds": 180
     },
     {
       "name": "verify",
       "segment": "verify",
-      "command": "your-verification-command",
+      "command": ["your-verification-command"],
       "stdout_contains": "expected-value",
       "timeout_seconds": 60
     }
