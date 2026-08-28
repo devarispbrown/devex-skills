@@ -1,0 +1,10 @@
+{
+  "name": "ide-sample",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "lint": "eslint ."
+  }
+}

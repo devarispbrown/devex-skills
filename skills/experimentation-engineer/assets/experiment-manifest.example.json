@@ -1,0 +1,19 @@
+{
+  "name": "quickstart-step-count-ab-draft",
+  "hypothesis": "TBD: quickstart step count affects completion.",
+  "variants": [
+    {"id": "variant-a", "flag": "quickstart-steps", "value": "8-steps"},
+    {"id": "variant-b", "flag": "quickstart-steps", "value": "5-steps"}
+  ],
+  "metrics": [
+    {"name": "task_completion_rate"},
+    {"name": "time_to_first_value_s"}
+  ],
+  "guardrails": [
+    {"metric": "error_rate", "threshold": 0.1}
+  ],
+  "flag": {
+    "key": "quickstart-steps",
+    "provider": "openfeature"
+  }
+}
