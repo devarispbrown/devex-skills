@@ -1,0 +1,88 @@
+{
+  "name": "example-journey",
+  "budget_seconds": 900,
+  "steps": [
+    {
+      "name": "discover quickstart",
+      "segment": "find",
+      "scope": "core",
+      "command": ["echo", "quickstart found at docs/quickstart.md"],
+      "timeout_seconds": 10,
+      "expected_exit_code": 0,
+      "stdout_contains": "quickstart"
+    },
+    {
+      "name": "read value proposition",
+      "segment": "understand",
+      "scope": "core",
+      "command": ["python3", "-c", "print('value: transform text with one command')"],
+      "timeout_seconds": 10,
+      "context_switches": 1
+    },
+    {
+      "name": "install package",
+      "segment": "install",
+      "scope": "core",
+      "command": ["true"],
+      "timeout_seconds": 10,
+      "env": {
+        "DEMO_MODE": "1"
+      }
+    },
+    {
+      "name": "obtain sandbox token",
+      "segment": "auth",
+      "scope": "core",
+      "command": ["echo", "sandbox token: tok_demo_123"],
+      "timeout_seconds": 10,
+      "credentials": 1,
+      "context_switches": 1
+    },
+    {
+      "name": "write configuration",
+      "segment": "configure",
+      "scope": "core",
+      "command": ["python3", "-c", "print('config accepted: demo.conf')"],
+      "timeout_seconds": 10,
+      "context_switches": 1
+    },
+    {
+      "name": "run first transformation",
+      "segment": "execute",
+      "scope": "core",
+      "command": ["python3", "-c", "print('job 42: completed')"],
+      "timeout_seconds": 15,
+      "stdout_contains": "completed"
+    },
+    {
+      "name": "verify output",
+      "segment": "verify",
+      "scope": "core",
+      "command": ["python3", "-c", "print('verified: output matches fixture')"],
+      "timeout_seconds": 10,
+      "stdout_contains": "verified"
+    },
+    {
+      "name": "change input size",
+      "segment": "modify",
+      "scope": "optional",
+      "command": ["echo", "variant applied: size=large"],
+      "timeout_seconds": 10
+    },
+    {
+      "name": "induce auth error",
+      "segment": "break",
+      "scope": "optional",
+      "command": ["echo", "401: missing X-API-Key"],
+      "timeout_seconds": 10
+    },
+    {
+      "name": "retry with token",
+      "segment": "recover",
+      "scope": "optional",
+      "command": ["echo", "recovered: 200 OK after retry"],
+      "timeout_seconds": 10,
+      "stdout_contains": "recovered"
+    }
+  ]
+}

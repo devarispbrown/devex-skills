@@ -1,0 +1,51 @@
+{
+  "name": "<project-name> Development",
+  "image": "mcr.microsoft.com/devcontainers/universal:<placeholder-image-tag>",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "<placeholder-node-version>"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "<placeholder-python-version>"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+  "forwardPorts": [3000, 5432, 8080],
+  "portsAttributes": {
+    "3000": {
+      "label": "Web app",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "make install && make services && make migrate && make seed",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-python.python"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "containerEnv": {
+    "COMPOSE_PROJECT_NAME": "<project-name>"
+  },
+  "mounts": [
+    "source=dev-bashhistory,target=/home/vscode/.bash_history,type=volume"
+  ],
+  "remoteUser": "vscode",
+  "postStartCommand": "make doctor"
+}

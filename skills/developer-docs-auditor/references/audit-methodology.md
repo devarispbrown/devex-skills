@@ -24,9 +24,13 @@ Classify every finding primarily as:
 - **Infrastructure**: provisioning/build/runtime latency or reliability.
 - **External dependency**: third-party approval, quota, API, network, etc.
 
+These four classes map onto the canonical nine-class problem classification (Documentation, Product, API, CLI, SDK, Configuration, Environment, Infrastructure, Third-party) in the generated `references/standards.md`, which is the authoritative vocabulary.
+
 Documentation must not absorb blame for product defects.
 
 ## Severity
+
+The canonical severity and verdict vocabulary is synced into the generated `references/standards.md`; it is authoritative. The summary:
 
 - **P0 Blocker:** unsafe, impossible, materially incorrect, data/security/production risk.
 - **P1 Critical:** blocks first success, breaks the ≤15-minute magic-path gate, or incorrectly documents a public contract.

@@ -1,0 +1,56 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Widgets API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {"url": "https://api.example.com/v1"}
+  ],
+  "paths": {
+    "/widgets": {
+      "get": {
+        "operationId": "listWidgets",
+        "summary": "List widgets",
+        "responses": {"200": {"description": "Widget list"}}
+      },
+      "post": {
+        "operationId": "createWidget",
+        "summary": "Create a widget",
+        "responses": {"201": {"description": "Created"}}
+      }
+    },
+    "/widgets/{widgetId}": {
+      "get": {
+        "operationId": "getWidget",
+        "summary": "Get one widget",
+        "parameters": [
+          {"name": "widgetId", "in": "path", "required": true,
+           "schema": {"type": "string"}}
+        ],
+        "responses": {"200": {"description": "A widget"}}
+      },
+      "patch": {
+        "operationId": "updateWidget",
+        "summary": "Update a widget",
+        "responses": {"200": {"description": "Updated"}}
+      },
+      "delete": {
+        "operationId": "deleteWidget",
+        "summary": "Delete a widget",
+        "responses": {"204": {"description": "Deleted"}}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Widget": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"}
+        }
+      }
+    }
+  }
+}

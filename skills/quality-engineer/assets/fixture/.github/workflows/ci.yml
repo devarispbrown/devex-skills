@@ -1,0 +1,26 @@
+name: fixture-ci
+on: [push, pull_request]
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pytest --junitxml=junit.xml --cov
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - run: go test -race ./...
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cargo test
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm test

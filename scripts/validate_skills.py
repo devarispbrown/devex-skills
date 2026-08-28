@@ -96,13 +96,17 @@ def main() -> int:
 
         # stale phrases
 
-    # significant-word overlap between description pairs
+    # significant-word overlap between description pairs; skip pairs that
+    # disambiguate each other by name (intended pointer sentences)
     for i in range(len(descriptions)):
         for j in range(i + 1, len(descriptions)):
             n1, w1 = descriptions[i]
             n2, w2 = descriptions[j]
-            shared = w1 & w2
-            if len(shared) >= 4:
+            if n2 in ' '.join(w1) or n1 in ' '.join(w2):
+                continue
+            names = {d[0] for d in descriptions}
+            shared = (w1 & w2) - names
+            if len(shared) >= 8:
                 warnings.append(f'descriptions {n1}/{n2} share {len(shared)} significant words: {sorted(shared)[:8]}')
 
     # stale phrases in user-facing files

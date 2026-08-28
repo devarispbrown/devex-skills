@@ -36,4 +36,6 @@ Connect documents so users can move through:
 
 Discover → Quickstart → Learn → Build → Debug → Production → Upgrade
 
+This is a docs-scoped subset of the canonical 14-stage developer journey; see `references/standards.md` for the canonical stage definitions.
+
 Every major page should have an obvious next action or adjacent reference without turning navigation into an exhaustive link dump.

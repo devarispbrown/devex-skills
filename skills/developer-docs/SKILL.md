@@ -1,10 +1,10 @@
 ---
 name: developer-docs
-description: Design, write, restructure, and update world-class documentation for developer-facing and open-source products. Use for READMEs, 15-minute quickstarts, Diátaxis tutorials/how-tos/reference/explanation, API/SDK/CLI/config docs, code comments, examples, integration guides, stakeholder docs, migration docs, and documentation architecture. Establish implementation truth first and flag product/DX design problems instead of documenting around them.
+description: Design, write, restructure, and update world-class documentation for developer-facing and open-source products. Use for READMEs, 15-minute quickstarts, Diátaxis tutorials/how-tos/reference/explanation, API/SDK/CLI/config docs, code comments, examples, integration guides, stakeholder docs, migration docs, and documentation architecture. Establish implementation truth first and flag product/DX design problems instead of documenting around them. For whole-product developer-experience audits use developer-experience-auditor.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and normal build/test tooling.
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Developer Docs Authoring and Architecture
@@ -28,7 +28,7 @@ Read `references/diataxis.md` when classifying or restructuring content.
 
 Every external developer-facing product must have a canonical Quickstart/Get Started path where a brand-new developer with zero product knowledge can achieve and verify meaningful end-to-end product value in **15 minutes or less**.
 
-Read `references/magic-path.md` before creating or revising onboarding, a README quickstart, installation docs, or the getting-started architecture.
+Read `references/magic-path.md` before creating or revising onboarding, a README quickstart, installation docs, or the getting-started architecture. Read `references/standards.md` for the canonical thresholds, severity vocabulary, and release gates.
 
 Design for the timer. Do not hide product-specific setup in prerequisites. Account creation, credentials, product-specific installation/configuration, execution, wait time, and verification count. If production provisioning cannot fit, design a sandbox/test/local path.
 
@@ -67,7 +67,7 @@ Cover the connected path:
 
 Discover → Prerequisites → Install → Account/Auth → Configure → First value → Verify → Customize → Debug → Production → Operate → Upgrade → Get help
 
-Read `references/docs-architecture.md` for the minimum documentation system.
+This list is a docs-scoped subset of the canonical 14-stage developer journey; see `references/standards.md` for the canonical stage definitions. Read `references/docs-architecture.md` for the minimum documentation system.
 
 ### 3. Classify with Diátaxis
 
@@ -157,7 +157,7 @@ Verify:
 - version/support scope is clear
 - onboarding was designed against the ≤15-minute magic path
 
-When deterministic validation is needed, hand off to or invoke the separate `developer-docs-auditor` skill if available.
+When deterministic validation is needed, hand off to or invoke the separate `developer-docs-auditor` skill if available, or `developer-experience-auditor` for product/DX journey measurement.
 
 ## README contract
 

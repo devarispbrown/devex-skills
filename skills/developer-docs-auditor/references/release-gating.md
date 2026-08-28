@@ -4,6 +4,8 @@ Documentation is part of the release contract for developer-facing products.
 
 ## Hard gates
 
+The canonical named gate vocabulary (`BROKEN_QUICKSTART`, `STALE_PUBLIC_REFERENCE`, `UNSAFE_EXAMPLES`, `BROKEN_CANONICAL_INSTALL`, and the rest) lives in the generated `references/standards.md`; it is authoritative. This file documents the docs-scoped procedure.
+
 Block a world-class/release-ready verdict for:
 
 - magic path >15 minutes or no reproducible end-to-end quickstart
@@ -23,6 +25,8 @@ Treat as release blockers when material to the changed feature:
 - missing changelog entry
 - no production guidance for a feature being promoted from preview to stable
 - no rollback/migration path for operationally risky changes
+
+Magic-path timing evidence may be supplied by a `developer-experience-auditor` DX Report; label its provenance.
 
 ## Gate result
 

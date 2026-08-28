@@ -35,6 +35,81 @@
         ], "header": true},
         "scripts/inventory_docs.py": {"files": [{"source": "inventory_docs.py", "sections": ["*"]}], "header": false}
       }
+    },
+    "developer-experience-auditor": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "principles.md", "sections": ["*"]},
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["*"]},
+          {"source": "terminology.md", "sections": ["Journey stages", "Problem classification", "Canonical terms"]}
+        ], "header": true}
+      }
+    },
+    "developer-onboarding": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["Magic path thresholds", "Contribution thresholds", "Evidence labels"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers", "Gate semantics"]},
+          {"source": "terminology.md", "sections": ["Journey stages", "Canonical terms"]}
+        ], "header": true}
+      }
+    },
+    "api-design-reviewer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "compatibility.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "local-development": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["Local development thresholds", "Evidence labels"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers", "Gate semantics"]}
+        ], "header": true}
+      }
+    },
+    "sdk-engineer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "compatibility.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "error-experience": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["Recovery thresholds"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "quality-engineer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "release-guardian": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "compatibility.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["*"]}
+        ], "header": true}
+      }
     }
   }
 }

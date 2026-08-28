@@ -1,10 +1,10 @@
 ---
 name: developer-docs-auditor
-description: Adversarially audit and release-gate developer documentation for correctness, drift, executable examples, API/SDK/CLI/config parity, onboarding friction, terminology, lifecycle coverage, and developer experience. Use for repo/PR/release docs audits, documentation CI, stale-doc detection, 15-minute quickstart validation, SDK parity reviews, and world-class documentation scoring. Prefer observed evidence and fail gates rather than smoothing over product defects.
+description: Adversarially audit and release-gate developer documentation for correctness, drift, executable examples, API/SDK/CLI/config parity, onboarding friction, terminology, lifecycle coverage, and developer experience. Use for repo/PR/release docs audits, documentation CI, stale-doc detection, 15-minute quickstart validation, SDK parity reviews, and world-class documentation scoring. Prefer observed evidence and fail gates rather than smoothing over product defects. For whole-product developer-experience audits use developer-experience-auditor.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git, repository access, and normal build/test tooling.
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Developer Docs Auditor
@@ -21,7 +21,7 @@ Read `references/audit-methodology.md` before broad audits.
 
 A brand-new developer with zero product knowledge must be able to complete and verify the canonical end-to-end product value path in **15 minutes or less**.
 
-Read `references/magic-path.md` before auditing onboarding.
+Read `references/magic-path.md` before auditing onboarding. Read `references/standards.md` for the canonical thresholds, severity vocabulary, and release gates.
 
 The timer includes product installation, signup/auth when required, product-specific configuration, execution, wait time, and verification. Do not allow teams to game the metric by moving product setup into "prerequisites."
 
@@ -37,6 +37,8 @@ Results:
 A high documentation score cannot override this gate.
 
 Label timing evidence as **Observed**, **CI-observed**, or **Estimated**. Estimated timing cannot prove a PASS; it can only indicate likely risk or likely feasibility.
+
+If the `developer-experience-auditor` skill is available, defer observed magic-path execution and timing to it and cite its DX Report as the timing evidence; otherwise perform the timing yourself. Documentation-specific gates (finding the path, honest prerequisites, stale instructions) remain this skill's.
 
 ## Default operating mode
 

@@ -1,0 +1,6 @@
+[project]
+name = "quality-engineer-fixture"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["api"]

@@ -1,0 +1,60 @@
+{
+  "name": "acme-cli zero-to-value",
+  "evidence_label": "Estimated",
+  "steps": [
+    {
+      "name": "read quickstart",
+      "segment": "orientation",
+      "estimated_seconds": 30,
+      "commands": 0,
+      "credentials": 0,
+      "context_switches": 0,
+      "notes": "single page, one route, no menu"
+    },
+    {
+      "name": "install acme-cli",
+      "segment": "install",
+      "estimated_seconds": 60,
+      "commands": 1,
+      "credentials": 0,
+      "context_switches": 0,
+      "notes": "brew formula, canonical mode"
+    },
+    {
+      "name": "login with sandbox token",
+      "segment": "account_auth",
+      "estimated_seconds": 90,
+      "commands": 1,
+      "credentials": 1,
+      "context_switches": 1,
+      "notes": "CLI issues starter token, no signup form"
+    },
+    {
+      "name": "create project from starter",
+      "segment": "configure",
+      "estimated_seconds": 45,
+      "commands": 1,
+      "credentials": 0,
+      "context_switches": 0,
+      "notes": "template scaffolds project with seeded fixture"
+    },
+    {
+      "name": "run sample workflow",
+      "segment": "execute",
+      "estimated_seconds": 60,
+      "commands": 1,
+      "credentials": 0,
+      "context_switches": 0,
+      "notes": "one command: login + create + deploy merged"
+    },
+    {
+      "name": "verify result",
+      "segment": "verify",
+      "estimated_seconds": 30,
+      "commands": 1,
+      "credentials": 0,
+      "context_switches": 1,
+      "notes": "resource URL printed; browser confirms the value"
+    }
+  ]
+}
