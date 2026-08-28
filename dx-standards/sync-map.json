@@ -110,6 +110,103 @@
           {"source": "metrics.md", "sections": ["*"]}
         ], "header": true}
       }
+    },
+    "cli-designer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "security-supply-chain": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "observability-readiness": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "configuration-dx": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "compatibility.md", "sections": ["*"]}
+        ], "header": true}
+      }
+    },
+    "golden-path-scaffolder": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "principles.md", "sections": ["*"]}
+        ], "header": true}
+      }
+    },
+    "performance-engineer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]}
+        ], "header": true}
+      }
+    },
+    "compatibility-engineer": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]},
+          {"source": "metrics.md", "sections": ["Evidence labels"]}
+        ], "header": true}
+      }
+    },
+    "contributor-experience": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "metrics.md", "sections": ["Contribution thresholds", "Evidence labels"]}
+        ], "header": true}
+      }
+    },
+    "dependency-health": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]}
+        ], "header": true}
+      }
+    },
+    "integration-certifier": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "release-gates.md", "sections": ["Gate identifiers"]},
+          {"source": "metrics.md", "sections": ["Evidence labels"]}
+        ], "header": true}
+      }
+    },
+    "agent-native-dx": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "principles.md", "sections": ["*"]}
+        ], "header": true}
+      }
+    },
+    "developer-feedback-analyst": {
+      "targets": {
+        "references/standards.md": {"files": [
+          {"source": "severity.md", "sections": ["*"]},
+          {"source": "terminology.md", "sections": ["Problem classification", "Journey stages"]}
+        ], "header": true}
+      }
     }
   }
 }

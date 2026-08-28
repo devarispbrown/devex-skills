@@ -1,19 +1,31 @@
 {
   "name": "developer-docs-skills",
-  "description": "Ten Agent Skills for building and enforcing world-class developer experience: docs authoring and auditing, end-to-end adversarial DX testing, onboarding design, API review, local development, SDK engineering, error experience, quality engineering, and release gating, all backed by a shared dx-standards constitution.",
-  "version": "2.1.0",
+  "description": "Twenty-two Agent Skills for building and enforcing world-class developer experience: docs authoring and auditing, end-to-end adversarial DX testing, onboarding design, API review, local development, SDK engineering, error experience, quality engineering, release gating, CLI design, supply-chain security, observability, configuration UX, scaffolding, performance, compatibility, contributor experience, dependency health, integration certification, agent-native DX, and feedback analytics, all backed by a shared dx-standards constitution.",
+  "version": "2.2.0",
   "license": "MIT",
   "repository": "https://github.com/devarispbrown/devex-skills",
   "skills": [
+    "./skills/agent-native-dx",
+    "./skills/api-design-reviewer",
+    "./skills/cli-designer",
+    "./skills/compatibility-engineer",
+    "./skills/configuration-dx",
+    "./skills/contributor-experience",
+    "./skills/dependency-health",
     "./skills/developer-docs",
     "./skills/developer-docs-auditor",
     "./skills/developer-experience-auditor",
+    "./skills/developer-feedback-analyst",
     "./skills/developer-onboarding",
-    "./skills/api-design-reviewer",
-    "./skills/local-development",
-    "./skills/sdk-engineer",
     "./skills/error-experience",
+    "./skills/golden-path-scaffolder",
+    "./skills/integration-certifier",
+    "./skills/local-development",
+    "./skills/observability-readiness",
+    "./skills/performance-engineer",
     "./skills/quality-engineer",
-    "./skills/release-guardian"
+    "./skills/release-guardian",
+    "./skills/sdk-engineer",
+    "./skills/security-supply-chain"
   ]
 }

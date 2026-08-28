@@ -1,0 +1,14 @@
+{
+  "environment": "macos-14 arm64 8 cores, release build, clean checkout, no competing load",
+  "measured": [
+    {"surface": "cli", "metric": "startup_p50_ms", "value": 95, "unit": "ms", "evidence": "Observed"},
+    {"surface": "api", "metric": "p95_latency_ms", "value": 341, "unit": "ms", "evidence": "CI-observed"},
+    {"surface": "api", "metric": "p99_latency_ms", "value": 730, "unit": "ms", "evidence": "CI-observed"},
+    {"surface": "sdk", "metric": "init_overhead_ms", "value": 14, "unit": "ms", "evidence": "Observed"},
+    {"surface": "build", "metric": "clean_build_seconds", "value": 312, "unit": "s", "evidence": "CI-observed"},
+    {"surface": "test", "metric": "full_suite_seconds", "value": 545, "unit": "s", "evidence": "CI-observed"},
+    {"surface": "container", "metric": "image_size_mb", "value": 118, "unit": "MB", "evidence": "Observed"},
+    {"surface": "serverless", "metric": "cold_start_ms", "value": 380, "unit": "ms", "evidence": "CI-observed"},
+    {"surface": "cli", "metric": "help_p50_ms", "value": 60, "unit": "ms", "evidence": "Observed"}
+  ]
+}

@@ -1,0 +1,25 @@
+# Deliberately risky example workflow for scanner testing. Do not copy.
+name: risky-ci
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3.2.0
+      - uses: docker://alpine:3.19
+      - uses: ./.github/actions/local-helper
+      - uses: actions/upload-artifact@65a4ed15a08d1fadbe31d7df7a9c6f1df29b4c4d
+      - name: deploy with env-indirected secret
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          echo "deploying to staging"
+          curl -H "Authorization: token $DEPLOY_TOKEN" https://api.example.com/deploy
+      - name: leak a secret inline
+        run: echo "credentials: ${{ secrets.AWS_SECRET_KEY }}"

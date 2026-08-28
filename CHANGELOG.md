@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0 - 2026-08-28
+
+- Added twelve new skills: `cli-designer`, `security-supply-chain`, `observability-readiness`, `configuration-dx`, `golden-path-scaffolder`, `performance-engineer`, `compatibility-engineer`, `contributor-experience`, `dependency-health`, `integration-certifier`, `agent-native-dx`, and `developer-feedback-analyst`.
+- Each new skill ships a stdlib-only scanner or checker with fixtures, procedural references, and a generated `references/standards.md` subset.
+- Plugin now registers 22 skills; the suite covers CLI ergonomics, supply-chain security, observability, configuration UX, scaffolding, performance budgets, compatibility matrices, contributor funnels, dependency policy, integration certification, agent readiness, and feedback analytics.
+- Description disambiguation convention extended: `security-supply-chain` now routes permission-model ergonomics to `access-and-permissions-dx` and policy-as-code to `policy-experience`.
+
 ## 2.1.0 - 2026-08-28
 
 - Added eight new skills: `developer-experience-auditor`, `developer-onboarding`, `api-design-reviewer`, `local-development`, `sdk-engineer`, `error-experience`, `quality-engineer`, and `release-guardian`.

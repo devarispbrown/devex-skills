@@ -1,0 +1,10 @@
+{
+  "name": "dep-sample",
+  "version": "1.0.0",
+  "description": "Fixture for the dependency-health scanner: one unpinned dependency.",
+  "private": true,
+  "dependencies": {
+    "lodash": "4.17.21",
+    "debug": "*"
+  }
+}

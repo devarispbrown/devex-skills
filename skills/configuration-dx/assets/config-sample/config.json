@@ -1,0 +1,5 @@
+{
+  "api_key": "your-token-here",
+  "timeout": 30,
+  "region": "us-east-1"
+}

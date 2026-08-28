@@ -4,7 +4,7 @@ description: Design zero-to-value onboarding where a brand-new developer reaches
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and product/design context.
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # Developer Onboarding Design

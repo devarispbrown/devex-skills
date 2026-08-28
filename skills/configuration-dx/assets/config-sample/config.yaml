@@ -1,0 +1,5 @@
+# Sample config: committed defaults; note the secret default.
+api_key: "changeme"
+timeout: 30
+debug: false
+log_level: info

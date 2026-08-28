@@ -1,0 +1,81 @@
+{
+  "product": "acme-data-sync",
+  "matrix_revision": "2026-Q3",
+  "staleness_days": 90,
+  "integrations": [
+    {
+      "integration": "Salesforce REST API",
+      "cells": [
+        {
+          "version": "v54.0",
+          "configuration": "REST, OAuth2 client-credentials, Python 3.11",
+          "evidence_link": "https://ci.acme.example/jobs/salesforce-rest-v54/123",
+          "last_tested": "2026-08-20",
+          "certified": true
+        },
+        {
+          "version": "v53.0",
+          "configuration": "REST, OAuth2 client-credentials, Python 3.11",
+          "evidence_link": "https://ci.acme.example/jobs/salesforce-rest-v53/89",
+          "last_tested": "2026-04-15",
+          "certified": true
+        }
+      ]
+    },
+    {
+      "integration": "Salesforce Bulk API v2",
+      "cells": [
+        {
+          "version": "v2",
+          "configuration": "Bulk query jobs, bearer auth, Java 17",
+          "evidence_link": "",
+          "last_tested": "2026-08-01",
+          "certified": true
+        }
+      ]
+    },
+    {
+      "integration": "Slack Web API",
+      "cells": [
+        {
+          "version": "web-api",
+          "configuration": "OAuth2 user token, chat.postMessage, Node 20",
+          "evidence_link": "https://ci.acme.example/jobs/slack-web/45",
+          "last_tested": "2026-08-10",
+          "certified": false
+        }
+      ]
+    },
+    {
+      "integration": "Stripe Payments",
+      "cells": [
+        {
+          "version": "2025-11-13",
+          "configuration": "REST, secret-key auth, charges and refunds, Python 3.11",
+          "evidence_link": "https://ci.acme.example/jobs/stripe/77",
+          "last_tested": "",
+          "certified": true
+        }
+      ]
+    },
+    {
+      "integration": "GitHub REST API",
+      "cells": [
+        {
+          "version": "2026-07",
+          "configuration": "Fine-grained PAT, repo contents and issues, Go 1.22",
+          "evidence_link": "https://ci.acme.example/jobs/github-rest/201",
+          "last_tested": "2026-08-25",
+          "certified": true
+        },
+        {
+          "version": "2026-01",
+          "configuration": "Fine-grained PAT, repo contents, Go 1.22",
+          "evidence_link": "https://ci.acme.example/jobs/github-rest/180",
+          "last_tested": "2026-06-02",
+          "certified": true
+        }
+      ]
+    }
+  ]
+}

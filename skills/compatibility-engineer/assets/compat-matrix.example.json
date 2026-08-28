@@ -1,0 +1,44 @@
+{
+  "product": "example-api",
+  "updated": "2026-08-28",
+  "claims": [
+    {
+      "surface": "runtime",
+      "version": "python 3.11",
+      "tier": "supported",
+      "evidence": {
+        "type": "ci",
+        "file": ".github/workflows/ci.yml",
+        "match": "3.11"
+      }
+    },
+    {
+      "surface": "runtime",
+      "version": "python 3.13",
+      "tier": "supported"
+    },
+    {
+      "surface": "database",
+      "version": "postgres 16",
+      "tier": "supported",
+      "evidence": {
+        "type": "marker",
+        "file": "test-results/postgres-16/passed.txt"
+      }
+    },
+    {
+      "surface": "platform",
+      "version": "linux/amd64",
+      "tier": "supported",
+      "evidence": {
+        "type": "link",
+        "url": "https://ci.example.com/example-api/run/1234"
+      }
+    },
+    {
+      "surface": "platform",
+      "version": "macos arm64",
+      "tier": "best-effort"
+    }
+  ]
+}

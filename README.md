@@ -1,12 +1,12 @@
 # Developer Experience Skills Suite
 
-Ten complementary Claude/Agent Skills covering the full developer lifecycle, backed by one shared constitution of measurable DX standards.
+Twenty-two complementary Claude/Agent Skills covering the full developer lifecycle, backed by one shared constitution of measurable DX standards.
 
 The suite splits naturally into authoring, auditing, and product-surface skills:
 
 - **Author**: `developer-docs`, `developer-onboarding`, `sdk-engineer`
 - **Audit**: `developer-docs-auditor`, `developer-experience-auditor`
-- **Product surface**: `api-design-reviewer`, `local-development`, `error-experience`, `quality-engineer`, `release-guardian`
+- **Product surface**: `api-design-reviewer`, `local-development`, `error-experience`, `quality-engineer`, `release-guardian`, `cli-designer`, `configuration-dx`, `security-supply-chain`, `observability-readiness`, and more
 
 The `developer-experience-auditor` is the orchestration layer: it runs the entire developer journey adversarially and delegates deep dives to the specialized skills when they are available.
 
@@ -55,6 +55,18 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `error-experience` | Six-question error standard, per-surface contracts, Time to Recovery | `api-design-reviewer` for error-model design |
 | `quality-engineer` | Test strategy by system type: contracts, property/fuzz, failure injection | `release-guardian` for gate decisions |
 | `release-guardian` | Gate releases: diff classification, behavioral compatibility, SemVer recommendation, migrations | `developer-docs-auditor` for docs release gating |
+| `cli-designer` | Design CLIs as products: hierarchy, flags, output contract, exit codes, automation modes | `error-experience` for error text |
+| `security-supply-chain` | Harden OSS posture: SECURITY.md, workflow permissions, signing, provenance, SBOM, SAST, fuzzing | `dependency-health` for upgrade hygiene |
+| `observability-readiness` | Logs, metrics, traces, correlation IDs, health checks, SLOs: diagnose without new instrumentation | `error-experience` for error semantics |
+| `configuration-dx` | Config as public API: precedence, defaults, validation, secrets handling | `release-guardian` for config compat |
+| `golden-path-scaffolder` | Turn repeated workflows into generators: contracts, templates, output wiring | `developer-onboarding` for the path generated projects serve |
+| `performance-engineer` | Performance budgets: benchmark, profile, bisect, gate regressions | `local-development` for loop speed |
+| `compatibility-engineer` | Compatibility matrix with CI evidence: upgrades, wire compat, schema evolution | `release-guardian` for versioning decisions |
+| `contributor-experience` | First contribution <30 min: funnel, guidance files, check parity, review health | `local-development` for the setup itself |
+| `dependency-health` | Dependencies as policy: inventory, classification, upgrade cadence | `security-supply-chain` for vulnerabilities |
+| `integration-certifier` | Verify claimed integrations: certification matrix with evidence and expiry | `compatibility-engineer` for version ranges |
+| `agent-native-dx` | Make products excellent for coding agents: AGENTS.md, schemas, structured output | `developer-docs` for human-facing docs |
+| `developer-feedback-analyst` | Cluster feedback signals into journeys, size impact, hand off fixes | relevant surface skill for the fix |
 
 ## Repository layout
 
@@ -179,13 +191,16 @@ Generated files carry a header — never hand-edit them. Change the source in `d
 The strategy for this suite covers the whole developer lifecycle. Planned skills, in rough priority order:
 
 ```text
-cli-designer          security-supply-chain
-observability-readiness
-configuration-dx      golden-path-scaffolder
-performance-engineer  compatibility-engineer
-contributor-experience
-dependency-health     integration-certifier
-agent-native-dx       developer-feedback-analyst
+developer-community          developer-community-auditor
+developer-workflow-auditor   sandbox-experience
+architecture-experience      developer-discoverability
+developer-support            access-and-permissions-dx
+extensibility-engineer       developer-economics
+environment-lifecycle        change-awareness
+operational-trust            test-data-and-fixtures
+ide-experience               policy-experience
+web-console-dx               experimentation-engineer
+accessibility-dx             reference-application-engineer
 ```
 
 Contributions that advance any of these are welcome; see below.

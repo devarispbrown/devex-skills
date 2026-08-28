@@ -1,0 +1,3 @@
+requests==2.31.0
+lodash==4.17.21  # deliberate duplicate of package.json, for the scanner fixture
+flask>=3.0.0

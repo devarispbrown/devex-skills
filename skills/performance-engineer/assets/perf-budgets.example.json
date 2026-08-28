@@ -1,0 +1,13 @@
+{
+  "$comment": "Example performance budgets. Budgets are project-specific numbers chosen deliberately; replace these values with measured, owned budgets before use. Schema per budget: surface, metric, budget, unit; optional operator ('<=' default, or '>=').",
+  "budgets": [
+    {"surface": "cli", "metric": "startup_p50_ms", "budget": 120, "unit": "ms"},
+    {"surface": "api", "metric": "p95_latency_ms", "budget": 250, "unit": "ms"},
+    {"surface": "api", "metric": "p99_latency_ms", "budget": 800, "unit": "ms"},
+    {"surface": "sdk", "metric": "init_overhead_ms", "budget": 15, "unit": "ms"},
+    {"surface": "build", "metric": "clean_build_seconds", "budget": 300, "unit": "s"},
+    {"surface": "test", "metric": "full_suite_seconds", "budget": 600, "unit": "s"},
+    {"surface": "container", "metric": "image_size_mb", "budget": 120, "unit": "MB"},
+    {"surface": "serverless", "metric": "cold_start_ms", "budget": 500, "unit": "ms"}
+  ]
+}

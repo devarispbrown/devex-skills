@@ -4,7 +4,7 @@ description: Design, write, restructure, and update world-class documentation fo
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and normal build/test tooling.
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # Developer Docs Authoring and Architecture

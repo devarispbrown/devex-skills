@@ -1,0 +1,25 @@
+# Fixture: captured `datacloud --help` output with deliberate defects.
+# Detect with scripts/check_cli_surface.py:
+#   - destructive commands (delete, drop) with no confirmation flag
+#   - no machine-readable output flag (only a format selector)
+# Human-review note: exit codes are never documented anywhere in this help.
+
+usage: datacloud [-h] [--verbose] [--config FILE] [--format {table,json}] [--no-color] <command> ...
+
+DataCloud CLI - manage cloud data pipelines.
+
+options:
+  -h, --help            show this help message and exit
+  --verbose             increase output verbosity
+  --config FILE         read configuration from FILE
+  --format {table,json} select output format
+  --no-color            disable colored output
+
+commands:
+  login                 authenticate against the API
+  list                  list datasets
+  sync                  sync a dataset to a target
+  run                   run a pipeline job
+  delete                delete a dataset and its entire history
+  drop                  drop a pipeline and all of its runs
+  help                  show help for a command
