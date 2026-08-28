@@ -12,13 +12,13 @@ Each dimension carries a weight constant. The numeric weights are defined in the
 |---|---|---|
 | funnel health | FUNNEL_HEALTH_WEIGHT | cohort conversion ratios through the funnel |
 | responsiveness | RESPONSIVENESS_WEIGHT | response SLO compliance over the trailing 30 days |
-| standards presence | STANDARDS_PRESENCE_WEIGHT | presence and quality of the seven standards files |
+| standards presence | STANDARDS_PRESENCE_WEIGHT | presence and quality of the eight standards files (including LICENSE) |
 | contribution opportunities | CONTRIBUTION_OPPORTUNITIES_WEIGHT | usable newcomer issues and backlog health |
 | governance and ladder | GOVERNANCE_LADDER_WEIGHT | governance honesty and ladder climbability |
 | review experience | REVIEW_EXPERIENCE_WEIGHT | review speed and change acceptance |
 | contributor retention | CONTRIBUTOR_RETENTION_WEIGHT | returning and new contributor share |
-| maintainer sustainability | MAINTAINER_SUSTAINABILITY_WEIGHT | bus factor, maintainer depth, area coverage |
-| Q&A support | QA_SUPPORT_WEIGHT | useful-answer rate and speed |
+| maintainer sustainability | MAINTAINER_SUSTAINABILITY_WEIGHT | bus factor, maintainer depth, area coverage; the Maintainer Concentration Index is reported as its own line, never folded in |
+| Q&A support | QA_SUPPORT_WEIGHT | useful-answer rate and speed; when `community_answer_share` is present, the blend is 0.5 rate + 0.3 speed + 0.2 share, else 0.6 rate + 0.4 speed. `community_answer_share` = useful answers from non-maintainers / total useful answers |
 | recognition and automation | RECOGNITION_AUTOMATION_WEIGHT | recognition program and contribution automation |
 
 The weights sum to 100; the CHS is the weighted mean of the dimension scores.
@@ -40,7 +40,7 @@ The tier is derived from the CHS against the tier constants: healthy at or above
 A failing gate forces FAIL regardless of the CHS:
 
 - hard-failure gates — `NO_CONTRIBUTING_WHILE_WELCOMING`, `NO_CODE_OF_CONDUCT`, `BROKEN_CONTRIBUTION_PATH`, `DEAD_END_COMMUNITY`
-- remaining P1 gates — `UNRESPONSIVE_ISSUES`, `UNREVIEWED_FIRST_PR`, `OPAQUE_GOVERNANCE`, `STALE_GOOD_FIRST_ISSUES`
+- remaining P1 gates — `UNRESPONSIVE_ISSUES`, `UNREVIEWED_FIRST_PR`, `OPAQUE_GOVERNANCE`, `STALE_GOOD_FIRST_ISSUES`, `UNACKNOWLEDGED_PRS`, `NO_LICENSE`
 - P2 gates — `NO_GOOD_FIRST_ISSUES`, `NO_RECOGNITION_PATH`
 
 A community at risk with no gate failure is reported with its tier; a healthy score with a failing gate is FAIL. Record the verdict as exactly one of PASS, PASS WITH DEBT, FAIL, UNVERIFIED.

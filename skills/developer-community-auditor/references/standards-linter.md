@@ -2,7 +2,7 @@
 
 ## Scope
 
-Seven files define the community contract: CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder. Each file is audited for presence AND quality.
+Eight files define the community contract: LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder. Each file is audited for presence AND quality.
 
 Presence is real: a committed file with actual content, not a stub, a template left with default placeholders, or a redirect to a private document.
 
@@ -18,7 +18,7 @@ Presence is real: a committed file with actual content, not a stub, a template l
 
 ## Procedure
 
-1. List the repo root for the seven files. The ladder may live inside CONTRIBUTING.md or GOVERNANCE.md; record where it actually lives.
+1. List the repo root for the eight files. The ladder may live inside CONTRIBUTING.md or GOVERNANCE.md; record where it actually lives.
 2. For each present file, read it and answer its quality questions. Score the file quality as the share of questions answered with substance.
 3. A file that exists but answers none of its quality questions scores zero quality. Presence without quality is a finding.
 4. Record presence, quality, and the gates the absence triggers.

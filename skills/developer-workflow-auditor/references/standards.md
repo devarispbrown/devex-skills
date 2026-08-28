@@ -89,3 +89,4 @@ Any forced wait >30 seconds between edit and feedback breaks flow state (P2).
 | `COMMUNITY_FIRST_PR_REVIEW_P50_H` | community.md | developer-community-auditor |
 | `COMMUNITY_FIRST_PR_REVIEW_P90_H` | community.md | developer-community-auditor |
 | `COMMUNITY_USEFUL_ANSWER_P90_H` | community.md | developer-community-auditor |
+| `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` | community.md | developer-community-auditor |

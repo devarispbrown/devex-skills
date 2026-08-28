@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.1 - 2026-08-28
+
+- Community gap closure: `UNACKNOWLEDGED_PRS` (max-days constant) and `NO_LICENSE` gates; LICENSE joins the community standards files as an eighth scored file.
+- Maintainer Concentration Index reported as its own checker line; Q&A dimension gains `community_answer_share`.
+- New procedural references: review-experience, qa-analysis, maintainer-sustainability (auditor); community-automation, community-tooling (designer).
+- Cross-skill feedback loops added to the community pair's orchestration and operations sections; repeated-question-to-docs handoff procedure documented.
+- Designer skill's standards subset now includes the community response SLO constants.
+
 ## 2.3.0 - 2026-08-28
 
 - Added twenty new skills: `developer-community`, `developer-community-auditor`, `developer-workflow-auditor`, `sandbox-experience`, `architecture-experience`, `developer-discoverability`, `developer-support`, `access-and-permissions-dx`, `extensibility-engineer`, `developer-economics`, `environment-lifecycle`, `change-awareness`, `operational-trust`, `test-data-and-fixtures`, `ide-experience`, `policy-experience`, `web-console-dx`, `experimentation-engineer`, `accessibility-dx`, and `reference-application-engineer`. The suite now ships 42 skills.

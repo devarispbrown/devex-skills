@@ -43,24 +43,9 @@ Prefer, in order:
 When sources disagree, report the contradiction.
 
 
-## Community magic path
+## CHAOSS metrics
 
-- `COMMUNITY_ONBOARDING_PATH_MAX_MIN` = 30. Hard gate: a competent developer goes from discovering the contribution process to producing a valid contribution **ready for maintainer review** in 30 minutes or less. Implementation time is excluded; the metric measures project-imposed contribution friction.
-- Bands: ≤10 min exceptional; >10 to ≤20 strong; >20 to ≤30 pass; >30 min P1 FAIL. No newcomer-usable issue available = P2.
-- Funnel (12 steps, each with its owning artifact): discover (README) → understand (CONTRIBUTING) → ask (SUPPORT/chat) → find (labels) → setup (dev env) → first PR (templates) → review (review SLA) → accepted (merge policy) → return (recognition) → review others (reviewer path) → own area (ladder) → maintainer (governance).
-
-
-## Community stage gates
-
-Stages gate requirements, not scores. Counting method: unique human authors over a trailing 90-day window, bots excluded. Counts are targets (P2 when missed); named gates carry the hard-FAIL burden. Ratio indicators per stage:
-
-| Stage | Name | Indicators | Required |
-|---|---|---|---|
-| 0 | Founder-led | bus factor <2 | CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue/PR templates, documented dev environment |
-| 1 | Early community | bus factor ≥2, non-employee contribution share growing | + response SLO monitoring, good-first-issue labels, triage process |
-| 2 | Growing | closure ratio ≥0.7, multiple reviewers | + GOVERNANCE.md, maintainer ladder, recognition program |
-| 3 | Scale | multiple owners per critical area | + contributor analytics, delegation, moderation, CoC enforcement |
-| 4 | Foundation | succession defined | + foundation governance, security response team |
+Community metrics follow CHAOSS definitions; verify names against chaoss.community while authoring and cite them by name, never by paraphrase: `Time to First Response`, `Change Request Acceptance Ratio`, `New Contributors`, `Contributor Retention`, `Bus Factor`, `Elephant Factor`.
 
 
 ## Community hard gates
@@ -77,18 +62,47 @@ Stages gate requirements, not scores. Counting method: unique human authors over
 | `STALE_GOOD_FIRST_ISSUES` | P1 | newcomer-labeled issues open >90 days without activity, or queued newcomer PRs sit unreviewed |
 | `NO_GOOD_FIRST_ISSUES` | P2 | Stage ≥2 soliciting contributions with no genuinely usable newcomer tasks (context, scope, acceptance criteria, pointers) |
 | `NO_RECOGNITION_PATH` | P2 | Stage ≥2 with no contributor recognition |
+| `UNACKNOWLEDGED_PRS` | P1 | a first-time-contributor PR's max unacknowledged age exceeds `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` |
+| `NO_LICENSE` | P1 | no open-source LICENSE file present, at any stage |
 
 Hard gate failures: `NO_CONTRIBUTING_WHILE_WELCOMING`, `NO_CODE_OF_CONDUCT`, `BROKEN_CONTRIBUTION_PATH`, and `DEAD_END_COMMUNITY` force FAIL regardless of any score. Every FAIL sentence in community guidance must map 1:1 to a named gate constant.
 
 
-## CHAOSS metrics
+## Community magic path
 
-Community metrics follow CHAOSS definitions; verify names against chaoss.community while authoring and cite them by name, never by paraphrase: `Time to First Response`, `Change Request Acceptance Ratio`, `New Contributors`, `Contributor Retention`, `Bus Factor`, `Elephant Factor`.
+- `COMMUNITY_ONBOARDING_PATH_MAX_MIN` = 30. Hard gate: a competent developer goes from discovering the contribution process to producing a valid contribution **ready for maintainer review** in 30 minutes or less. Implementation time is excluded; the metric measures project-imposed contribution friction.
+- Bands: ≤10 min exceptional; >10 to ≤20 strong; >20 to ≤30 pass; >30 min P1 FAIL. No newcomer-usable issue available = P2.
+- Funnel (12 steps, each with its owning artifact): discover (README) → understand (CONTRIBUTING) → ask (SUPPORT/chat) → find (labels) → setup (dev env) → first PR (templates) → review (review SLA) → accepted (merge policy) → return (recognition) → review others (reviewer path) → own area (ladder) → maintainer (governance).
+
+
+## Community response SLOs
+
+Measurement window: trailing 30 days. Denominators: all non-bot activity. Bots never count toward responsiveness (`COMMUNITY_BOT_RESPONSE_EXCLUDED`).
+
+- `COMMUNITY_ISSUE_RESPONSE_P50_H` = 24 and `COMMUNITY_ISSUE_RESPONSE_P90_H` = 72 — first human response on new issues.
+- `COMMUNITY_FIRST_PR_REVIEW_P50_H` = 24 and `COMMUNITY_FIRST_PR_REVIEW_P90_H` = 72 — first human review on first-time-contributor PRs.
+- `COMMUNITY_USEFUL_ANSWER_P90_H` = 48 — first useful answer on community questions; a "useful answer" is a response that addresses the asker's stated question (answered or resolved), not an acknowledgment, redirect without substance, or bot reply.
+- `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` = 7 — a first-time-contributor PR with no human acknowledgment for longer than this fails `UNACKNOWLEDGED_PRS`. Acknowledged = any non-bot human response (review or comment); counted PRs have non-bot authors, were opened in the trailing 30 days, and age is measured from open.
+
+
+## Community stage gates
+
+Stages gate requirements, not scores. Counting method: unique human authors over a trailing 90-day window, bots excluded. Counts are targets (P2 when missed); named gates carry the hard-FAIL burden. Ratio indicators per stage:
+
+| Stage | Name | Indicators | Required |
+|---|---|---|---|
+| 0 | Founder-led | bus factor <2 | LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue/PR templates, documented dev environment |
+| 1 | Early community | bus factor ≥2, non-employee contribution share growing | + response SLO monitoring, good-first-issue labels, triage process |
+| 2 | Growing | closure ratio ≥0.7, multiple reviewers | + GOVERNANCE.md, maintainer ladder, recognition program |
+| 3 | Scale | multiple owners per critical area | + contributor analytics, delegation, moderation, CoC enforcement |
+| 4 | Foundation | succession defined | + foundation governance, security response team |
 
 
 ## Community standards files
 
-Seven files, each with presence AND quality questions:
+Eight files, each with presence AND quality questions:
+
+- LICENSE — required at every stage (gate `NO_LICENSE`); quality question: the file carries an OSI-recognized license text.
 
 - CONTRIBUTING.md — must state: how to find work, how to set up, how to run tests, what an acceptable PR is, how review works, how long review takes, who can help, how decisions are made, how to become more involved.
 - CODE_OF_CONDUCT.md — must include a report route and enforcement commitment.

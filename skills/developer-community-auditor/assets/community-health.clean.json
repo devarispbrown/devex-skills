@@ -60,7 +60,9 @@
     "maintainers": true,
     "ladder": true,
     "governance_quality": 0.95,
-    "ladder_quality": 0.95
+    "ladder_quality": 0.95,
+    "license": true,
+    "license_quality": 1.0
   },
   "issues": {
     "good_first_issues_open": 6,

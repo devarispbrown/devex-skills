@@ -14,6 +14,7 @@ CONSTANTS = {
     "COMMUNITY_FIRST_PR_REVIEW_P50_H": 24,
     "COMMUNITY_FIRST_PR_REVIEW_P90_H": 72,
     "COMMUNITY_USEFUL_ANSWER_P90_H": 48,
+    "COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS": 7,
     "CHS_HEALTHY_MIN": 85,
     "CHS_DEVELOPING_MIN": 70,
     # Scoring calibration (see references/health-score.md).
@@ -41,7 +42,7 @@ CONSTANTS = {
 }
 
 STAGES = {"founder-led": 0, "early": 1, "growing": 2, "scale": 3, "foundation": 4}
-FILES = ["contributing", "code_of_conduct", "security", "support", "governance", "maintainers", "ladder"]
+FILES = ["license", "contributing", "code_of_conduct", "security", "support", "governance", "maintainers", "ladder"]
 
 DIMENSIONS = [
     ("funnel_health", "FUNNEL_HEALTH_WEIGHT"),
@@ -69,6 +70,8 @@ REASONS = {
     "STALE_GOOD_FIRST_ISSUES": "stale good-first issues or queued newcomer PRs unreviewed",
     "NO_GOOD_FIRST_ISSUES": "stage >=2 with no usable newcomer tasks",
     "NO_RECOGNITION_PATH": "stage >=2 with no contributor recognition",
+    "UNACKNOWLEDGED_PRS": "a first-time-contributor PR has gone unacknowledged beyond the max-days constant",
+    "NO_LICENSE": "no open-source LICENSE file present",
 }
 
 
@@ -233,6 +236,10 @@ def score_qa(d, c):
     speed, speed_ok = slo_score(r.get("useful_answer_p90_h"), c["COMMUNITY_USEFUL_ANSWER_P90_H"], c["SLO_DEGRADE_SLOPE"])
     if not (rate_ok or speed_ok):
         return 0.0, False
+    share = r.get("community_answer_share")
+    if share is not None:
+        share_score = 100.0 * clamp(float(share))
+        return 0.5 * rate + 0.3 * speed + 0.2 * share_score, True
     return 0.6 * rate + 0.4 * speed, True
 
 
@@ -286,6 +293,8 @@ def check_gates(d, c):
         gate("STALE_GOOD_FIRST_ISSUES", "P1", num(issues, "stale_good_first_issues") > 0 or num(issues, "queued_newcomer_prs_unreviewed") > 0),
         gate("NO_GOOD_FIRST_ISSUES", "P2", stage >= 2 and num(issues, "usable_good_first_issues") <= 0),
         gate("NO_RECOGNITION_PATH", "P2", stage >= 2 and not process.get("recognition_program")),
+        gate("UNACKNOWLEDGED_PRS", "P1", r.get("unacknowledged_pr_max_days") is not None and num(r, "unacknowledged_pr_max_days") > c["COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS"]),
+        gate("NO_LICENSE", "P1", not files.get("license")),
     ]
     return results
 
@@ -333,6 +342,14 @@ def main():
 
     chs = sum(c[wkey] * scores[name] for name, wkey in DIMENSIONS) / 100.0
     tier, tier_min = tier_for(chs, c)
+    maintainers = d.get("maintainers", [])
+    concentration = None
+    if maintainers:
+        shares = [max(clamp(float(m.get("review_share", 0) or 0)),
+                      clamp(float(m.get("merge_share", 0) or 0)),
+                      clamp(float(m.get("response_share", 0) or 0))) for m in maintainers]
+        top = max(shares) if shares else 0.0
+        concentration = top if top > 0 else None
     gates = check_gates(d, c)
     verdict = verdict_for(gates)
     failed_gates = [g for g in gates if g["failed"]]
@@ -351,6 +368,10 @@ def main():
     print()
     tier_suffix = f" (>= {tier_min})" if tier_min is not None else ""
     print(f"Community Health Score: {chs:.1f}  Tier: {tier}{tier_suffix}")
+    if concentration is not None:
+        print(f"Maintainer Concentration Index: {concentration:.2f} (max single-maintainer share across review/merge/response)")
+    else:
+        print("Maintainer Concentration Index: not reported (no maintainers input)")
     if unverified:
         print(f"UNVERIFIED dimensions: {', '.join(unverified)}")
     print()

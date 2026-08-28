@@ -63,6 +63,7 @@
 
 | File | Present | Quality | Findings |
 |---|---|---|---|
+| LICENSE | <yes | no> | <score> | <findings> |
 | CONTRIBUTING.md | <yes | no> | <score> | <findings> |
 | CODE_OF_CONDUCT.md | <yes | no> | <score> | <findings> |
 | SECURITY.md | <yes | no> | <score> | <findings> |
@@ -79,7 +80,7 @@
 
 - Bus factor: <n> (<Observed | CI-observed | Estimated>)
 - Elephant Factor: <n>
-- Concentration index: <share of merged work held by top contributors>
+- Maintainer Concentration Index: <max single-maintainer share across review/merge/response, per references/maintainer-sustainability.md>
 - Owners per critical area: <areas with multiple owners / critical areas>
 
 ## 9. Backlog of findings
@@ -92,7 +93,7 @@
 
 - [ ] community staged with observed evidence
 - [ ] Community Magic Path run and timed (or report explains why not)
-- [ ] seven standards files audited for presence and quality
+- [ ] eight standards files audited for presence and quality
 - [ ] response SLOs measured over the trailing 30 days, bots excluded
 - [ ] funnel and retention computed on cohorts with per-transition conversions
 - [ ] governance, ladder, and recognition audited against the stage
