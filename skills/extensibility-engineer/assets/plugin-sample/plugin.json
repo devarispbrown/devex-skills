@@ -1,0 +1,11 @@
+{
+  "name": "example-notifier",
+  "version": "0.1.0",
+  "description": "Sample plugin fixture: a deliberately incomplete extension surface.",
+  "type": "plugin",
+  "author": "acme",
+  "hooks": [
+    { "name": "on_task_complete", "file": "hooks/hook-register.js" }
+  ],
+  "permissions": ["read:project", "notify:status"]
+}

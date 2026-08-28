@@ -1,0 +1,7 @@
+{
+  "components": ["api", "dashboard", "ingestion", "webhooks"],
+  "states": ["operational", "degraded_performance", "partial_outage", "major_outage", "maintenance"],
+  "update_cadence_minutes": 30,
+  "history_endpoint": "/api/v1/incidents",
+  "automated_checks": true
+}

@@ -1,0 +1,45 @@
+{
+  "product": "example-api",
+  "surfaces": [
+    {
+      "name": "GET /v1/messages",
+      "kind": "endpoint",
+      "usage_visible": true,
+      "limit_visible": true,
+      "reset_visible": true,
+      "cost_estimation": true
+    },
+    {
+      "name": "POST /v1/chat/completions",
+      "kind": "endpoint",
+      "usage_visible": true,
+      "limit_visible": true,
+      "reset_visible": true,
+      "cost_estimation": true
+    },
+    {
+      "name": "POST /v1/embeddings",
+      "kind": "endpoint",
+      "usage_visible": true,
+      "limit_visible": true,
+      "reset_visible": true,
+      "cost_estimation": true
+    },
+    {
+      "name": "POST /v1/batch/jobs",
+      "kind": "endpoint",
+      "usage_visible": true,
+      "limit_visible": true,
+      "reset_visible": true,
+      "cost_estimation": true
+    },
+    {
+      "name": "usage",
+      "kind": "command",
+      "usage_visible": true,
+      "limit_visible": true,
+      "reset_visible": true,
+      "cost_estimation": true
+    }
+  ]
+}

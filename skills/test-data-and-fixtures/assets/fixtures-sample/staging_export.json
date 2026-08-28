@@ -1,0 +1,17 @@
+{
+  "source": "prod_backup_2026-08-01",
+  "exported_by": "data-export-bot",
+  "customers": [
+    {
+      "id": 101,
+      "name": "Jane Doe",
+      "email": "jane.doe@gmail.com",
+      "phone": "555-0137",
+      "card": "4242 4242 4242 4242",
+      "api_key": "FakeLiveKeyForFixture1234",
+      "aws_key": "FakeAwsAccessKeyForTests",
+      "vpn_ip": "8.8.8.8",
+      "note": "Exported from production database 2026-08-28"
+    }
+  ]
+}
