@@ -4,7 +4,7 @@ description: Design and operate an open-source contribution system: governance m
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and community data.
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 ---
 
 # Developer Community Design and Operations
@@ -67,9 +67,9 @@ Do not design a Stage 2 system for a Stage 0 project. Never leave a Stage 2 proj
 
 ### 2. Design the contribution system
 
-Read `references/contributor-onboarding.md` when designing the seven standards files and newcomer issues.
+Read `references/contributor-onboarding.md` when designing the eight standards files and newcomer issues.
 
-Design the seven files — CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder — each against its presence and quality questions.
+Design the eight files — LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder — each against its presence and quality questions.
 
 Verify:
 
@@ -125,9 +125,9 @@ Never automate the appreciation itself. A bot-generated thank-you is noise that 
 
 ### 6. Plan community operations
 
-Read `references/community-operations.md` when planning triage, moderation, meetings, telemetry, and maintainer sustainability.
+Read `references/community-operations.md` when planning triage, moderation, meetings, telemetry, and maintainer sustainability. Read `references/community-tooling.md` when choosing the tooling stack (GitHub, CHAOSS, GrimoireLab, Bitergia, Common Room). Read `references/community-automation.md` when designing automation.
 
-Design the operations plan: triage procedures, moderation policy, meeting cadence, community telemetry, and maintainer sustainability practices.
+Design the operations plan: triage procedures, moderation policy, meeting cadence, community telemetry, and maintainer sustainability practices. Select the tooling stack per the matrix; automation serves named gates and SLO constants.
 
 Verify:
 
@@ -135,6 +135,15 @@ Verify:
 - moderation exists before it is needed, at Stage 1 or earlier
 - telemetry covers the CHAOSS metrics the stage requires
 - delegation and concentration reduction are concrete, not intentions
+- every automation maps to a named gate or SLO constant, has a kill switch, and never substitutes for human appreciation
+
+## Community automation
+
+Automate logistics, never appreciation. The playbook (welcome, routing, repro detection, unanswered-question digests, stale-PR nudges, SLO-breach prompts, milestone recognition, reviewer-eligibility nomination) lives in `references/community-automation.md`. A bot may report "Tests failing: integration/postgres"; a maintainer says "Thanks for working through this."
+
+## Community feedback loops
+
+Community signals feed the rest of the suite. Repeated questions indicate a documentation gap (`developer-docs`); questions that are hard to answer because the surface is confusing indicate a product defect (`api-design-reviewer`, `configuration-dx`); unexplained error reports feed `error-experience`. Hand off with the evidence cluster and an acceptance test.
 
 ## Governance contract
 
@@ -155,7 +164,7 @@ Verify:
 
 ## Contribution-system contract
 
-- the seven standards files exist with their quality signals, staged by community stage
+- the eight standards files exist with their quality signals, staged by community stage
 - CONTRIBUTING.md answers the nine questions and states the canonical test command
 - CODE_OF_CONDUCT.md has a report route and an enforcement commitment
 - SECURITY.md has a disclosure route; SUPPORT.md routes questions away from issues
@@ -184,7 +193,7 @@ A community design is done when:
 
 - the stage is determined from ratio indicators with labeled evidence
 - every funnel step has an owning artifact and an acceptance criterion
-- the seven standards files are designed against their quality questions
+- the eight standards files are designed against their quality questions
 - the governance model is stage-appropriate and the ladder includes promotion and removal
 - recognition covers code and non-code contributions
 - the operations plan names owners and failure signals for every loop

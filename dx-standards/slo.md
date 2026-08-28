@@ -25,6 +25,7 @@ The suite-wide DX service level table. Each SLO has exactly one home for its val
 | `COMMUNITY_FIRST_PR_REVIEW_P50_H` | community.md | developer-community-auditor |
 | `COMMUNITY_FIRST_PR_REVIEW_P90_H` | community.md | developer-community-auditor |
 | `COMMUNITY_USEFUL_ANSWER_P90_H` | community.md | developer-community-auditor |
+| `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` | community.md | developer-community-auditor |
 
 ## SLO ownership
 

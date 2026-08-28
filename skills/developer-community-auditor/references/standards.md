@@ -60,6 +60,7 @@ Measurement window: trailing 30 days. Denominators: all non-bot activity. Bots n
 - `COMMUNITY_ISSUE_RESPONSE_P50_H` = 24 and `COMMUNITY_ISSUE_RESPONSE_P90_H` = 72 — first human response on new issues.
 - `COMMUNITY_FIRST_PR_REVIEW_P50_H` = 24 and `COMMUNITY_FIRST_PR_REVIEW_P90_H` = 72 — first human review on first-time-contributor PRs.
 - `COMMUNITY_USEFUL_ANSWER_P90_H` = 48 — first useful answer on community questions; a "useful answer" is a response that addresses the asker's stated question (answered or resolved), not an acknowledgment, redirect without substance, or bot reply.
+- `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` = 7 — a first-time-contributor PR with no human acknowledgment for longer than this fails `UNACKNOWLEDGED_PRS`. Acknowledged = any non-bot human response (review or comment); counted PRs have non-bot authors, were opened in the trailing 30 days, and age is measured from open.
 
 ## Community stage gates
 
@@ -67,7 +68,7 @@ Stages gate requirements, not scores. Counting method: unique human authors over
 
 | Stage | Name | Indicators | Required |
 |---|---|---|---|
-| 0 | Founder-led | bus factor <2 | CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue/PR templates, documented dev environment |
+| 0 | Founder-led | bus factor <2 | LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, issue/PR templates, documented dev environment |
 | 1 | Early community | bus factor ≥2, non-employee contribution share growing | + response SLO monitoring, good-first-issue labels, triage process |
 | 2 | Growing | closure ratio ≥0.7, multiple reviewers | + GOVERNANCE.md, maintainer ladder, recognition program |
 | 3 | Scale | multiple owners per critical area | + contributor analytics, delegation, moderation, CoC enforcement |
@@ -87,6 +88,8 @@ Stages gate requirements, not scores. Counting method: unique human authors over
 | `STALE_GOOD_FIRST_ISSUES` | P1 | newcomer-labeled issues open >90 days without activity, or queued newcomer PRs sit unreviewed |
 | `NO_GOOD_FIRST_ISSUES` | P2 | Stage ≥2 soliciting contributions with no genuinely usable newcomer tasks (context, scope, acceptance criteria, pointers) |
 | `NO_RECOGNITION_PATH` | P2 | Stage ≥2 with no contributor recognition |
+| `UNACKNOWLEDGED_PRS` | P1 | a first-time-contributor PR's max unacknowledged age exceeds `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` |
+| `NO_LICENSE` | P1 | no open-source LICENSE file present, at any stage |
 
 Hard gate failures: `NO_CONTRIBUTING_WHILE_WELCOMING`, `NO_CODE_OF_CONDUCT`, `BROKEN_CONTRIBUTION_PATH`, and `DEAD_END_COMMUNITY` force FAIL regardless of any score. Every FAIL sentence in community guidance must map 1:1 to a named gate constant.
 
@@ -96,7 +99,9 @@ Community metrics follow CHAOSS definitions; verify names against chaoss.communi
 
 ## Community standards files
 
-Seven files, each with presence AND quality questions:
+Eight files, each with presence AND quality questions:
+
+- LICENSE — required at every stage (gate `NO_LICENSE`); quality question: the file carries an OSI-recognized license text.
 
 - CONTRIBUTING.md — must state: how to find work, how to set up, how to run tests, what an acceptable PR is, how review works, how long review takes, who can help, how decisions are made, how to become more involved.
 - CODE_OF_CONDUCT.md — must include a report route and enforcement commitment.
@@ -136,6 +141,7 @@ Tiers: ≥85 healthy; 70–84 developing; <70 at risk. Every score carries an ev
 | `COMMUNITY_FIRST_PR_REVIEW_P50_H` | community.md | developer-community-auditor |
 | `COMMUNITY_FIRST_PR_REVIEW_P90_H` | community.md | developer-community-auditor |
 | `COMMUNITY_USEFUL_ANSWER_P90_H` | community.md | developer-community-auditor |
+| `COMMUNITY_UNACKNOWLEDGED_PR_MAX_DAYS` | community.md | developer-community-auditor |
 
 
 ## Evidence labels

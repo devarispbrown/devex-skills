@@ -1,6 +1,6 @@
 # Contribution System Design Procedure
 
-## The seven standards files
+## The eight standards files
 
 Each file has presence AND quality requirements. Design them in this order:
 

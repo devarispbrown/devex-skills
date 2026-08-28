@@ -4,7 +4,7 @@ description: Measure community health against the Community Health Score: contri
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access, GitHub API access, and community data.
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 ---
 
 # Developer Community Auditor
@@ -15,7 +15,7 @@ Act as an adversarial community health engineer. Try to prove that the community
 
 Activity metrics are not health metrics. A busy tracker with unanswered PRs, a high commit count from a handful of maintainers, or a large member count with no path to maintainership is not a healthy community. Measure outcomes: time to first response, conversion through the funnel, retention, and the climb from newcomer to maintainer.
 
-Measure the community against the Community Health Score across the contributor journey, the contribution funnel, responsiveness SLOs, the seven community standards files, good-first-issue usability, governance and ladder, review experience, retention, maintainer concentration, Q&A, and recognition.
+Measure the community against the Community Health Score across the contributor journey, the contribution funnel, responsiveness SLOs, the eight community standards files, good-first-issue usability, governance and ladder, review experience, retention, maintainer concentration, Q&A, and recognition.
 
 Do not repair the community mid-audit to make it pass. Record the failure, attribute it, and report it. A community that works only for people who already know it is a defect.
 
@@ -68,9 +68,9 @@ Verify:
 
 ### 3. Audit standards files
 
-Audit the seven community standards files: CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder.
+Audit the eight community standards files: LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md, GOVERNANCE.md, MAINTAINERS.md, and the contributor ladder.
 
-Read `references/standards-linter.md` before auditing the seven community standards files.
+Read `references/standards-linter.md` before auditing the eight community standards files.
 
 Verify:
 
@@ -131,7 +131,17 @@ Verify:
 - every critical area has more than one owner where the stage requires it
 - succession and the security response team are evidenced at the stages that require them
 
-### 8. Score and verdict
+### 8. Analyze review experience, Q&A, and concentration
+
+Read `references/review-experience.md` before qualitative per-PR review analysis; `references/qa-analysis.md` before Q&A or repeated-question analysis; `references/maintainer-sustainability.md` before computing the Maintainer Concentration Index.
+
+Verify:
+
+- review findings separate nit density from substance and name the owning process gap
+- repeated questions are clustered and handed off with the documentation-gap hypothesis
+- the concentration index is reported as its own line, never folded into the sustainability dimension
+
+### 9. Score and verdict
 
 Assemble the community-health JSON from the audit evidence and run the checker:
 
@@ -154,7 +164,7 @@ Community is another developer interface, and this audit enforces its contract:
 - a competent newcomer reaches ready-for-review within `COMMUNITY_ONBOARDING_PATH_MAX_MIN`
 - issues and first-time PRs receive a first human response within the named SLOs
 - questions receive useful answers, not acknowledgments
-- the seven standards files exist, are honest, and answer their quality questions
+- the eight standards files exist, are honest, and answer their quality questions
 - the funnel converts, newcomers return, and contributors climb
 - governance describes actual operation
 - maintainers are not a single point of failure
@@ -169,6 +179,17 @@ Deep dives are delegated to the specialist community skills when available:
 - raw community feedback signals → `developer-feedback-analyst`
 
 Every delegation carries an embedded fallback checklist, so this skill works standalone when the specialist is unavailable. Label delegated findings with the skill name. Re-verify anything material to a hard gate. Never silently override another skill's verdict — report the disagreement.
+
+### Cross-skill feedback loops
+
+Community evidence feeds the rest of the suite; hand findings off by skill name when available:
+
+- repeated questions → `developer-docs` (missing how-to or troubleshooting page at the searchable path)
+- a question that is hard to answer because the surface is confusing → `api-design-reviewer` or `configuration-dx` (do not document around a product defect)
+- unexplained error reports → `error-experience`
+- onboarding or funnel drop-off → `developer-onboarding`
+
+Each handoff carries the evidence (question cluster, counts, affected path) and an acceptance test; the loop closes when the receiving skill's change makes the original question answerable by search.
 
 ## Required output
 
@@ -201,7 +222,7 @@ The audit is done when:
 
 - the community is staged with observed evidence
 - the Community Magic Path was run and timed, or the report explains why not
-- the seven standards files were audited for presence and quality
+- the eight standards files were audited for presence and quality
 - the response SLOs were measured over the trailing 30 days with non-bot denominators
 - the funnel and retention were computed on cohorts with conversions stated per transition
 - governance, ladder, and recognition were audited against the stage
