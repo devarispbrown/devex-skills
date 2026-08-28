@@ -1,0 +1,23 @@
+{
+  "canonical": {
+    "connector": {
+      "forbidden_aliases": [
+        "adapter",
+        "integration plugin"
+      ]
+    },
+    "workspace": {
+      "forbidden_aliases": [
+        "project space"
+      ]
+    }
+  },
+  "include_globs": [
+    "**/*.md",
+    "**/*.mdx"
+  ],
+  "exclude_globs": [
+    "CHANGELOG.md",
+    "docs/migrations/**"
+  ]
+}

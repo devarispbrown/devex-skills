@@ -1,0 +1,11 @@
+{
+  "name": "developer-docs-skills",
+  "description": "Two Agent Skills for building and enforcing world-class developer documentation: developer-docs (authoring/architecture) and developer-docs-auditor (adversarial validation and release gating).",
+  "version": "2.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/devarispbrown/devex-skills",
+  "skills": [
+    "./skills/developer-docs",
+    "./skills/developer-docs-auditor"
+  ]
+}
