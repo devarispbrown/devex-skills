@@ -1,23 +1,70 @@
 # Developer Experience Skills Suite
 
-Forty-two complementary Claude/Agent Skills covering the full developer lifecycle, organized into six domains and backed by one shared constitution of measurable DX standards.
+Forty-two complementary Claude/Agent Skills covering the full developer lifecycle — discover, build, validate, ship, participate, improve — backed by one shared constitution of measurable DX standards.
+
+## Find your skill
+
+| You want to... | Use |
+|---|---|
+| Write or restructure documentation | `developer-docs` |
+| Prove documentation is wrong or stale | `developer-docs-auditor` |
+| Audit the entire developer journey | `developer-experience-auditor` |
+| Design a ≤15-minute onboarding path | `developer-onboarding` |
+| Design or audit the contribution system | `developer-community` / `developer-community-auditor` |
+| Make a fresh clone productive fast | `local-development` |
+| Review an API as a product | `api-design-reviewer` |
+| Build idiomatic SDKs | `sdk-engineer` |
+| Design or audit a CLI | `cli-designer` |
+| Fix configuration UX | `configuration-dx` |
+| Make errors actionable | `error-experience` |
+| Speed up inner/outer feedback loops | `developer-workflow-auditor` |
+| Give users a safe place to experiment | `sandbox-experience` |
+| Help developers form a mental model | `architecture-experience` |
+| Make things findable | `developer-discoverability` |
+| Route post-self-service help | `developer-support` |
+| Fix auth/RBAC ergonomics | `access-and-permissions-dx` |
+| Make policy compliance self-service | `policy-experience` |
+| Gate a release | `release-guardian` |
+| Keep compatibility claims honest | `compatibility-engineer` |
+| Build test strategy by system type | `quality-engineer` |
+| Harden OSS supply chain | `security-supply-chain` |
+| Make failures diagnosable at 2am | `observability-readiness` |
+| Build consumer trust in operations | `operational-trust` |
+| Announce changes developers will hit | `change-awareness` |
+| Manage preview/staging environments | `environment-lifecycle` |
+| Make pricing and quotas predictable | `developer-economics` |
+| Design extension/plugin ecosystems | `extensibility-engineer` |
+| Improve first-time OSS contribution | `contributor-experience` |
+| Manage dependencies as policy | `dependency-health` |
+| Prove integrations actually work | `integration-certifier` |
+| Make a product excellent for coding agents | `agent-native-dx` |
+| Turn feedback into DX improvements | `developer-feedback-analyst` |
+| Run DX experiments safely | `experimentation-engineer` |
+| Make developer surfaces accessible | `accessibility-dx` |
+| Keep performance within budgets | `performance-engineer` |
+| Author production-grade examples | `reference-application-engineer` |
+| Generate project/connector templates | `golden-path-scaffolder` |
+| Make IDEs excellent | `ide-experience` |
+| Author fixtures and test data | `test-data-and-fixtures` |
+| Remove dashboard/portal friction | `web-console-dx` |
 
 ## The core standards
 
 Every skill references the same shared thresholds from `dx-standards/` (synced into each skill's `references/standards.md`):
 
-| Standard | Value | Meaning |
+| SLO | Value | Owned by |
 |---|---|---|
-| Magic path | **≤15 min** | a brand-new developer with zero product knowledge reaches a verified, meaningful, end-to-end product outcome |
-| Local development | **≤10 min** | a clean clone reaches the productive state (tests run, dev loop exercised) |
-| Community onboarding | **≤30 min** | a competent developer reaches a contribution ready for maintainer review (implementation time excluded) |
-| First contribution | **≤30 min** | fork to first PR-ready change (target, not a hard gate) |
-| Architecture comprehension | **≤30 min** | explain where a feature belongs and trace one request end-to-end |
-| Time to Recovery | **≤5 min** | from hitting an expected error to completing its corrective action |
+| Magic path | **≤15 min** | `developer-onboarding` (design) / `developer-experience-auditor` (measure) |
+| Local development | **≤10 min** | `local-development` |
+| Community onboarding | **≤30 min** | `developer-community-auditor` |
+| Architecture comprehension | **≤30 min** | `architecture-experience` |
+| Time to Recovery | **≤5 min** | `error-experience` |
+| Feedback budgets | 2s–10min per loop | `developer-workflow-auditor` |
+| Community response SLOs | P50/P90 per channel | `developer-community-auditor` |
 
-Hard gates carry names: `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`, and the community gates (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `STALE_GOOD_FIRST_ISSUES`, and more). The full SLO table with owning skills lives in `dx-standards/slo.md`.
+Hard gates carry names — `BROKEN_QUICKSTART`, `NON_REPRODUCIBLE_BUILD`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `SDK_API_DRIFT`, `UNTESTED_SUPPORTED_VERSION`, and the community gates (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `STALE_GOOD_FIRST_ISSUES`, `UNACKNOWLEDGED_PRS`, `NO_LICENSE`, and more). The full SLO table with every constant and owner lives in `dx-standards/slo.md`.
 
-Evidence is always labeled **Observed**, **CI-observed**, or **Estimated**. An estimate can never prove a PASS. Verdicts are exactly **PASS**, **PASS WITH DEBT**, **FAIL**, or **UNVERIFIED**, and a high score can never override a failing gate.
+Evidence is labeled **Observed**, **CI-observed**, or **Estimated**; an estimate can never prove a PASS. Verdicts are exactly **PASS**, **PASS WITH DEBT**, **FAIL**, or **UNVERIFIED**, and a high score never overrides a failing gate.
 
 ### The core standard: magic in 15 minutes
 
@@ -49,6 +96,8 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `reference-application-engineer` | Production-grade reference apps demonstrating the nine mandatory concerns |
 | `developer-economics` | Pricing, limits, and quotas as predictable API behavior |
 
+Tools: `check_catalog_metadata.py`, `estimate_architecture_path.py`, `check_quota_surface.py`, `check_reference_app.py`
+
 ### Build
 
 | Skill | One-liner |
@@ -65,6 +114,8 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `accessibility-dx` | Accessible docs, portals, consoles, terminals: no red/green-only signaling |
 | `agent-native-dx` | Make products excellent for coding agents: AGENTS.md, schemas, structured output |
 
+Tools: `check_openapi_shape.py`, `guessability_check.py`, `check_parity.py`, `check_local_dev.py`, `check_ide_config.py`, `check_fixture_hygiene.py`, `audit_feedback_loops.py`, `check_cli_colors.py`
+
 ### Validate
 
 | Skill | One-liner |
@@ -75,6 +126,8 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `dependency-health` | Dependencies as policy: inventory, classification, upgrade cadence |
 | `security-supply-chain` | Harden OSS posture: SECURITY.md, workflow permissions, signing, SBOM, SAST |
 | `sandbox-experience` | Safe experimentation: sandbox coverage gate for risky learning tasks |
+
+Tools: `assess_test_suite.py`, `check_certifications.py`, `check_dependency_health.py`, `check_sandbox_coverage.py`
 
 ### Ship & Operate
 
@@ -91,6 +144,8 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `policy-experience` | Policy-as-code, guardrails, self-service exceptions, actionable violations |
 | `web-console-dx` | Console friction audit: automation parity for every UI operation |
 
+Tools: `classify_diff.py`, `scan_compat_consumers.py`, `check_compat_matrix.py`, `check_trust_surface.py`, `check_change_notices.py`, `check_environment_lifecycle.py`, `scan_support_channels.py`, `check_403_explanations.py`, `check_policy_actionability.py`, `check_console_ops.py`
+
 ### Participate & Extend
 
 | Skill | One-liner |
@@ -98,6 +153,8 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `developer-community` | Contribution-system design: governance, onboarding, recognition, operations |
 | `contributor-experience` | First contribution <30 min: funnel, guidance files, check parity |
 | `extensibility-engineer` | Plugin/connector/hook author experience: stability, isolation, scaffolding |
+
+Tools: `scan_community_surface.py`, `check_contributor_funnel.py`, `check_extension_surface.py`
 
 ### Measure & Improve
 
@@ -109,32 +166,9 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 | `experimentation-engineer` | DX experiments: quickstarts, CLI variants, onboarding flows |
 | `performance-engineer` | Performance budgets: benchmark, profile, bisect, gate regressions |
 
+Tools: `journey_runner.py`, `magic_path_runner.py`, `cluster_feedback.py`, `check_community_health.py`, `check_experiment_metrics.py`, `check_perf_budgets.py`
+
 The canonical domain map lives in `dx-standards/domains.md`.
-
-## Repository layout
-
-```text
-devex-skills/
-├── README.md
-├── LICENSE
-├── CHANGELOG.md
-├── .claude-plugin/plugin.json
-├── dx-standards/                 # canonical standards: source of truth
-│   ├── principles.md  metrics.md  severity.md  release-gates.md
-│   ├── compatibility.md  terminology.md  community.md  slo.md  domains.md
-│   ├── magic-path.md  api-dx.md  sdks.md  lifecycle.md  llm-ready-docs.md  style.md
-│   ├── inventory_docs.py
-│   ├── sync-map.json             # maps standards sections to skill files
-│   └── README.md
-├── scripts/
-│   ├── sync-standards.py         # distribute standards into skills
-│   ├── validate_skills.py        # suite structural lint
-│   └── smoke_skills.py           # per-skill fixture smoke tests
-├── .github/workflows/ci.yml      # drift + structure + smoke enforcement
-└── skills/                       # 42 self-contained skill directories
-```
-
-There is intentionally **no README inside any skill directory**. Agent Skills use `SKILL.md` as the entry point; the repository-level README is for humans browsing the OSS project.
 
 ## Install
 
@@ -187,46 +221,34 @@ Copy each skill directory as-is into the client's Agent Skills directory. Each c
 
 ### Community loop
 
-Design the contribution system with `developer-community`, keep the funnel healthy with `contributor-experience`, and measure it continuously with `developer-community-auditor` — repeated questions feed `developer-docs`; unexplained errors feed `error-experience`; confusing configuration feeds `configuration-dx`. The suite is a continuous improvement system, not a collection of prompts.
+Design the contribution system with `developer-community`, keep the funnel healthy with `contributor-experience`, and measure it continuously with `developer-community-auditor`. Repeated questions feed `developer-docs`; unexplained errors feed `error-experience`; confusing configuration feeds `configuration-dx`. The suite is a continuous improvement system, not a collection of prompts.
 
-## Deterministic tools
+### Feedback loops
 
-| Tool | Skill | Purpose |
-|---|---|---|
-| `magic_path_runner.py` | docs-auditor | Execute and time a magic-path manifest (`--execute` opt-in, no shell) |
-| `journey_runner.py` | experience-auditor | Orchestrate the 14-stage journey and produce timing/counts |
-| `estimate_magic_path.py` | onboarding | Estimate a design against `MAGIC_PATH_MAX_MIN` without executing |
-| `check_openapi_shape.py` / `guessability_check.py` | api-design-reviewer | Structural OpenAPI lint and convention candidates |
-| `check_parity.py` | sdk-engineer | Find operations missing from an SDK source tree |
-| `check_local_dev.py` | local-development | Inventory setup surfaces (never fails) |
-| `error_inventory.py` | error-experience | Catalog error sources by surface |
-| `assess_test_suite.py` | quality-engineer | Map test coverage to system-type gaps |
-| `classify_diff.py` / `scan_compat_consumers.py` | release-guardian | Heuristic change classification and consumer scan |
-| `check_community_health.py` | community-auditor | Community Health Score and gate checks |
-| `scan_community_surface.py` | developer-community | Community files inventory vs stage |
-| `audit_feedback_loops.py` | workflow-auditor | Feedback budgets vs measured loops |
-| `check_sandbox_coverage.py` | sandbox-experience | Risky-task sandbox coverage |
-| `estimate_architecture_path.py` | architecture-experience | Hop-count comprehension estimate (Estimated label) |
-| `check_catalog_metadata.py` | discoverability | Catalog entry validation |
-| `scan_support_channels.py` | developer-support | Support routing inventory |
-| `check_403_explanations.py` | access | 403-explanation standard checker |
-| `check_extension_surface.py` | extensibility | Extension surface inventory |
-| `check_quota_surface.py` | economics | Quota visibility and cost estimation |
-| `check_environment_lifecycle.py` | environment-lifecycle | Environment surface and TTL inventory |
-| `check_change_notices.py` | change-awareness | Unnoted deprecation/breaking markers |
-| `check_trust_surface.py` | operational-trust | Trust artifact inventory |
-| `check_fixture_hygiene.py` | test-data | Fixture PII/secret hygiene (redacted output) |
-| `check_ide_config.py` | ide-experience | launch/tasks vs build commands |
-| `check_policy_actionability.py` | policy-experience | Violation actionability checker |
-| `check_console_ops.py` | web-console-dx | Automation-parity manifest |
-| `check_experiment_metrics.py` | experimentation | Experiment manifest validation |
-| `check_cli_colors.py` | accessibility-dx | Color-only signaling scanner |
-| `check_reference_app.py` | reference-app | Nine-concern coverage checker |
-| `sync-standards.py` | repo | Distribute `dx-standards/` into skill `references/`; `--check` detects drift |
-| `validate_skills.py` | repo | Structural lint: plugin/directory/frontmatter agreement, domains, versions |
-| `smoke_skills.py` | repo | Per-skill fixture smoke tests declared in `assets/smoke.json` |
+`developer-feedback-analyst` clusters behavior signals into journeys; `experimentation-engineer` tests candidate fixes safely; `developer-workflow-auditor` protects the inner loop while you work. Each skill hands findings to the surface skill that owns the fix, with evidence and an acceptance test.
 
-For snippets, schemas, SDKs, CLI help, and integration examples, prefer the target project's actual compiler, test runner, schema tooling, code generator, and sandbox infrastructure.
+## Repository layout
+
+```text
+devex-skills/
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── .claude-plugin/plugin.json
+├── dx-standards/                 # canonical standards: source of truth
+│   ├── principles.md  metrics.md  severity.md  release-gates.md
+│   ├── compatibility.md  terminology.md  community.md  slo.md  domains.md
+│   ├── magic-path.md  api-dx.md  sdks.md  lifecycle.md  llm-ready-docs.md  style.md
+│   ├── inventory_docs.py
+│   ├── sync-map.json             # maps standards sections to skill files
+│   └── README.md
+├── scripts/
+│   ├── sync-standards.py         # distribute standards into skills
+│   ├── validate_skills.py        # suite structural lint
+│   └── smoke_skills.py           # per-skill fixture smoke tests
+├── .github/workflows/ci.yml      # drift + structure + smoke enforcement
+└── skills/                       # 42 self-contained skill directories
+```
 
 ## Shared standards and sync
 
@@ -237,7 +259,7 @@ python3 scripts/sync-standards.py           # regenerate all targets
 python3 scripts/sync-standards.py --check   # exit 1 on drift
 ```
 
-Generated files carry a header — never hand-edit them. Change the source in `dx-standards/` and re-sync. Hand-written skill references are procedural only; normative numbers always flow through the standards layer. CI enforces sync cleanliness, structural lint, compilation, and fixture smoke tests on every push.
+Generated files carry a header — never hand-edit them. Change the source in `dx-standards/` and re-sync. Hand-written skill references are procedural only; normative numbers always flow through the standards layer. CI enforces sync cleanliness, structural lint, compilation, and fixture smoke tests on every push. See `CHANGELOG.md` for release history.
 
 ## Contributing
 
