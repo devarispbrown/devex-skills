@@ -46,7 +46,23 @@ Claude invokes skills automatically from their descriptions, or explicitly with 
 
 **Manual copy**: every skill directory is self-contained (including its generated `references/standards.md`), so any subset can be copied into `<your-repo>/.claude/skills/<skill-name>/` or `~/.claude/skills/<skill-name>/`, or into any Agent Skills-compatible client. Cross-skill references are by name only ("if available"), so a skill installed alone still works.
 
-**First day**: install, then ask Claude to run `developer-experience-auditor` on your repository. In a few minutes you get a DX Report — per-area scores, gate failures, and a prioritized backlog with owners. Fix the P1s using the surface skills below, re-run the audit, and watch the number move. That loop, applied surface by surface, is the whole methodology.
+## The 10-minute quickstart
+
+Don't read the rest of this page yet. Three steps:
+
+1. Install the plugin (commands above).
+2. Ask Claude: "run `developer-experience-auditor` on this repo."
+3. Read the DX Report.
+
+That's the lay of the land. You do not need to learn forty-two skills — you need one. The report gives you a verdict, magic-path timing, per-area scores, and a prioritized backlog of gate failures, and every P1 names the skill that fixes it. That's how you discover the rest of the suite: by the problem in front of you, not by the catalog.
+
+Then it's a loop:
+
+- **Fix** the P1s with the named skills.
+- **Re-run** the auditor and watch the score move.
+- **Gate every release** with `release-guardian` and `developer-docs-auditor`; a release fails when a hard gate fails.
+
+Running an open-source project? Same pattern: start with `developer-community-auditor` instead. The Community Health Report works exactly the same way — gates, owners, backlog.
 
 ## Skills by surface
 
