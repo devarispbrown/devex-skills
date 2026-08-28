@@ -278,9 +278,9 @@ def check_gates(d, c):
     results = [
         gate("NO_CONTRIBUTING_WHILE_WELCOMING", "P1", welcomes and not files.get("contributing")),
         gate("NO_CODE_OF_CONDUCT", "P1", stage >= 1 and not files.get("code_of_conduct")),
-        gate("UNRESPONSIVE_ISSUES", "P1", r.get("issue_first_response_p50_h") is not None and r["issue_first_response_p50_h"] > c["COMMUNITY_ISSUE_RESPONSE_P50_H"]),
-        gate("UNREVIEWED_FIRST_PR", "P1", r.get("first_pr_review_p50_h") is not None and r["first_pr_review_p50_h"] > c["COMMUNITY_FIRST_PR_REVIEW_P50_H"]),
-        gate("BROKEN_CONTRIBUTION_PATH", "P1", journey.get("contribution_path_minutes") is not None and journey["contribution_path_minutes"] > c["COMMUNITY_ONBOARDING_PATH_MAX_MIN"]),
+        gate("UNRESPONSIVE_ISSUES", "P1", r.get("issue_first_response_p50_h") is not None and num(r, "issue_first_response_p50_h") > c["COMMUNITY_ISSUE_RESPONSE_P50_H"]),
+        gate("UNREVIEWED_FIRST_PR", "P1", r.get("first_pr_review_p50_h") is not None and num(r, "first_pr_review_p50_h") > c["COMMUNITY_FIRST_PR_REVIEW_P50_H"]),
+        gate("BROKEN_CONTRIBUTION_PATH", "P1", journey.get("contribution_path_minutes") is not None and num(journey, "contribution_path_minutes") > c["COMMUNITY_ONBOARDING_PATH_MAX_MIN"]),
         gate("DEAD_END_COMMUNITY", "P1", num(activity, "non_maintainer_prs_submitted_90d") > 0 and num(activity, "non_maintainer_prs_merged_90d") <= 0),
         gate("OPAQUE_GOVERNANCE", "P1", stage >= 2 and (not files.get("governance") or not files.get("ladder") or gov_q < 0.5)),
         gate("STALE_GOOD_FIRST_ISSUES", "P1", num(issues, "stale_good_first_issues") > 0 or num(issues, "queued_newcomer_prs_unreviewed") > 0),
@@ -314,7 +314,12 @@ def main():
     ap.add_argument("input", help="path to the community-health JSON (see assets/community-health.example.json)")
     a = ap.parse_args()
 
-    d = json.loads(Path(a.input).read_text())
+    try:
+        d = json.loads(Path(a.input).read_text())
+    except (OSError, ValueError) as e:
+        raise SystemExit(f'ERROR: cannot read {a.input}: {e}')
+    if not isinstance(d, dict):
+        raise SystemExit(f'ERROR: {a.input} must contain a JSON object')
     c = dict(CONSTANTS)
     c.update(d.get("constants", {}))
 

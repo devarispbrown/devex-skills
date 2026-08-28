@@ -164,6 +164,9 @@ def main() -> int:
                 failures.append(f'domains.md: skill {name} not mapped to a domain')
             elif count > 1:
                 failures.append(f'domains.md: skill {name} appears in {count} rows')
+        claimed = sum(int(m.group(1)) for m in re.finditer(r'^\| [A-Za-z &]+ \((\d+)\) \|', dtext, re.M))
+        if claimed != len(skill_names):
+            failures.append(f'domains.md: domain counts sum to {claimed}, plugin has {len(skill_names)}')
 
     # cross-check: every skills/ dir listed in plugin.json
     for d in sorted((ROOT / 'skills').glob('*')):
