@@ -66,7 +66,7 @@ Non-code rungs: <triage, docs, testing, design, support paths to the same rungs>
 
 - [ ] stage detected from ratio indicators with labeled evidence
 - [ ] every funnel step has an artifact and an acceptance criterion
-- [ ] seven standards files designed against their quality questions
+- [ ] eight standards files designed against their quality questions
 - [ ] governance model stage-appropriate; ladder includes promotion and removal
 - [ ] recognition covers code and non-code labor
 - [ ] operations plan names owners and failure signals
