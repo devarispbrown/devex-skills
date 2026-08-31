@@ -4,7 +4,7 @@ description: Make developer surfaces accessible: docs, portals, consoles, termin
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the surfaces to audit.
 metadata:
-  version: "2.3.1"
+  version: "2.3.2"
 ---
 
 # Developer-Surface Accessibility

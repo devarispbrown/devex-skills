@@ -4,7 +4,7 @@ description: Review an API as a product beyond OpenAPI syntax: resource modeling
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the API contract (OpenAPI/Proto).
 metadata:
-  version: "2.3.1"
+  version: "2.3.2"
 ---
 
 # API Design Reviewer

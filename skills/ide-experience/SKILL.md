@@ -4,7 +4,7 @@ description: Make IDEs and editors excellent: VS Code and JetBrains configuratio
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and IDE configuration.
 metadata:
-  version: "2.3.1"
+  version: "2.3.2"
 ---
 
 # IDE Experience

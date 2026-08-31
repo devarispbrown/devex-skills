@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.2 - 2026-08-31
+
+- Added `.claude-plugin/marketplace.json`. Without it, the documented `claude plugin marketplace add devarispbrown/devex-skills` failed with `Marketplace file not found`, so the plugin could not be installed by the README's own instructions. The manifest publishes `developer-docs-skills` from the repository root, making the install path work as written.
+- Repository layout section of the README now lists the marketplace manifest alongside `plugin.json`.
+
 ## 2.3.1 - 2026-08-28
 
 - Community gap closure: `UNACKNOWLEDGED_PRS` (max-days constant) and `NO_LICENSE` gates; LICENSE joins the community standards files as an eighth scored file.
