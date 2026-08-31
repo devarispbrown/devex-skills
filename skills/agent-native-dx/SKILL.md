@@ -4,7 +4,7 @@ description: Make a product excellent for coding agents: AGENTS.md/CLAUDE.md qua
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.3.1"
+  version: "2.3.2"
 ---
 
 # Agent-Native DX

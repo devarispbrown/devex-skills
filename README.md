@@ -222,7 +222,9 @@ devex-skills/
 ├── README.md
 ├── LICENSE
 ├── CHANGELOG.md
-├── .claude-plugin/plugin.json
+├── .claude-plugin/
+│   ├── marketplace.json          # marketplace manifest: makes the repo installable
+│   └── plugin.json               # plugin manifest: the 42 skill entries
 ├── dx-standards/                 # canonical standards: source of truth
 │   ├── principles.md  metrics.md  severity.md  release-gates.md
 │   ├── compatibility.md  terminology.md  community.md  slo.md  domains.md

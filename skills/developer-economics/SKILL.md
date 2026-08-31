@@ -4,7 +4,7 @@ description: Treat pricing, limits, and quotas as API behavior: rate limits, usa
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and billing/usage data.
 metadata:
-  version: "2.3.1"
+  version: "2.3.2"
 ---
 
 # Developer Economics
