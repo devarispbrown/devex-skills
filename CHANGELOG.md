@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.0 - 2026-09-02
+
+- Added `skills/agent-native-dx/scripts/agent_trial_scorer.py`: an offline, deterministic scorer for pre-registered agent trials. It validates that a trial was registered before it was run, computes `u` (the share of distinct failure modes the registered coverage corpus does not catch), and applies the decision rule from `AGENT-DX-PROPOSAL.md`. It refuses to emit a verdict for an unregistered trial rather than scoring it anyway.
+- Added `skills/agent-native-dx/references/trial-protocol.md`: the operator procedure for running a trial. Pre-registration fields, the enumerated coverage corpus, the classification codebook with worked examples, the second-rater sample, the `agent-trial-log/v1` schema, the decision rule, threats to validity, and cost.
+- Added two synthetic trial-log fixtures and `assets/smoke.json`, so the scorer is exercised by `scripts/smoke_skills.py` on every push. Neither fixture names a real product.
+- The live driver that executes agents is deliberately not a script. It cannot run in CI: every script here is stdlib-only and offline, and GitHub withholds secrets from fork `pull_request` runs, so a keyed driver could never gate a contributor pull request. Execution stays an operator activity, as magic-path timing already is.
+
 ## 2.3.2 - 2026-08-31
 
 - Added `.claude-plugin/marketplace.json`. Without it, the documented `claude plugin marketplace add devarispbrown/devex-skills` failed with `Marketplace file not found`, so the plugin could not be installed by the README's own instructions. The manifest publishes `developer-docs-skills` from the repository root, making the install path work as written.

@@ -4,7 +4,7 @@ description: Make a product excellent for coding agents: AGENTS.md/CLAUDE.md qua
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Agent-Native DX
@@ -89,6 +89,43 @@ For each gap, produce a prioritized improvement:
 4. State how to verify the change with an agent-visible signal.
 
 Do not recommend prose that merely describes the gap. Recommend the product change that removes it.
+
+## Agent trials
+
+Auditing the surfaces is not the same as observing an agent fail. A trial runs an
+agent against a target repository and records what actually happened, so findings rest
+on observation rather than inspection.
+
+Read `references/trial-protocol.md` before running or scoring a trial. It defines
+pre-registration, the coverage corpus, the classification codebook, the second-rater
+sample, the trial log format, and the decision rule.
+
+The work splits in two, and the split is not optional:
+
+- The **live driver** is an operator procedure. It executes an agent, N >= 5 per
+  repository and task, and writes a trial log. It never runs in CI. Scripts in this
+  repository are stdlib-only and offline, CI compiles every script and smoke-tests
+  committed fixtures, and GitHub withholds secrets from fork `pull_request` runs, so a
+  keyed driver could never gate a contributor pull request.
+- The **scorer** is `scripts/agent_trial_scorer.py`. It consumes a trial log offline
+  and deterministically, validates that the trial was pre-registered, and applies the
+  decision rule. A trial scored without a complete registration is not evidence, and
+  the scorer refuses it rather than reporting a verdict.
+
+Run it against the worked example:
+
+```
+python3 scripts/agent_trial_scorer.py assets/trial-log.example.json
+```
+
+`assets/trial-log.unregistered.json` is the counterpart fixture: a trial that cannot be
+scored because it was never registered. Both fixtures are synthetic and name no real
+product.
+
+The scorer reports `u`, the share of distinct failure modes the registered coverage
+corpus does not catch. Attribution to the nine problem classes is reported alongside it
+and never decides coverage: those classes are exhaustive by construction, so treating a
+successful classification as coverage would drive `u` to zero mechanically.
 
 ## Agent-entry contract
 

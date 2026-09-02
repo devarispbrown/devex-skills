@@ -4,7 +4,7 @@ description: Accelerate mental-model formation: module boundaries, dependency di
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and code navigation tooling.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Architecture Experience

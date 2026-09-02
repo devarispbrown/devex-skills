@@ -1,0 +1,10 @@
+{
+  "agent_trial_scorer.py": {
+    "clean": [
+      "trial-log.example.json"
+    ],
+    "broken": [
+      "trial-log.unregistered.json"
+    ]
+  }
+}

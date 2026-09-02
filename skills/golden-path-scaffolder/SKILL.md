@@ -4,7 +4,7 @@ description: Turn repeated development workflows into generators: detect pattern
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the project's build/template tooling.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Golden Path Scaffolder

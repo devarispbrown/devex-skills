@@ -1,0 +1,458 @@
+{
+  "schema": "agent-trial-log/v1",
+  "_comment": "Illustrative fixture. Synthetic data, not a real trial. Repositories are placeholders.",
+  "registration": {
+    "registered_at": "2026-09-15",
+    "registration_url": "https://github.com/devarispbrown/devex-skills/pull/0",
+    "repositories": [
+      "example/target-01",
+      "example/target-02",
+      "example/target-03",
+      "example/target-04",
+      "example/target-05",
+      "example/target-06",
+      "example/target-07",
+      "example/target-08"
+    ],
+    "task_prompts": [
+      {
+        "id": "t1",
+        "prompt": "Install this product and reach a verified end-to-end outcome."
+      },
+      {
+        "id": "t2",
+        "prompt": "Authenticate and make one successful API call."
+      },
+      {
+        "id": "t3",
+        "prompt": "Trigger a documented error and recover from it."
+      }
+    ],
+    "model": "example-model",
+    "checkpoint": "example-checkpoint-2026-09-01",
+    "temperature": 0,
+    "harness": "example-harness",
+    "tool_set": [
+      "read",
+      "write",
+      "shell",
+      "http"
+    ],
+    "codebook_version": "codebook/v1",
+    "coverage_corpus": [
+      "release-gates.md#gate-identifiers",
+      "community.md#gates",
+      "metrics.md#thresholds",
+      "skill-contracts"
+    ]
+  },
+  "runs": [
+    {
+      "repository": "example/target-01",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-01",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-01",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-02",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-02",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-02",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-03",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-03",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-03",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-04",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-04",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-04",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-05",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-05",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-05",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-06",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-06",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-06",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-07",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-07",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-07",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-08",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-08",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "example/target-08",
+      "task": "t3",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "pass",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    }
+  ],
+  "failure_modes": [
+    {
+      "id": "fm-01",
+      "summary": "quickstart command fails on a clean checkout",
+      "covered_by": "BROKEN_QUICKSTART",
+      "problem_class": "Documentation",
+      "occurrences": 4
+    },
+    {
+      "id": "fm-02",
+      "summary": "error message states no corrective action",
+      "covered_by": "UNEXPLAINED_ERROR",
+      "problem_class": "Product",
+      "occurrences": 5
+    },
+    {
+      "id": "fm-03",
+      "summary": "API key can only be created in the web dashboard",
+      "covered_by": "MAGIC_PATH_MAX_CREDENTIALS",
+      "problem_class": "Product",
+      "occurrences": 3
+    },
+    {
+      "id": "fm-04",
+      "summary": "generated reference disagrees with current response shape",
+      "covered_by": "STALE_PUBLIC_REFERENCE",
+      "problem_class": "Documentation",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-05",
+      "summary": "destructive command has no dry-run",
+      "covered_by": "cli-designer#destructiveness-contract",
+      "problem_class": "CLI",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-06",
+      "summary": "console operation has no API equivalent",
+      "covered_by": "web-console-dx#automation-parity",
+      "problem_class": "Product",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-07",
+      "summary": "SDK missing an operation the API documents",
+      "covered_by": "SDK_API_DRIFT",
+      "problem_class": "SDK",
+      "occurrences": 1
+    },
+    {
+      "id": "fm-08",
+      "summary": "install path broken on the documented platform",
+      "covered_by": "BROKEN_CANONICAL_INSTALL",
+      "problem_class": "Environment",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-09",
+      "summary": "example hardcodes a credential",
+      "covered_by": "UNSAFE_EXAMPLES",
+      "problem_class": "Documentation",
+      "occurrences": 1
+    },
+    {
+      "id": "fm-10",
+      "summary": "breaking change shipped with no migration note",
+      "covered_by": "UNDOCUMENTED_BREAKING_API",
+      "problem_class": "API",
+      "occurrences": 1
+    },
+    {
+      "id": "fm-11",
+      "summary": "clean clone cannot reach a productive state",
+      "covered_by": "NON_REPRODUCIBLE_BUILD",
+      "problem_class": "Infrastructure",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-12",
+      "summary": "tool description does not distinguish two similar tools",
+      "covered_by": null,
+      "problem_class": "Product",
+      "occurrences": 4
+    },
+    {
+      "id": "fm-13",
+      "summary": "response embeds third-party text with no provenance marker",
+      "covered_by": null,
+      "problem_class": "API",
+      "occurrences": 3
+    },
+    {
+      "id": "fm-14",
+      "summary": "list response truncates with no pagination cursor",
+      "covered_by": null,
+      "problem_class": "API",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-15",
+      "summary": "tool argument schema accepts a shape the endpoint rejects",
+      "covered_by": null,
+      "problem_class": "API",
+      "occurrences": 2
+    },
+    {
+      "id": "fm-16",
+      "summary": "agent retries a non-idempotent write after a timeout",
+      "covered_by": null,
+      "problem_class": "Product",
+      "occurrences": 3
+    }
+  ],
+  "second_rater": {
+    "sample_fraction": 0.2,
+    "sampled": 4,
+    "disagreements": 1
+  }
+}

@@ -4,7 +4,7 @@ description: Design plugin, provider, connector, middleware, and hook author exp
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the extension architecture.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Extensibility Engineer

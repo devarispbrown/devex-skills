@@ -4,7 +4,7 @@ description: Design the communication layer of change: changelogs, release notes
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git access and release communication channels.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Change Awareness

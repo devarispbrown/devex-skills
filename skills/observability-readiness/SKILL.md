@@ -4,7 +4,7 @@ description: Make production failures diagnosable: logs, metrics, traces, profil
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and runtime/telemetry context.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Observability Readiness

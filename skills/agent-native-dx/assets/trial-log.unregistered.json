@@ -1,0 +1,51 @@
+{
+  "schema": "agent-trial-log/v1",
+  "_comment": "Illustrative fixture: a trial that cannot be scored because it was never pre-registered.",
+  "registration": {
+    "registered_at": "2026-09-15",
+    "repositories": [
+      "example/target-01"
+    ],
+    "task_prompts": [
+      {
+        "id": "t1",
+        "prompt": "Install this product."
+      }
+    ],
+    "temperature": 0,
+    "tool_set": [
+      "read",
+      "shell"
+    ],
+    "coverage_corpus": []
+  },
+  "runs": [
+    {
+      "repository": "example/target-01",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "fail",
+        "pass",
+        "fail",
+        "pass"
+      ]
+    }
+  ],
+  "failure_modes": [
+    {
+      "id": "fm-01",
+      "summary": "quickstart command fails",
+      "problem_class": "Documentation",
+      "occurrences": 3
+    },
+    {
+      "id": "fm-01",
+      "summary": "duplicate identifier",
+      "covered_by": null,
+      "problem_class": "Product",
+      "occurrences": 1
+    }
+  ]
+}
