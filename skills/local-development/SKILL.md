@@ -4,7 +4,7 @@ description: Make a fresh repository clone productive in 10 minutes or less: run
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and build tooling.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Local Development Setup and Repair

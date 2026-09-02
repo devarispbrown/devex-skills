@@ -4,7 +4,7 @@ description: Design and audit the error experience across APIs, CLIs, SDKs, diag
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access to the product's error surfaces.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Error Experience Design and Audit

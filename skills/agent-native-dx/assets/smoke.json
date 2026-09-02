@@ -1,0 +1,19 @@
+{
+  "agent_trial_scorer.py": {
+    "clean": [
+      "trial-log.example.json",
+      "--expect",
+      "INCONCLUSIVE"
+    ],
+    "broken": [
+      "trial-log.unregistered.json"
+    ],
+    "clean_exit": 1
+  },
+  "check_decision_rule.py": {
+    "clean": []
+  },
+  "check_protocol_example.py": {
+    "clean": []
+  }
+}

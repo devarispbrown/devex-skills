@@ -4,7 +4,7 @@ description: Manage dependencies as policy: why each exists, removability, maint
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and package manifest tooling.
 metadata:
-  version: "2.3.2"
+  version: "2.4.0"
 ---
 
 # Dependency Health
