@@ -1,6 +1,6 @@
 {
   "schema": "agent-trial-log/v1",
-  "_comment": "Illustrative fixture. Synthetic data, not a real trial. Repositories are placeholders.",
+  "_comment": "Illustrative fixture. Synthetic data, not a real trial. The uncovered set is deliberately unrelated to any skill this suite is considering, so the worked example does not rehearse a conclusion.",
   "registration": {
     "registered_at": "2026-09-15",
     "registration_url": "https://github.com/devarispbrown/devex-skills/pull/0",
@@ -416,35 +416,35 @@
     },
     {
       "id": "fm-12",
-      "summary": "tool description does not distinguish two similar tools",
-      "covered_by": null,
+      "summary": "agent retries a non-idempotent write after a timeout",
+      "covered_by": "agent-native-dx#automation-safety-contract",
       "problem_class": "Product",
       "occurrences": 4
     },
     {
       "id": "fm-13",
-      "summary": "response embeds third-party text with no provenance marker",
+      "summary": "CI job name differs from the documented one, agent runs the wrong suite",
       "covered_by": null,
-      "problem_class": "API",
+      "problem_class": "Documentation",
       "occurrences": 3
     },
     {
       "id": "fm-14",
-      "summary": "list response truncates with no pagination cursor",
+      "summary": "two config files set the same key and precedence is undocumented",
       "covered_by": null,
-      "problem_class": "API",
+      "problem_class": "Configuration",
       "occurrences": 2
     },
     {
       "id": "fm-15",
-      "summary": "tool argument schema accepts a shape the endpoint rejects",
+      "summary": "build succeeds but emits no artifact path the agent can find",
       "covered_by": null,
-      "problem_class": "API",
+      "problem_class": "Infrastructure",
       "occurrences": 2
     },
     {
       "id": "fm-16",
-      "summary": "agent retries a non-idempotent write after a timeout",
+      "summary": "test runner exits 0 with failures reported only on stderr",
       "covered_by": null,
       "problem_class": "Product",
       "occurrences": 3
@@ -452,7 +452,7 @@
   ],
   "second_rater": {
     "sample_fraction": 0.2,
-    "sampled": 4,
+    "sampled": 8,
     "disagreements": 1
   }
 }

@@ -122,8 +122,19 @@ python3 scripts/agent_trial_scorer.py assets/trial-log.example.json
 scored because it was never registered. Both fixtures are synthetic and name no real
 product.
 
-The scorer reports `u`, the share of distinct failure modes the registered coverage
-corpus does not catch. Attribution to the nine problem classes is reported alongside it
+`scripts/check_decision_rule.py` pins the bands, both inclusive edges, and the
+minimum-sample guard, so a change to the rule cannot pass silently.
+`scripts/check_protocol_example.py` runs the example inside
+`references/trial-protocol.md` through the same validator, so the documented format
+cannot drift from the code.
+
+The verdicts ALREADY-COVERED and REAL-GAP answer one question specific to this suite:
+whether it should add a skill for agent-facing surfaces. A team auditing their own
+product should read the uncovered inventory, which names real defects in their
+product, and ignore the verdict, which is about this repository's roadmap.
+
+The scorer reports the share of distinct failure modes the registered coverage corpus
+does not catch. Attribution to the nine problem classes is reported alongside it
 and never decides coverage: those classes are exhaustive by construction, so treating a
 successful classification as coverage would drive `u` to zero mechanically.
 
