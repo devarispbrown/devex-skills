@@ -17,15 +17,26 @@
     "task_prompts": [
       {
         "id": "t1",
-        "prompt": "Install this product and reach a verified end-to-end outcome."
+        "prompt": "Install this product and reach a verified end-to-end outcome.",
+        "verify": [
+          "make",
+          "verify"
+        ]
       },
       {
         "id": "t2",
-        "prompt": "Authenticate and make one successful API call."
+        "prompt": "Authenticate and make one successful API call.",
+        "verify": [
+          "./scripts/smoke.sh"
+        ]
       },
       {
         "id": "t3",
-        "prompt": "Trigger a documented error and recover from it."
+        "prompt": "Trigger a documented error and recover from it.",
+        "verify": [
+          "make",
+          "recover-check"
+        ]
       }
     ],
     "model": "example-model",
@@ -44,6 +55,12 @@
       "community.md#gates",
       "metrics.md#thresholds",
       "skill-contracts"
+    ],
+    "harness_command": [
+      "example-agent",
+      "--headless",
+      "--prompt",
+      "{prompt}"
     ]
   },
   "runs": [

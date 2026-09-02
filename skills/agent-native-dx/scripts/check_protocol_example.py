@@ -44,13 +44,26 @@ def main():
         failures += bool(problems)
 
         declared = set(example.get('registration', {}))
-        required = set(scorer.REGISTRATION_FIELDS)
+        required = set(scorer.REGISTRATION_FIELDS) | set(scorer.OPTIONAL_REGISTRATION)
         for extra in sorted(declared - required):
             print(f'{DOC.name}: json block {i}: registration.{extra} is documented but the '
                   'scorer does not know it')
             failures += 1
 
-    print(f'{len(blocks)} example(s) checked against {SCORER.name}, {failures} mismatch(es)')
+    # The fenced example is not the only place the format is taught. The prose
+    # checklist is what an operator actually follows, and a JSON-only check cannot
+    # see it going stale.
+    prose = DOC.read_text()
+    checklist = prose.split('## Pre-registration', 1)[-1].split('##', 1)[0]
+    for field in sorted(set(scorer.REGISTRATION_FIELDS) | set(scorer.OPTIONAL_REGISTRATION)):
+        bare = field.replace('_', ' ')
+        if field not in checklist and bare not in checklist:
+            print(f'{DOC.name}: pre-registration checklist does not mention {field!r}, '
+                  'which the scorer reads')
+            failures += 1
+
+    print(f'{len(blocks)} example(s) and the pre-registration checklist checked against '
+          f'{SCORER.name}, {failures} mismatch(es)')
     return 1 if failures else 0
 
 

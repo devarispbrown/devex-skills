@@ -32,6 +32,11 @@ REGISTRATION_FIELDS = {
     'coverage_corpus': 'the standards checked when deciding whether a failure is already covered',
 }
 
+# Fields the driver requires and the scorer accepts but does not demand. Adding one to
+# REGISTRATION_FIELDS would reject logs written under an earlier release, which is a
+# breaking change to the agent-trial-log/v1 contract rather than an addition to it.
+OPTIONAL_REGISTRATION = ('harness_command',)
+
 VERDICTS = {
     'ALREADY-COVERED': (
         'The existing skills already catch these failures.',
@@ -50,6 +55,14 @@ VERDICTS = {
         f'Widen or harden the task set until at least {MIN_DISTINCT_MODES} distinct modes '
         'appear, then re-run. Do not report a share from this trial.'),
 }
+
+
+# Values the scaffold writes. A registration still holding one names nothing real.
+PLACEHOLDERS = {'yyyy-mm-dd', 'https://github.com/owner/repo/pull/n', 'owner/name'}
+
+
+def is_placeholder(v):
+    return isinstance(v, str) and v.strip().lower() in PLACEHOLDERS
 
 
 def problem(code, what, why, where, fix):
@@ -87,11 +100,34 @@ def validate(log):
                 'REGISTRATION_INCOMPLETE', f'Registration is missing {field}.',
                 f'The scorer needs {meaning} to make the result reproducible by someone else.',
                 f'registration.{field}', f'Add "{field}" to the registration and re-publish it.'))
+        elif is_placeholder(reg[field]) or (
+                isinstance(reg[field], list)
+                and any(is_placeholder(x) for x in reg[field])):
+            out.append(problem(
+                'REGISTRATION_PLACEHOLDER', f'Registration field {field} still holds the '
+                'value the scaffold wrote.',
+                'A scaffold placeholder is not a registration. It would make the trial '
+                'look registered while naming nothing real.',
+                f'registration.{field}', f'Replace the placeholder in "{field}" with {meaning}.'))
         elif reg[field] in ('', [], {}, None):
             out.append(problem(
                 'REGISTRATION_INCOMPLETE', f'Registration field {field} is empty.',
                 f'It must state {meaning}.',
                 f'registration.{field}', f'Fill in "{field}" and re-publish the registration.'))
+
+    prompts = reg.get('task_prompts')
+    if isinstance(prompts, list):
+        for i, task in enumerate(prompts):
+            if not isinstance(task, dict):
+                continue
+            if not task.get('verify'):
+                out.append(problem(
+                    'TASK_NO_VERIFY',
+                    f'Task {task.get("id", i)!r} has no verify command.',
+                    'Every outcome in this trial was decided by a verify command. A task '
+                    'without one has no stated basis for calling a session passed or failed.',
+                    f'registration.task_prompts[{i}].verify',
+                    'Record the argument list that decides the outcome, as the driver ran it.'))
 
     modes = log.get('failure_modes')
     if not isinstance(modes, list):
@@ -344,21 +380,20 @@ def scaffold():
             'registered_at': 'YYYY-MM-DD',
             'registration_url': 'https://github.com/OWNER/REPO/pull/N',
             'repositories': ['owner/name'],
-            'task_prompts': [{'id': 't1', 'prompt': 'Install this product and reach a verified outcome.'}],
+            'task_prompts': [{'id': 't1',
+                              'prompt': 'Install this product and reach a verified outcome.',
+                              'verify': ['make', 'smoke']}],
             'model': '', 'checkpoint': '', 'temperature': 0,
-            'harness': '', 'tool_set': ['read', 'shell'],
+            'harness': '', 'harness_command': ['claude', '-p', '{prompt}'],
+            'tool_set': ['read', 'shell'],
             'codebook_version': 'codebook/v1',
             'coverage_corpus': ['release-gates.md#gate-identifiers', 'community.md#gates',
                                 'metrics.md#thresholds', 'skill-contracts'],
         },
-        'runs': [{'repository': 'owner/name', 'task': 't1', 'n': 5,
-                  'outcomes': ['pass', 'fail', 'fail', 'pass', 'fail']}],
-        'failure_modes': [
-            {'id': 'fm-01', 'summary': 'what the agent could not do',
-             'covered_by': 'BROKEN_QUICKSTART', 'problem_class': 'Documentation', 'occurrences': 1},
-            {'id': 'fm-02', 'summary': 'a failure no existing standard catches',
-             'covered_by': None, 'problem_class': 'Product', 'occurrences': 1},
-        ],
+        # Empty on purpose. Invented runs would be read by the driver as sessions
+        # already paid for, and by the scorer as evidence.
+        'runs': [],
+        'failure_modes': [],
         'second_rater': {'sample_fraction': 0.2, 'sampled': 0, 'disagreements': 0},
     }
 

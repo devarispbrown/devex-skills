@@ -4,7 +4,7 @@ description: Build consumer trust in operations: status page, incident communica
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and operational runbooks.
 metadata:
-  version: "2.4.0"
+  version: "2.5.0"
 ---
 
 # Operational Trust

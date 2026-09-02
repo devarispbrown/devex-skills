@@ -1,3 +1,8 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# agent trial artifacts, written at runtime by agent_trial_driver.py
+# transcripts carry raw agent stdout and stderr, which is where credentials surface
+trial-transcripts/
+agent-trial-*/

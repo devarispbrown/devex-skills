@@ -15,5 +15,13 @@
   },
   "check_protocol_example.py": {
     "clean": []
+  },
+  "agent_trial_driver.py": {
+    "clean": [
+      "trial-log.example.json"
+    ],
+    "broken": [
+      "trial-log.unregistered.json"
+    ]
   }
 }

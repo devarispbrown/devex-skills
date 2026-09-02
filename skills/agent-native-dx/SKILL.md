@@ -4,7 +4,7 @@ description: Make a product excellent for coding agents: AGENTS.md/CLAUDE.md qua
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.4.0"
+  version: "2.5.0"
 ---
 
 # Agent-Native DX
@@ -102,11 +102,14 @@ sample, the trial log format, and the decision rule.
 
 The work splits in two, and the split is not optional:
 
-- The **live driver** is an operator procedure. It executes an agent, N >= 5 per
-  repository and task, and writes a trial log. It never runs in CI. Scripts in this
-  repository are stdlib-only and offline, CI compiles every script and smoke-tests
-  committed fixtures, and GitHub withholds secrets from fork `pull_request` runs, so a
-  keyed driver could never gate a contributor pull request.
+- The **live driver** is `scripts/agent_trial_driver.py`. It runs the agent sessions,
+  N >= 5 per repository and task, and writes the trial log. It is dry run by default and
+  executes nothing until `--execute` is passed, matching the gate on `magic_path_runner.py`
+  in `developer-docs-auditor`. It holds no credentials and speaks to no model: it invokes
+  the command in `registration.harness_command`, so the harness under test is whichever
+  agent CLI the operator has installed. It never runs in CI, because GitHub withholds
+  secrets from fork `pull_request` runs and a keyed driver would pass for maintainers and
+  error for everyone else.
 - The **scorer** is `scripts/agent_trial_scorer.py`. It consumes a trial log offline
   and deterministically, validates that the trial was pre-registered, and applies the
   decision rule. A trial scored without a complete registration is not evidence, and
@@ -115,8 +118,13 @@ The work splits in two, and the split is not optional:
 Run it against the worked example:
 
 ```
-python3 scripts/agent_trial_scorer.py assets/trial-log.example.json
+python3 scripts/agent_trial_driver.py assets/trial-log.example.json   # plan, runs nothing
+python3 scripts/agent_trial_scorer.py assets/trial-log.example.json   # verdict and inventory
 ```
+
+Outcome is decided by each task's committed `verify` command, not by reading a
+transcript, and every session runs against a fresh shallow clone in a scratch directory.
+The driver refuses a task with no verify command and refuses an incomplete registration.
 
 `assets/trial-log.unregistered.json` is the counterpart fixture: a trial that cannot be
 scored because it was never registered. Both fixtures are synthetic and name no real

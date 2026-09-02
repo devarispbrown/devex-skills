@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.5.0 - 2026-09-02
+
+- Added `skills/agent-native-dx/scripts/agent_trial_driver.py`: the live driver that runs a pre-registered agent trial and writes its log. Dry run by default, executing nothing until `--execute`, matching the gate on `magic_path_runner.py`. It holds no credentials and speaks to no model: it invokes `registration.harness_command`, so the harness under test is whichever agent CLI the operator has installed and authenticated. Commands run without a shell.
+- Outcome is now decided by a committed command rather than a reading. Each task carries a `verify` argument list that runs in the same working copy after the agent finishes; its exit status decides pass or fail. The driver refuses a task that has no verify command.
+- Each session runs against a fresh shallow clone in a scratch directory, so the operator's own checkouts are untouched. The log is written after every session, so an interrupted trial keeps the sessions it paid for and re-running resumes rather than repeating them.
+- `registration.harness_command` is read by the driver and accepted, but not required, by the scorer. Making it required would have rejected any log written under 2.4.0, which is a breaking change to the `agent-trial-log/v1` format rather than an addition to it. The versioning policy now says so explicitly, since it previously covered command-line contracts and not data formats.
+- `agent_trial_scorer.py --new` now writes empty `runs` and `failure_modes`. It previously shipped invented outcomes, which the driver's resume logic read as sessions already paid for and the scorer read as evidence, so the documented flow produced a verdict from placeholder data.
+- The scorer refuses a registration still holding a scaffold placeholder, and refuses a task with no `verify` command. Every outcome in a trial is decided by a verify command, so a task without one has no stated basis for calling a session passed or failed. The driver already enforced this; the scorer did not, and a hand-written log bypassed it.
+- `check_protocol_example.py` now also checks the prose pre-registration checklist, not just the fenced JSON example. The checklist is what an operator follows, and a JSON-only guard could not see it going stale, which is exactly what had happened.
+- `.gitignore` covers `trial-transcripts/` and scratch clone directories. Transcripts carry raw agent stdout and stderr, which is where credentials surface, and the driver writes them to a relative path by default.
+- `references/trial-protocol.md` gains a Running the trial section. The version bump is a minor per the policy added in `CONTRIBUTING.md`: new capability, nothing existing breaks.
+
 ## 2.4.0 - 2026-09-02
 
 - Added `skills/agent-native-dx/scripts/agent_trial_scorer.py`: an offline, deterministic scorer for pre-registered agent trials. It validates that a trial was registered before it was run, computes `u` (the share of distinct failure modes the registered coverage corpus does not catch), and applies the decision rule from `AGENT-DX-PROPOSAL.md`. It refuses to emit a verdict for an unregistered trial rather than scoring it anyway.
