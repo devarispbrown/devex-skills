@@ -1,0 +1,77 @@
+{
+  "schema": "agent-trial-log/v1",
+  "registration": {
+    "registered_at": "2026-09-03",
+    "registration_url": "PENDING: the pull request that publishes this file",
+    "repositories": [
+      "pallets/click",
+      "psf/requests",
+      "pallets/flask",
+      "python-poetry/cleo",
+      "chalk/chalk",
+      "sindresorhus/slugify",
+      "httpie/cli",
+      "pallets/jinja"
+    ],
+    "task_prompts": [
+      {
+        "id": "test",
+        "prompt": "Work out how to run this project's test suite. Write the single exact shell command to .trial/test-cmd, then run it and make sure it passes. Do not modify any source or test file. The command you record must work from a fresh shell in this directory with no prior activation, so write it self-contained (for example .venv/bin/pytest or uv run pytest, not a bare pytest that assumes an activated environment).",
+        "verify": [
+          "sh",
+          "-c",
+          "test -s .trial/test-cmd && sh -c \"$(cat .trial/test-cmd)\""
+        ]
+      },
+      {
+        "id": "install",
+        "prompt": "Install this project from source into an isolated environment and prove the package imports or loads. Write the exact shell command that proves it to .trial/import-cmd, then run it successfully. The command you record must work from a fresh shell in this directory with no prior activation, so write it self-contained (for example .venv/bin/pytest or uv run pytest, not a bare pytest that assumes an activated environment).",
+        "verify": [
+          "sh",
+          "-c",
+          "test -s .trial/import-cmd && sh -c \"$(cat .trial/import-cmd)\""
+        ]
+      },
+      {
+        "id": "entry",
+        "prompt": "Write AGENTS.md at the repository root documenting how to build, test and run this project, based only on what is in the repo. Put the working test command on a line of its own inside a fenced block, and also write that same command to .trial/doc-cmd so it can be checked. The command you record must work from a fresh shell in this directory with no prior activation, so write it self-contained (for example .venv/bin/pytest or uv run pytest, not a bare pytest that assumes an activated environment).",
+        "verify": [
+          "sh",
+          "-c",
+          "test -f AGENTS.md && test -s .trial/doc-cmd && sh -c \"$(cat .trial/doc-cmd)\""
+        ]
+      }
+    ],
+    "model": "claude (headless CLI default model)",
+    "checkpoint": "2.1.259 (Claude Code)",
+    "temperature": 0,
+    "harness": "claude-code headless",
+    "harness_command": [
+      "claude",
+      "-p",
+      "--permission-mode",
+      "bypassPermissions",
+      "{prompt}"
+    ],
+    "tool_set": [
+      "read",
+      "write",
+      "edit",
+      "bash"
+    ],
+    "codebook_version": "codebook/v1",
+    "coverage_corpus": [
+      "release-gates.md#gate-identifiers",
+      "community.md#gates",
+      "metrics.md#thresholds",
+      "skill-contracts"
+    ]
+  },
+  "runs": [],
+  "failure_modes": [],
+  "second_rater": {
+    "sample_fraction": 0.2,
+    "sampled": 0,
+    "disagreements": 0
+  }
+}
