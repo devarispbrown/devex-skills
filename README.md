@@ -237,6 +237,7 @@ devex-skills/
 │   ├── validate_skills.py        # suite structural lint
 │   └── smoke_skills.py           # per-skill fixture smoke tests
 ├── .github/workflows/ci.yml      # drift + structure + smoke enforcement
+├── trials/                       # pre-registered agent trials and their logs
 └── skills/                       # 42 self-contained skill directories
 ```
 
