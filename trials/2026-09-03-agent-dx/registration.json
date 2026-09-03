@@ -2,7 +2,7 @@
   "schema": "agent-trial-log/v1",
   "registration": {
     "registered_at": "2026-09-03",
-    "registration_url": "PENDING: the pull request that publishes this file",
+    "registration_url": "https://github.com/devarispbrown/devex-skills/pull/17",
     "repositories": [
       "pallets/click",
       "psf/requests",
