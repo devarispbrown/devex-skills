@@ -1,0 +1,55 @@
+# repository chalk/chalk
+# task entry
+# harness claude rc 0, timed out False
+# verify sh -c test -f AGENTS.md && test -s .trial/doc-cmd && sh -c "$(cat .trial/doc-cmd)" rc 1
+# outcome fail
+# clone /private/tmp/claude-501/-Users-devarisbrown-Code-projects-devex-skills/5b6450b7-51c2-402a-bdc0-5d1d1b4ab5de/scratchpad/trial/wd/session-cwqzju5q/repo
+
+--- agent ---
+Done. `AGENTS.md` at root, `.trial/doc-cmd` holds command.
+
+Recorded test command:
+
+```
+npm install && npm test
+```
+
+Self-contained — no lockfile in repo (`.npmrc` sets `package-lock=false`), so install must precede test from fresh shell. Verified: 58 tests pass, 100% statement coverage on `source/`.
+
+AGENTS.md covers:
+- **Build**: none. Pure ESM, ships `source/` as-is; `tsc --noEmit` type-check only.
+- **Test**: `npm test` = `xo` + `c8 ava` + `tsc --noEmit`. Sub-commands (`npx ava test/level.js`, `npx xo`) listed too.
+- **Run**: library, no app. Examples verified — `screenshot.js` exits 0, `rainbow.js` animates until Ctrl-C (noted). Node one-liner import verified.
+- Node `>=22`, CI runs 22 + 26, CI is exactly `npm install` then `npm test`.
+- Layout incl. vendored `#ansi-styles`/`#supports-color` subpath imports, excluded from lint + coverage.
+
+Note: repo now has installed `node_modules/` (495 packages) and untracked `AGENTS.md` + `.trial/`.
+⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+
+
+--- verify ---
+
+up to date in 5m
+
+230 packages are looking for funding
+  run `npm fund` for details
+
+> chalk@6.0.0 test
+> xo && c8 ava && tsc --noEmit --types node source/index.d.ts
+
+
+  AGENTS.md:28:1
+  [31m✖[39m  28:1  Missing code block language.  markdown/fenced-code-language
+  [31m✖[39m  38:1  Missing code block language.  markdown/fenced-code-language
+  [31m✖[39m  46:1  Missing code block language.  markdown/fenced-code-language
+  [31m✖[39m  57:1  Missing code block language.  markdown/fenced-code-language
+  [31m✖[39m  64:1  Missing code block language.  markdown/fenced-code-language
+  [31m✖[39m  72:1  Missing code block language.  markdown/fenced-code-language
+
+  6 errors
+
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   unrs-resolver@1.12.2 (postinstall: node postinstall.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+
