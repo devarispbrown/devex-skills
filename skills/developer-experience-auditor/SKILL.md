@@ -4,7 +4,7 @@ description: End-to-end adversarial developer-experience testing across the full
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git, repository access, and normal build/test tooling.
 metadata:
-  version: "2.5.0"
+  version: "2.5.1"
 ---
 
 # Developer Experience Auditor

@@ -135,6 +135,40 @@ def run_verify(task, cwd, timeout=600):
         return None, '', f'verify could not run: {e}'
 
 
+def harness_sanity(reg, repo, workdir):
+    """Prove the harness can change a working tree before spending a whole trial.
+
+    Found by a pilot run: a headless agent CLI defaulted to blocking writes, exited 0,
+    and changed nothing. Every session would have recorded a failure, and the trial
+    would have reported a large uncovered share that was entirely harness artifact.
+    Preflight checks that verify discriminates; that is not the same as checking that
+    the harness can do anything at all.
+    """
+    checkout, err = clone(repo, workdir)
+    if checkout is None:
+        die(f'harness check: cannot clone {repo}: {err}')
+    probe = 'agent-trial-harness-probe.txt'
+    prompt = (f'Create a file named {probe} at the repository root containing the single '
+              'word ok. Do nothing else.')
+    cmd = [str(x).replace('{prompt}', prompt) for x in reg['harness_command']]
+    try:
+        cp = subprocess.run(cmd, cwd=str(checkout), capture_output=True, text=True,
+                            timeout=600)
+    except subprocess.TimeoutExpired:
+        die('harness check: the harness did not finish a trivial task within 600s.')
+    except FileNotFoundError:
+        die(f'harness command not found: {cmd[0]}')
+    if not (checkout / probe).exists():
+        tail = ((cp.stdout or '') + (cp.stderr or '')).strip().splitlines()
+        hint = tail[0] if tail else '(no output)'
+        die('harness check: the harness ran and exited '
+            f'{cp.returncode} but did not create a file when asked to.\n'
+            f'First line of its output: {hint}\n'
+            'Every session would record a failure that is the harness, not the product. '
+            'Grant the harness permission to edit files, then re-run.')
+    print(f'  harness can modify a working tree (exit {cp.returncode})')
+
+
 def preflight(reg, tasks_todo, workdir):
     """Prove each verify command runs and fails before an agent has touched anything.
 
@@ -142,7 +176,10 @@ def preflight(reg, tasks_todo, workdir):
     failures, and a verify that passes on an untouched tree records five as passes.
     Both are infrastructure errors indistinguishable from evidence in the log.
     """
-    print('Preflight: checking each verify command against an untouched clone.')
+    print('Preflight: checking the harness and each verify command before spending.')
+    first_repo = sorted(tasks_todo)[0][0] if tasks_todo else None
+    if first_repo:
+        harness_sanity(reg, first_repo, workdir)
     for repo, tid in sorted(tasks_todo):
         task = {t['id']: t for t in reg['task_prompts']}[tid]
         checkout, err = clone(repo, workdir)

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.1 - 2026-09-02
+
+- `agent_trial_driver.py` preflight now proves the harness can modify a working tree before spending any sessions, by asking it to create one file and checking the file exists. Found by a pilot run against a real repository: a headless agent CLI defaulted to blocking writes, exited 0, and changed nothing. Every session would have recorded a failure that was the harness rather than the product, and the trial would have reported a large uncovered share made entirely of artifact. Preflight already proved each verify command discriminates; that is not the same as proving the harness can do anything at all.
+
 ## 2.5.0 - 2026-09-02
 
 - Added `skills/agent-native-dx/scripts/agent_trial_driver.py`: the live driver that runs a pre-registered agent trial and writes its log. Dry run by default, executing nothing until `--execute`, matching the gate on `magic_path_runner.py`. It holds no credentials and speaks to no model: it invokes `registration.harness_command`, so the harness under test is whichever agent CLI the operator has installed and authenticated. Commands run without a shell.

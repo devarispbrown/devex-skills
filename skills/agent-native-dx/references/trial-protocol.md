@@ -44,6 +44,13 @@ The driver holds no credentials and speaks to no model. It invokes the command i
 harness under test is whichever agent CLI the operator has installed and authenticated.
 Commands run without a shell.
 
+Preflight runs before any session is spent. It proves the harness can actually modify a
+working tree, by asking it to create one file and checking the file exists, and it proves
+each verify command runs and fails on an untouched clone. Both checks exist because of
+real failures. A headless agent CLI that defaults to blocking writes exits 0 and changes
+nothing, so every session records a failure that is the harness rather than the product,
+and the trial reports a large uncovered share made entirely of artifact.
+
 Two properties matter for the result being evidence rather than opinion:
 
 - **Outcome is decided by a command, not by a reading.** Every task carries a `verify`
