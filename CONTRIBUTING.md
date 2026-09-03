@@ -36,8 +36,14 @@ The suite is versioned with SemVer, and `.claude-plugin/plugin.json` carries the
 authoritative version.
 
 - **Major**: a skill is removed or renamed, a gate constant or SLO name is removed or
-  redefined, or a script's command-line contract breaks. Anything that makes an existing
-  invocation or an existing citation wrong.
+  redefined, a script's command-line contract breaks, or a data format a script reads
+  stops accepting input that was valid before. Anything that makes an existing
+  invocation, an existing citation, or an existing file wrong.
+
+  Data formats carry their own version string, such as `agent-trial-log/v1`. Making a
+  field required is a breaking change to that format, not an addition to it. Either
+  accept the field as optional, or bump the format version and say what to do with files
+  written under the old one.
 - **Minor**: new capability that does not break what exists. A new skill, a new script or
   reference inside an existing skill, a new gate, constant, or SLO in `dx-standards/`, or
   a new flag on an existing script.

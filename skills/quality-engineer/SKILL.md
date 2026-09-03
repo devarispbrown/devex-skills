@@ -4,7 +4,7 @@ description: Design test strategy by system type rather than coverage percentage
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the project's test tooling.
 metadata:
-  version: "2.4.0"
+  version: "2.5.0"
 ---
 
 # Quality Engineer

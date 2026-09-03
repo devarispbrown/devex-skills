@@ -28,21 +28,76 @@ offline scorer consumes that log and emits counts, distributions, and a verdict
 deterministically. Only the scorer belongs in CI, exercised by fixture trial logs under
 `assets/` wired into `assets/smoke.json`, per the convention in `CONTRIBUTING.md`.
 
+## Running the trial
+
+`scripts/agent_trial_driver.py` runs the sessions and writes the log. It is dry run by
+default and prints the plan; nothing executes until `--execute` is passed, matching the
+gate on `magic_path_runner.py` in `developer-docs-auditor`.
+
+```
+python3 scripts/agent_trial_driver.py my-trial.json              # plan and cost, runs nothing
+python3 scripts/agent_trial_driver.py my-trial.json --execute    # runs the sessions
+```
+
+The driver holds no credentials and speaks to no model. It invokes the command in
+`registration.harness_command`, substituting the task prompt for `{prompt}`, so the
+harness under test is whichever agent CLI the operator has installed and authenticated.
+Commands run without a shell.
+
+Two properties matter for the result being evidence rather than opinion:
+
+- **Outcome is decided by a command, not by a reading.** Every task carries a `verify`
+  argument list. It runs after the agent finishes, in the same working copy, and its exit
+  status decides pass or fail. Nobody reads a transcript and forms a view about whether
+  the agent succeeded. The driver refuses a task that has no verify command.
+
+  This does not eliminate operator judgment, it relocates it. The operator still chooses
+  what the command tests, and a weak command sets every outcome in the trial. What the
+  design buys is the same thing pre-registration buys for prompts: the command is fixed
+  and published before the run, so it is inspectable rather than retrofitted. Two things
+  narrow it further. The driver's preflight runs each verify command against an untouched
+  clone before spending anything, and refuses the trial if the command is missing or if
+  it passes before the agent has done anything, which is the negative control a verify
+  command has to survive. Beyond that, a reviewer reads the registered commands.
+- **Every session is isolated.** Each session gets its own fresh shallow clone in a new
+  scratch directory. This is not a convenience: a shared clone makes run two start in the
+  state run one left, so the N runs measure a serially correlated sequence rather than N
+  independent attempts, and a single lucky session can present as a clean sweep. Nothing
+  is ever deleted, and the operator's own checkouts are never touched. The agent still
+  runs with whatever permissions the harness grants it, and everything it prints lands
+  unredacted in a transcript, so run trials with credentials that can absorb that.
+
+The log is written after every session, so an interrupted trial keeps the sessions it
+already paid for, and re-running the driver resumes rather than repeating them.
+
+The driver stops at the log. It records what happened and never classifies: grouping
+failures into distinct modes and deciding coverage is the operator's work, described
+below.
+
 ## Pre-registration
 
 Fix these fields and publish them in the pull request that adds the trial, before the
 first run:
 
-- repository count and the repositories themselves, named
-- every task prompt, verbatim, with a stable id
-- model, checkpoint, and temperature
-- harness and tool set
-- codebook version
-- the coverage corpus, enumerated
+- `registered_at`, the date the registration was published, and `registration_url`, the
+  pull request it was published in
+- `repositories`, the count and the repositories themselves, named
+- `task_prompts`, every prompt verbatim, each with a stable id matching `[A-Za-z0-9._-]+`
+  and a `verify` argument list, which is what decides whether a session passed
+- `model`, `checkpoint`, and `temperature`
+- `harness` and `tool_set`
+- `harness_command`, the exact argument list the driver invokes, with `{prompt}` marking
+  where the task prompt is substituted
+- `codebook_version`
+- `coverage_corpus`, enumerated
 
 A trial scored without a complete registration is not evidence. The scorer refuses such
-a log rather than reporting a weaker result: every registration field is required, and
-an empty value is treated as a missing one.
+a log rather than reporting a weaker result: an empty value is treated as a missing one,
+and a value the scaffold wrote and nobody replaced is treated as missing too.
+
+`harness_command` is read by the driver and accepted but not required by the scorer, so
+that a log written before the driver existed still scores. Every other field above is
+required by both.
 
 Pre-registration is the only control on prompt authorship, which dominates agent
 outcome. It does not eliminate the threat. It makes the prompts inspectable by a
@@ -182,16 +237,42 @@ nothing.
   "registration": {
     "registered_at": "2026-03-04",
     "registration_url": "https://github.com/devarispbrown/devex-skills/pull/41",
-    "repositories": ["acme-cloud/widget-cli", "acme-cloud/widget-sdk-python"],
+    "repositories": [
+      "acme-cloud/widget-cli",
+      "acme-cloud/widget-sdk-python"
+    ],
     "task_prompts": [
-      {"id": "t1", "prompt": "From a clean clone, build the project and run the full test suite. Report the command you used and its exit code."},
-      {"id": "t2", "prompt": "Deploy the sample application to a sandbox environment and verify it responds. Do not ask the user for input."}
+      {
+        "id": "t1",
+        "prompt": "From a clean clone, build the project and run the full test suite. Report the command you used and its exit code.",
+        "verify": [
+          "make",
+          "verify"
+        ]
+      },
+      {
+        "id": "t2",
+        "prompt": "Deploy the sample application to a sandbox environment and verify it responds. Do not ask the user for input.",
+        "verify": [
+          "./scripts/smoke.sh"
+        ]
+      }
     ],
     "model": "claude-opus-4-6",
     "checkpoint": "2026-02-11",
     "temperature": 0,
     "harness": "claude-code 2.4.1",
-    "tool_set": ["bash", "read", "edit", "web_fetch"],
+    "harness_command": [
+      "claude",
+      "-p",
+      "{prompt}"
+    ],
+    "tool_set": [
+      "bash",
+      "read",
+      "edit",
+      "web_fetch"
+    ],
     "codebook_version": "codebook-1.0",
     "coverage_corpus": [
       "release-gates.md#gate-identifiers",
@@ -201,16 +282,71 @@ nothing.
     ]
   },
   "runs": [
-    {"repository": "acme-cloud/widget-cli", "task": "t1", "n": 5, "outcomes": ["pass", "fail", "fail", "pass", "fail"]},
-    {"repository": "acme-cloud/widget-cli", "task": "t2", "n": 5, "outcomes": ["fail", "fail", "fail", "fail", "fail"]},
-    {"repository": "acme-cloud/widget-sdk-python", "task": "t1", "n": 5, "outcomes": ["pass", "pass", "pass", "pass", "pass"]}
+    {
+      "repository": "acme-cloud/widget-cli",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "pass",
+        "fail",
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    {
+      "repository": "acme-cloud/widget-cli",
+      "task": "t2",
+      "n": 5,
+      "outcomes": [
+        "fail",
+        "fail",
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    {
+      "repository": "acme-cloud/widget-sdk-python",
+      "task": "t1",
+      "n": 5,
+      "outcomes": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ]
+    }
   ],
   "failure_modes": [
-    {"id": "fm-01", "summary": "Quickstart requires a credential created only in the web console", "covered_by": "MAGIC_PATH_MAX_CREDENTIALS", "problem_class": "Product", "occurrences": 4},
-    {"id": "fm-02", "summary": "widget deploy exits 0 after a failed deploy", "covered_by": "cli-designer#exit-code-contract", "problem_class": "CLI", "occurrences": 3},
-    {"id": "fm-03", "summary": "Tool description states a default the tool does not apply, so the agent omits a required argument", "covered_by": null, "problem_class": "Product", "occurrences": 3}
+    {
+      "id": "fm-01",
+      "summary": "Quickstart requires a credential created only in the web console",
+      "covered_by": "MAGIC_PATH_MAX_CREDENTIALS",
+      "problem_class": "Product",
+      "occurrences": 4
+    },
+    {
+      "id": "fm-02",
+      "summary": "widget deploy exits 0 after a failed deploy",
+      "covered_by": "cli-designer#exit-code-contract",
+      "problem_class": "CLI",
+      "occurrences": 3
+    },
+    {
+      "id": "fm-03",
+      "summary": "Tool description states a default the tool does not apply, so the agent omits a required argument",
+      "covered_by": null,
+      "problem_class": "Product",
+      "occurrences": 3
+    }
   ],
-  "second_rater": {"sample_fraction": 0.2, "sampled": 4, "disagreements": 1}
+  "second_rater": {
+    "sample_fraction": 0.2,
+    "sampled": 4,
+    "disagreements": 1
+  }
 }
 ```
 
