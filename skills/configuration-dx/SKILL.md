@@ -4,7 +4,7 @@ description: Treat configuration as a public API: ENV, YAML, JSON, TOML, flags, 
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the config schema/source.
 metadata:
-  version: "2.5.0"
+  version: "2.5.1"
 ---
 
 # Configuration DX

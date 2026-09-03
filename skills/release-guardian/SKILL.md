@@ -4,7 +4,7 @@ description: Gate releases through a contract: classify the diff, analyze behavi
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git access and the release pipeline context.
 metadata:
-  version: "2.5.0"
+  version: "2.5.1"
 ---
 
 # Release Guardian
