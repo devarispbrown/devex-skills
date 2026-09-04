@@ -138,6 +138,25 @@ def main() -> int:
     if n and number_word(n) not in plugin.get('description', '').lower():
         failures.append(f'plugin.json: description missing skill count {number_word(n)!r}')
 
+    # marketplace.json repeats the description and is the file users install through.
+    # Nothing checked it, so it silently kept an old count while plugin.json failed CI
+    # loudly. It carries its own schema version, which must not track the plugin version.
+    marketplace = ROOT / '.claude-plugin' / 'marketplace.json'
+    if marketplace.exists() and n:
+        mtext = marketplace.read_text()
+        if number_word(n) not in mtext.lower():
+            failures.append(
+                f'marketplace.json: description missing skill count {number_word(n)!r}')
+        # Word-boundary match: 'two' is a substring of 'forty-two', so a naive
+        # containment test reports a stale count against the correct one.
+        for w in range(2, 60):
+            if w == n:
+                continue
+            if re.search(rf'(?<![\w-]){re.escape(number_word(w))} agent skills',
+                         mtext.lower()):
+                failures.append(
+                    f'marketplace.json: stale skill count {number_word(w)!r}')
+
     # CHANGELOG must contain a heading matching the plugin version
     changelog = ROOT / 'CHANGELOG.md'
     if changelog.exists():
