@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.0 - 2026-09-03
+
+- `check_agent_readiness.py` adds eight surfaces that decide whether an agent can do the work rather than only find its way around: a setup command that works from a clean clone, a discoverable test command, a declared lint or format tool, CI configuration, whether CI runs the same test command the documentation gives, a pinned toolchain version, an architecture document, and a documented destructive-operation guardrail.
+- The report is grouped by the three questions an agent faces: can it find its way around, can it operate the product, can it do the work.
+- Measured across fifteen public repositories in six ecosystems, the score spread is 79% to 21%, so the inventory discriminates. The most common gap that is not simply an emerging practice is CI parity: thirteen of fifteen give no way to tell that a green local run predicts a green CI run, which is the property an agent depends on most, because it cannot otherwise know whether its change is finished.
+
 ## 2.6.0 - 2026-09-03
 
 - `check_agent_readiness.py` now inventories the surfaces a repository exposes to agents at runtime, not just the ones a coding agent reads: an exposed MCP server (detected from `.mcp.json` and similar manifests, and from an MCP SDK dependency in the build manifest), whether MCP is documented for users, shipped agent skills, and `llms.txt`. Nothing in the suite looked for MCP before, which left the surface the question is most often about entirely unmeasured.
