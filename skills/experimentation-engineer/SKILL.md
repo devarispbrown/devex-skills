@@ -4,7 +4,7 @@ description: Run DX experiments on quickstarts, CLI output variants, error forma
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and experimentation/flag tooling.
 metadata:
-  version: "2.9.2"
+  version: "2.9.3"
 ---
 
 # Experimentation Engineer

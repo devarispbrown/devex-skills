@@ -7,6 +7,8 @@ LINK=re.compile(r'(?<!!)\[[^\]]*\]\(([^)]+)\)')
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('root', nargs='?', default='.')
     args=ap.parse_args(); root=Path(args.root).resolve(); bad=[]
+    if not Path(args.root).is_dir():
+        raise SystemExit(f'not a directory: {args.root}')
     for p in root.rglob('*.md'):
         try: text=p.read_text(errors='ignore')
         except Exception: continue

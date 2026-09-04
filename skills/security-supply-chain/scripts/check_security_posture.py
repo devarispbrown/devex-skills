@@ -117,6 +117,8 @@ def main() -> int:
         help="repository root, or a single workflow file to scan",
     )
     args = parser.parse_args()
+    if not Path(args.path).exists():
+        raise SystemExit(f'no such path: {args.path}')
     target = Path(args.path)
     print(f"Target: {target}")
 

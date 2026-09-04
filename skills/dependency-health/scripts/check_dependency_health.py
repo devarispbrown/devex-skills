@@ -181,6 +181,8 @@ def main() -> int:
     )
     ap.add_argument("root", nargs="?", default=".", help="tree to scan (default: current directory)")
     args = ap.parse_args()
+    if not Path(args.root).is_dir():
+        raise SystemExit(f'not a directory: {args.root}')
     root = Path(args.root).resolve()
 
     manifests = []

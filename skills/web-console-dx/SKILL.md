@@ -4,7 +4,7 @@ description: Remove dashboard and portal friction: resource CRUD, API key manage
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the console codebase or docs.
 metadata:
-  version: "2.9.2"
+  version: "2.9.3"
 ---
 
 # Web Console DX

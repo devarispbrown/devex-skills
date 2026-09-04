@@ -129,6 +129,8 @@ def main() -> int:
     )
     ap.add_argument("root", nargs="?", default=".", help="directory tree to scan (default: .)")
     args = ap.parse_args()
+    if not Path(args.root).is_dir():
+        raise SystemExit(f'not a directory: {args.root}')
     root = Path(args.root).resolve()
 
     local = []
