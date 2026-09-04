@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.8.0 - 2026-09-03
+
+- Added `agent-integration-dx`, taking the suite to forty-three skills. It owns tool definitions and MCP servers as shipped product artifacts: tool naming, description-as-prompt authoring, argument schema design, response shaping against a context budget, pagination and truncation, and tool-level error surfaces. A tool description is read by a model at selection time with no chance to ask a clarifying question, so it is doing prompt work whether or not it was written that way.
+- The skill cites rather than restates. The MCP specification, SEP-986, Anthropic's tool-writing guidance and the AWS design guidelines are treated as normative in `references/upstream-specs.md`, with a verification date per source and a rule that a moved source is a finding. Restating them would create a second copy that drifts, which is the defect `STALE_PUBLIC_REFERENCE` names and which the suite applies to other people's products.
+- What it adds that the upstream sources do not is the adversarial selection review: take each plausibly confusable pair, write the prompt that should select each side, and ask whether the descriptions alone decide it.
+- `scripts/check_tool_surface.py` inventories a tool definition file and reports selection-risk candidates: missing descriptions, descriptions that state no boundary, synonym verbs used for one concept, lexically close pairs, and argument schemas with undescribed or unclosed parameters. Candidates only, never verdicts, following `guessability_check.py`, because lexical similarity does not measure selection error.
+- Why this skill and not another audit skill: fifteen public repositories were measured and none exposed an MCP server, `MCP` appeared in two of five hundred and seventy-eight files, and no checker in the suite looked for one. The audit side already had an owner in `agent-native-dx`; the build side had none.
+
 ## 2.7.1 - 2026-09-03
 
 - `agent-native-dx` now describes itself by the question a developer actually asks, "is my repository ready for AI agents?", rather than by what it does for a product author. Skill routing matches on the description, so the old build-side framing meant a developer asking whether AI could use their repository would not find the skill that answers it. No new skill: this surface already had an owner, and a second one would have been a second front door onto the same question.

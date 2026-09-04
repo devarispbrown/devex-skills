@@ -36,6 +36,10 @@ Machine-distinguishable identifiers for errors, stable across releases.
 
 ## MCP servers
 
+This file audits whether an MCP surface exists and matches the underlying operations.
+Designing that surface, tool naming, description-as-prompt authoring, argument schemas and
+response shaping, belongs to `agent-integration-dx` if available.
+
 Agent-native interfaces exposing tools, resources, and prompts.
 
 - **Agent affordance:** agents call typed tools instead of scraping CLIs or web UIs.

@@ -4,7 +4,7 @@ description: Audit safe experimentation: test keys, fake resources, event simula
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and product sandbox context.
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # Sandbox Experience Audit

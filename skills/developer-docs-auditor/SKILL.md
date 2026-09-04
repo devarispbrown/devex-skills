@@ -4,7 +4,7 @@ description: Adversarially audit and release-gate developer documentation for co
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git, repository access, and normal build/test tooling.
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # Developer Docs Auditor

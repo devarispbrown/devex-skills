@@ -4,7 +4,7 @@ description: Design and audit command-line interfaces as products: command hiera
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the CLI's source or binary.
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # CLI Designer

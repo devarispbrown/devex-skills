@@ -4,7 +4,7 @@ description: Design, implement, and maintain idiomatic SDKs for Go, Python, Type
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and SDK build/test tooling.
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # SDK Engineering

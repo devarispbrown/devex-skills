@@ -1,0 +1,54 @@
+{
+  "tools": [
+    {
+      "name": "get_user",
+      "description": "Gets a user.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "fetch_user",
+      "description": "Fetches a user record.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "user id"
+          }
+        }
+      }
+    },
+    {
+      "name": "send_message",
+      "description": "",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "dispatch_message",
+      "description": "Dispatches a message to a channel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "delivery mode"
+          },
+          "body": {
+            "type": "string",
+            "description": "message body"
+          }
+        }
+      }
+    }
+  ]
+}
