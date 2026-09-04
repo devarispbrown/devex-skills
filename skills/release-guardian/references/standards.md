@@ -103,10 +103,23 @@ Canonical named gates for the suite. Each gate names a release-blocking conditio
 | `STALE_PUBLIC_REFERENCE` | P1 | generated reference observably disagrees with current behavior |
 | `UNSAFE_EXAMPLES` | P1 | security-sensitive examples encourage unsafe credential handling |
 | `BROKEN_CANONICAL_INSTALL` | P1 | canonical install/auth path is broken |
+| `UNVERIFIABLE_CI_PARITY` | P1 | the documented local check command does not appear in CI configuration, so a green local run does not predict a green CI run |
 
 ## Community gates
 
 Community gate constants (`NO_CONTRIBUTING_WHILE_WELCOMING`, `UNRESPONSIVE_ISSUES`, `BROKEN_CONTRIBUTION_PATH`, and the rest) live in `community.md` and use the same severity levels and verdict vocabulary as this file.
+
+## Why CI parity is a gate
+
+`contributor-experience` has always called a local-versus-CI divergence a P1 defect, but
+prose cannot fail a release. It is promoted to a constant because the failure mode is worse
+for an unattended caller than for a person: a developer sees the CI email and iterates,
+while an agent that cannot tell whether a green local run predicts a green CI run either
+ships work it believes is finished or spends cycles guessing.
+
+Measured across fifteen public repositories in six ecosystems, thirteen gave no way to
+tell. It is decidable from committed files: the documented check command either appears in
+CI configuration or it does not.
 
 ## Gate semantics
 

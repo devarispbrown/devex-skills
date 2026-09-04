@@ -4,7 +4,7 @@ description: Build production-grade reference applications: minimal, production,
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and build/test tooling.
 metadata:
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Reference Application Engineer
