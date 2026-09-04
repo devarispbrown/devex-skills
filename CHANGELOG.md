@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.9.4 - 2026-09-04
+
+- `check_terminology.py` scans root-level documents. `fnmatch` has no `**` semantics, so `fnmatch('top.md', '**/*.md')` is False and the shipped policy silently skipped every root-level file, `README.md` included.
+- `estimate_magic_path.py` fails when a count target is exceeded. `MAGIC_PATH_MAX_COMMANDS`, `MAGIC_PATH_MAX_CREDENTIALS` and `MAGIC_PATH_MAX_CONTEXT_SWITCHES` were counted and then never consulted, so a plan at 2.5 times the command budget printed PASS. The failure line now names whether time or a count was the cause, instead of blaming the time budget in both cases.
+- `assess_test_suite.py` no longer counts the word "impact" as a contract test. `pact` matched as a substring, which credited ripgrep with nine contract-test files that were prose comments containing "impact" and "compacted", and closed a real gap for the CRUD-API system type.
+- `check_fixture_hygiene.py` stops reporting version strings as public IP addresses. Octets above 255 are rejected, and a dotted quad in a version context or a lockfile is skipped. Across the fifteen audited repositories this drops from 472 reports to 68, and genuine public addresses still fire.
+
 ## 2.9.3 - 2026-09-03
 
 - `check_sandbox_coverage.py` refuses a manifest with no `tasks` list instead of reporting full coverage for it. A manifest whose key was misspelled `task` produced `0/0 risky tasks covered (100%)` and `RESULT: PASS` at exit 0. This is a gate, and a gate that passes because it found nothing to check is indistinguishable from a real pass. It also had no input handling at all: a directory, a missing file, malformed JSON and a bare array each produced a traceback.

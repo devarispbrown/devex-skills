@@ -4,7 +4,7 @@ description: Design auth and RBAC as a self-service experience: what permission 
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the auth/RBAC implementation.
 metadata:
-  version: "2.9.3"
+  version: "2.9.4"
 ---
 
 # Access and Permissions DX

@@ -4,7 +4,7 @@ description: Turn security and compliance into self-service: policy-as-code, aut
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and policy/compliance tooling.
 metadata:
-  version: "2.9.3"
+  version: "2.9.4"
 ---
 
 # Policy Experience

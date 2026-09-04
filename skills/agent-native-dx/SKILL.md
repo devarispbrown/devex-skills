@@ -4,7 +4,7 @@ description: Answer "is my repository ready for AI agents?" and fix what is not.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.9.3"
+  version: "2.9.4"
 ---
 
 # Agent-Native DX
