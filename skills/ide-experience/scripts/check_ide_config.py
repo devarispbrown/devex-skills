@@ -108,6 +108,8 @@ def main():
     ap.add_argument('--makefile', help='path to Makefile (default: <root>/Makefile)')
     ap.add_argument('--package', help='path to package.json (default: <root>/package.json)')
     a = ap.parse_args()
+    if not Path(a.root).is_dir():
+        raise SystemExit(f'not a directory: {a.root}')
     root = Path(a.root)
     launch = Path(a.launch) if a.launch else root / '.vscode' / 'launch.json'
     tasks = Path(a.tasks) if a.tasks else root / '.vscode' / 'tasks.json'

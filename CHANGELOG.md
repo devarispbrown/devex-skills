@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.3 - 2026-09-03
+
+- `check_sandbox_coverage.py` refuses a manifest with no `tasks` list instead of reporting full coverage for it. A manifest whose key was misspelled `task` produced `0/0 risky tasks covered (100%)` and `RESULT: PASS` at exit 0. This is a gate, and a gate that passes because it found nothing to check is indistinguishable from a real pass. It also had no input handling at all: a directory, a missing file, malformed JSON and a bare array each produced a traceback.
+- Seven repository scanners refuse a path that does not exist rather than printing a full report about it. `check_security_posture.py`, `check_local_dev.py`, `check_dependency_health.py`, `check_environment_lifecycle.py`, `check_ide_config.py`, `check_terminology.py` and `check_markdown_links.py` all emitted a complete finding list for `/no/such/path` and exited 0. Nineteen of the suite's other scanners already refused; these now match.
+
 ## 2.9.2 - 2026-09-03
 
 - Namespace detection excludes verbs. A repeated first token was treated as a namespace, so on a verb-first surface such as `get_user`, `get_org`, `list_users` the verb itself was stripped and every check depending on it went silent. A four-tool surface that the previous version flagged correctly was reported clean, which made this a regression rather than an unfixed edge.

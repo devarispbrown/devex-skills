@@ -36,6 +36,8 @@ def matches(path, globs): return any(fnmatch.fnmatch(path, g) for g in globs)
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('policy'); ap.add_argument('--root', default='.')
     a=ap.parse_args(); root=Path(a.root).resolve(); policy=_read_json(a.policy, 'a terminology policy')
+    if not Path(a.root).is_dir():
+        raise SystemExit(f'not a directory: {a.root}')
     include=policy.get('include_globs',['**/*.md']); exclude=policy.get('exclude_globs',[])
     findings=[]
     for p in root.rglob('*'):
