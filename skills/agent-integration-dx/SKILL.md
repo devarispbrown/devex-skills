@@ -4,7 +4,7 @@ description: Design and audit tool definitions and MCP servers as shipped produc
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access to the tool definitions or MCP server source.
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Agent Integration DX
@@ -120,8 +120,10 @@ agent's context. Treat the boundary as product surface: declare which response f
 carry third-party data and state the labeling contract for them. A product that cannot
 say which fields are attacker-influenced cannot claim the boundary is handled.
 
-This is a disclosure requirement, not a safety proof. A checker can verify that the
-declaration covers the schema. It cannot verify that the labeling works.
+This is a disclosure requirement, not a safety proof, and it is currently unautomated.
+No checker in this suite reads untrusted-content declarations, and no gate constant
+covers them. Treat the absence of a declaration as a finding recorded by a human reviewer,
+not as something the tooling will catch.
 
 ## Required output
 

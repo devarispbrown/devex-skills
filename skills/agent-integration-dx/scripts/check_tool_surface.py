@@ -26,10 +26,16 @@ SYNONYM_GROUPS = [
 # trailing "... instead" form is common and was missed by a first pass keyed on
 # "instead of", which produced a false candidate against a description that did state
 # its boundary.
+# A boundary names a sibling. "See the API docs" is a cross-reference, which is the fix
+# selection-review.md explicitly forbids, and an earlier version accepted it as a boundary.
 BOUNDARY_RE = re.compile(
-    r"\b(?:instead|rather than|do not use|don't use|use .{0,40}? when|not for"
-    r"|prefer .{0,40}? when|if you need|for .{0,40}? use|that is |see )\b",
+    r"\b(?:instead|rather than|do not use|don't use|not for"
+    r"|use .{0,60}? (?:when|for)|prefer .{0,60}? when|if you (?:need|want))\b",
     re.IGNORECASE)
+TOOL_TOKEN_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
+# SEP-986 is cited as normative in references/upstream-specs.md. This is its one
+# machine-checkable rule, and it was cited without being enforced.
+NAME_RE = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
 
 
 def read_tools(path):
@@ -43,6 +49,8 @@ def read_tools(path):
         raise SystemExit(f'No such file: {path}')
     except json.JSONDecodeError as e:
         raise SystemExit(f'{path} is not valid JSON: {e}')
+    except OSError as e:
+        raise SystemExit(f'Cannot read {path}: {e}')
     if isinstance(data, dict):
         data = data.get('tools', data.get('result', {}).get('tools') if
                         isinstance(data.get('result'), dict) else None)
@@ -51,31 +59,48 @@ def read_tools(path):
     return [t for t in data if isinstance(t, dict)]
 
 
-def common_prefix(names):
-    """The namespace every tool shares, if there is one.
+def namespaces(names):
+    """First tokens shared by two or more tools, which are namespaces rather than verbs.
 
-    A surface like git_status, git_diff, git_commit is namespaced on git. Treating that
-    shared token as the verb makes every tool a synonym of every other, which is how a
-    first version produced a boundary candidate on 12 of 12 tools in the reference git
-    server. The namespace is not the verb.
+    Requiring every tool to share one prefix made the check non-monotonic: adding a single
+    unnamespaced tool to a namespaced surface turned every finding off. Multi-product
+    servers, which is the shape this skill's own guidance recommends, were reported clean.
     """
-    heads = [re.split(r'[_\-.]', n.strip().lower())[0] for n in names if n]
-    return heads[0] if heads and len(set(heads)) == 1 and len(heads) > 1 else None
+    heads = {}
+    for n in names:
+        if not n:
+            continue
+        h = re.split(r'[_\-.]', str(n).strip().lower())[0]
+        heads[h] = heads.get(h, 0) + 1
+    return {h for h, c in heads.items() if c > 1}
 
 
-def verb(name, namespace=None):
-    parts = [x for x in re.split(r'[_\-.]', name.strip().lower()) if x]
-    if namespace and parts and parts[0] == namespace:
+def split_name(name, ns):
+    """Return (verb, object) with any namespace prefix removed."""
+    parts = [x for x in re.split(r'[_\-.]', str(name).strip().lower()) if x]
+    if parts and parts[0] in ns:
         parts = parts[1:]
-    return parts[0] if parts else ''
+    if not parts:
+        return '', ''
+    return parts[0], '_'.join(parts[1:])
+
+
+def verb(name, ns=frozenset()):
+    return split_name(name, ns)[0]
+
+
+def synonymous(v1, v2):
+    if not v1 or not v2:
+        return False
+    if v1 == v2:
+        return True
+    return any(v1 in g and v2 in g for g in SYNONYM_GROUPS)
 
 
 def main():
     ap = argparse.ArgumentParser(
         description='Inventory a tool surface and report selection-risk candidates.')
     ap.add_argument('tools', help='tool definition JSON')
-    ap.add_argument('--strict', action='store_true',
-                    help='exit 1 when candidates are emitted (default: also exit 1)')
     a = ap.parse_args()
     tools = read_tools(a.tools)
     if not tools:
@@ -83,7 +108,7 @@ def main():
         raise SystemExit(0)
 
     names = [str(t.get('name', '')) for t in tools]
-    ns = common_prefix(names)
+    ns = namespaces(names)
     descs = {n: str(t.get('description', '') or '') for n, t in zip(names, tools)}
     candidates = []
     for n in sorted({x for x in names if names.count(x) > 1}):
@@ -94,9 +119,39 @@ def main():
     # candidate on every tool in a surface. Run against the reference git server it fired
     # on 12 of 12 tools, which is noise rather than signal.
     def near_siblings(n):
-        return [m for m in names if m != n and (
-            (verb(m, ns) and verb(m, ns) == verb(n, ns))
-            or difflib.SequenceMatcher(None, n.lower(), m.lower()).ratio() >= 0.7)]
+        """Pairs that share an object and a verb meaning.
+
+        String distance does not separate these: create_user and create_org score .762 and
+        are never confused, while get_user and fetch_user score .778 and are confused
+        constantly. The separator is the object, not the spelling. An earlier threshold of
+        .7 flagged create_user against create_org, which is the pair this file's own
+        docstring names as never confused.
+        """
+        v1, o1 = split_name(n, ns)
+        out = []
+        for m in names:
+            if m == n:
+                continue
+            v2, o2 = split_name(m, ns)
+            if not synonymous(v1, v2):
+                continue
+            # Objects are the same thing when one is absent (git_diff against
+            # git_diff_staged), when one contains the other (staged against unstaged), or
+            # when they are near-identical strings. They are different things when they
+            # are unrelated nouns, which is what keeps create_user off create_org.
+            related = (
+                # A verb-only tool pairs with a qualified one only under the identical
+                # verb. git_diff against git_diff_staged is one act at two scopes;
+                # git_add against git_create_branch is two acts whose verbs happen to be
+                # synonyms, and pairing those was a false positive on the real git server.
+                ((not o1 or not o2) and v1 == v2)
+                or o1 == o2
+                or (bool(o1) and bool(o2) and (o1 in o2 or o2 in o1))
+                or (bool(o1) and bool(o2)
+                    and difflib.SequenceMatcher(None, o1, o2).ratio() >= 0.8))
+            if related:
+                out.append(m)
+        return out
 
     for n in names:
         d = descs[n]
@@ -124,14 +179,16 @@ def main():
                               ' for the same concept; one verb per concept')
 
     # near-duplicate names, reported as pairs to review by intent
-    for i, x in enumerate(names):
-        for y in names[i + 1:]:
-            if x == y:
+    seen_pairs = set()
+    for x in names:
+        for y in near_siblings(x):
+            key = tuple(sorted((x, y)))
+            if key in seen_pairs:
                 continue
-            r = difflib.SequenceMatcher(None, x.lower(), y.lower()).ratio()
-            if r >= 0.8:
-                candidates.append(f'candidate: {x} and {y} are lexically close; '
-                                  'review whether the descriptions separate them by intent')
+            seen_pairs.add(key)
+            candidates.append(f'candidate: {key[0]} and {key[1]} act on the same object with '
+                              'interchangeable verbs; review whether the descriptions '
+                              'separate them by intent')
 
     # argument schema gaps
     for t in tools:
@@ -149,6 +206,19 @@ def main():
             if spec.get('type') == 'string' and 'enum' not in spec and \
                     re.search(r'\b(mode|kind|type|status|format|level)\b', pname, re.I):
                 candidates.append(f'candidate: {n}.{pname} looks like a closed set but declares no enum')
+
+    for n in names:
+        if not NAME_RE.match(str(n)):
+            candidates.append(f'candidate: {n!r} is not a valid tool name under the cited '
+                              'naming rule (letters, digits, underscore, hyphen, 1-128 chars)')
+    # A description that routes the model to a tool the surface does not expose is a
+    # dead end, and it is decidable from the file alone.
+    known = {str(n) for n in names}
+    for n in names:
+        for tok in TOOL_TOKEN_RE.findall(descs.get(n, '')):
+            if tok not in known and any(tok.startswith(p) for p in ns):
+                candidates.append(f'candidate: {n} names {tok}, which is not a tool on this '
+                                  'surface')
 
     print(f'Tool surface: {a.tools}')
     print(f'{len(tools)} tool(s): {", ".join(sorted(names))}\n')

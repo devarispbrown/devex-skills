@@ -4,7 +4,7 @@ description: Design the local-to-test-to-preview-to-staging-to-production path: 
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and CI/deploy configuration.
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Environment Lifecycle

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.9.2 - 2026-09-03
+
+- `check_tool_surface.py` pairs tools by intent rather than string distance. A threshold on lexical similarity flagged `create_user` against `create_org`, which is the pair the script's own docstring names as never confused, while the real separator is whether two tools act on the same object with interchangeable verbs.
+- The boundary check no longer accepts a documentation cross-reference as a boundary. A description reading "See the API docs" satisfied it, which is the fix `selection-review.md` explicitly forbids.
+- Namespace detection buckets per prefix instead of requiring every tool to share one. Adding a single unnamespaced tool to a namespaced surface previously turned every finding off, so multi-product servers, the shape this skill's own guidance recommends, were reported clean.
+- Added two checks traceable to a cited normative source and decidable from the file: tool names must match the naming rule from the cited MCP naming SEP, and a description naming a tool the surface does not expose is a dead end.
+- Removed `--strict`, which was documented and never read.
+- `read_tools` handles `OSError` rather than emitting a traceback, matching the fix already made across the suite.
+- `SKILL.md` no longer claims a checker verifies untrusted-content declarations. No checker does, and no gate constant covers them; the section now says the boundary is unautomated.
+- `agent-native-dx` names `agent-integration-dx` in its description. Routing was one-directional, so "review my MCP server" matched the audit skill.
+- The clean fixture routed to a tool that does not exist on its own surface. The new dangling-reference check caught it, which is the first time a fixture in this suite was corrected by a check added alongside it.
+
 ## 2.9.1 - 2026-09-03
 
 - `check_tool_surface.py` only reports a missing boundary when the tool has a near sibling, because confusability is a property of pairs, which the skill's own reference already said and the checker did not implement. Run against the reference MCP git server it had produced a candidate on 12 of 12 tools, which is noise.

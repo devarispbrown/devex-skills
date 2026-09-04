@@ -44,7 +44,7 @@
     },
     {
       "name": "calendar_list",
-      "description": "List calendars the caller can write to. Use this first when a calendar id is needed; it is not for reading events, which is calendar_list_events.",
+      "description": "List calendars the caller can write to. Use this first when a calendar id is needed, rather than guessing one.",
       "inputSchema": {
         "type": "object",
         "properties": {

@@ -4,7 +4,7 @@ description: Verify that claimed integrations actually work: which versions, und
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and test/CI infrastructure.
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Integration Certifier
