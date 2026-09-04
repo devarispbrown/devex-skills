@@ -4,7 +4,7 @@ description: Make a product excellent for coding agents: AGENTS.md/CLAUDE.md qua
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.5.2"
+  version: "2.6.0"
 ---
 
 # Agent-Native DX
@@ -32,7 +32,15 @@ For the human-facing documentation use the `developer-docs` skill if available. 
 
 ### 1. Audit agent entry points
 
-Run `scripts/check_agent_readiness.py` on the repository root as a first-pass inventory signal. The output is heuristic and never a verdict.
+Run `scripts/check_agent_readiness.py` on the repository root for a first-pass inventory
+of every agent-facing surface: the entry file, machine-readable schemas, structured CLI
+output, documented exit codes, test discoverability, an exposed MCP server, whether MCP is
+documented for users, shipped agent skills, and `llms.txt`. It prints a readiness
+percentage and a band. The output is heuristic and never a verdict.
+
+```
+python3 scripts/check_agent_readiness.py /path/to/repo
+```
 
 Read `references/agent-entry-files.md` when auditing or writing AGENTS.md/CLAUDE.md entry files.
 

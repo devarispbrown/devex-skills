@@ -1,0 +1,1 @@
+{"name":"demo","dependencies":{"@modelcontextprotocol/sdk":"^1.0.0"},"scripts":{"test":"node t.js"}}

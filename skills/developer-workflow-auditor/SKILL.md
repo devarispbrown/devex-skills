@@ -4,7 +4,7 @@ description: Audit inner and outer feedback loops: edit, format, compile, test, 
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and build/test tooling.
 metadata:
-  version: "2.5.2"
+  version: "2.6.0"
 ---
 
 # Developer Workflow Auditor
