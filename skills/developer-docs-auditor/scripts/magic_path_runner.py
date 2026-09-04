@@ -8,6 +8,34 @@ If shell syntax is unavoidable, opt in explicitly with a list step like
 import argparse, json, subprocess, time, os, sys, shlex
 from pathlib import Path
 
+
+def _read_input(path, what):
+    """Read a required input file, or explain why it could not be read.
+
+    The suite's own error-experience standard requires an expected error to say what
+    happened, why, where, and how to fix it. A raw traceback answers none of those.
+    """
+    from pathlib import Path as _P
+    p = _P(path)
+    if p.is_dir():
+        raise SystemExit(f'{path} is a directory, but {what} is expected to be a file.\n'
+                         f'Pass the path to the file itself.')
+    try:
+        return p.read_text(encoding='utf-8', errors='replace')
+    except FileNotFoundError:
+        raise SystemExit(f'No such file: {path}\nExpected {what}.')
+    except OSError as e:
+        raise SystemExit(f'Cannot read {path}: {e}\nExpected {what}.')
+
+
+def _read_json(path, what):
+    import json as _j
+    text = _read_input(path, what)
+    try:
+        return _j.loads(text)
+    except _j.JSONDecodeError as e:
+        raise SystemExit(f'{path} is not valid JSON: {e}\nExpected {what}.')
+
 VALID_SEGMENTS={'orientation','install','account_auth','configure','execute','wait','verify','recovery'}
 
 def argv(cmd):
@@ -18,7 +46,7 @@ def argv(cmd):
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('manifest'); ap.add_argument('--cwd', default='.')
     ap.add_argument('--execute', action='store_true', help='actually execute manifest commands')
-    a=ap.parse_args(); m=json.loads(Path(a.manifest).read_text()); budget=m.get('budget_seconds',900)
+    a=ap.parse_args(); m=_read_json(a.manifest, 'a magic-path manifest'); budget=m.get('budget_seconds',900)
     if not a.execute:
         print(json.dumps(m,indent=2)); print('\nDry run only. Pass --execute to run commands.'); return
     total_start=time.monotonic(); rows=[]; failed=False

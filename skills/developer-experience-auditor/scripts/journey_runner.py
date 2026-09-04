@@ -3,6 +3,34 @@
 import argparse, json, os, subprocess, sys, time
 from pathlib import Path
 
+
+def _read_input(path, what):
+    """Read a required input file, or explain why it could not be read.
+
+    The suite's own error-experience standard requires an expected error to say what
+    happened, why, where, and how to fix it. A raw traceback answers none of those.
+    """
+    from pathlib import Path as _P
+    p = _P(path)
+    if p.is_dir():
+        raise SystemExit(f'{path} is a directory, but {what} is expected to be a file.\n'
+                         f'Pass the path to the file itself.')
+    try:
+        return p.read_text(encoding='utf-8', errors='replace')
+    except FileNotFoundError:
+        raise SystemExit(f'No such file: {path}\nExpected {what}.')
+    except OSError as e:
+        raise SystemExit(f'Cannot read {path}: {e}\nExpected {what}.')
+
+
+def _read_json(path, what):
+    import json as _j
+    text = _read_input(path, what)
+    try:
+        return _j.loads(text)
+    except _j.JSONDecodeError as e:
+        raise SystemExit(f'{path} is not valid JSON: {e}\nExpected {what}.')
+
 STAGES = ['find','understand','install','auth','configure','execute','verify',
           'modify','break','diagnose','recover','test','deploy','upgrade']
 ZERO_TO_VALUE = set(STAGES[:7])          # find..verify: the magic-path span
@@ -17,7 +45,7 @@ SCORE_WEIGHTS = {                        # canonical weights: references/dx-scor
 }
 
 def load_manifest(path):
-    m = json.loads(Path(path).read_text())
+    m = _read_json(path, 'a journey manifest')
     if not isinstance(m, dict) or not isinstance(m.get('steps'), list):
         raise SystemExit(f'{path}: manifest must be a JSON object with a "steps" list')
     for i, step in enumerate(m['steps']):
@@ -33,7 +61,7 @@ def load_manifest(path):
     return m
 
 def load_scores(path):
-    s = json.loads(Path(path).read_text())
+    s = _read_json(path, 'a per-area score file')
     if not isinstance(s, dict):
         raise SystemExit(f'{path}: scores must be a JSON object of area -> 0..100')
     missing = [k for k in SCORE_WEIGHTS if k not in s]

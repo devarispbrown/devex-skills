@@ -11,6 +11,34 @@ See references/trial-protocol.md for the procedure. Start a new trial with
 import argparse, html, json
 from pathlib import Path
 
+
+def _read_input(path, what):
+    """Read a required input file, or explain why it could not be read.
+
+    The suite's own error-experience standard requires an expected error to say what
+    happened, why, where, and how to fix it. A raw traceback answers none of those.
+    """
+    from pathlib import Path as _P
+    p = _P(path)
+    if p.is_dir():
+        raise SystemExit(f'{path} is a directory, but {what} is expected to be a file.\n'
+                         f'Pass the path to the file itself.')
+    try:
+        return p.read_text(encoding='utf-8', errors='replace')
+    except FileNotFoundError:
+        raise SystemExit(f'No such file: {path}\nExpected {what}.')
+    except OSError as e:
+        raise SystemExit(f'Cannot read {path}: {e}\nExpected {what}.')
+
+
+def _read_json(path, what):
+    import json as _j
+    text = _read_input(path, what)
+    try:
+        return _j.loads(text)
+    except _j.JSONDecodeError as e:
+        raise SystemExit(f'{path} is not valid JSON: {e}\nExpected {what}.')
+
 SCHEMA = 'agent-trial-log/v1'
 MIN_DISTINCT_MODES = 15
 COVERED_MAX = 0.20
@@ -612,7 +640,7 @@ def main():
         ap.error('a trial log is required (or use --new to start one, --explain for the rule)')
 
     try:
-        log = json.loads(Path(a.log).read_text())
+        log = _read_json(a.log, 'a trial log')
     except FileNotFoundError:
         print(f'No such trial log: {a.log}')
         print('Start one with --new PATH.')

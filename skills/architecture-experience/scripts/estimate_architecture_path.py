@@ -25,6 +25,34 @@ import json
 import sys
 from pathlib import Path
 
+
+def _read_input(path, what):
+    """Read a required input file, or explain why it could not be read.
+
+    The suite's own error-experience standard requires an expected error to say what
+    happened, why, where, and how to fix it. A raw traceback answers none of those.
+    """
+    from pathlib import Path as _P
+    p = _P(path)
+    if p.is_dir():
+        raise SystemExit(f'{path} is a directory, but {what} is expected to be a file.\n'
+                         f'Pass the path to the file itself.')
+    try:
+        return p.read_text(encoding='utf-8', errors='replace')
+    except FileNotFoundError:
+        raise SystemExit(f'No such file: {path}\nExpected {what}.')
+    except OSError as e:
+        raise SystemExit(f'Cannot read {path}: {e}\nExpected {what}.')
+
+
+def _read_json(path, what):
+    import json as _j
+    text = _read_input(path, what)
+    try:
+        return _j.loads(text)
+    except _j.JSONDecodeError as e:
+        raise SystemExit(f'{path} is not valid JSON: {e}\nExpected {what}.')
+
 # Per-hop cost table, keyed by layer name. Values are comprehension minutes
 # per hop for an engineer building a mental model, not execution time.
 LAYER_COST_MIN = {
@@ -136,7 +164,7 @@ def main():
     if max_min <= 0:
         raise SystemExit("--max-min must be positive")
 
-    text = sys.stdin.read() if a.input == "-" else Path(a.input).read_text()
+    text = sys.stdin.read() if a.input == "-" else _read_input(a.input, "an architecture manifest")
     try:
         raw = json.loads(text)
     except json.JSONDecodeError as exc:
