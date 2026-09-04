@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.1 - 2026-09-03
+
+- `agent-native-dx` now describes itself by the question a developer actually asks, "is my repository ready for AI agents?", rather than by what it does for a product author. Skill routing matches on the description, so the old build-side framing meant a developer asking whether AI could use their repository would not find the skill that answers it. No new skill: this surface already had an owner, and a second one would have been a second front door onto the same question.
+- The skill's workflow now leads with scoring the repository and reporting the gaps, which is what an invocation should produce first.
+- README gains the agent-readiness path alongside the existing DX and community ones: install the plugin, ask Claude to run `agent-native-dx`, read the report.
+
 ## 2.7.0 - 2026-09-03
 
 - `check_agent_readiness.py` adds eight surfaces that decide whether an agent can do the work rather than only find its way around: a setup command that works from a clean clone, a discoverable test command, a declared lint or format tool, CI configuration, whether CI runs the same test command the documentation gives, a pinned toolchain version, an architecture document, and a documented destructive-operation guardrail.

@@ -80,6 +80,16 @@ Then it's a loop:
 
 Running an open-source project? Same pattern: start with `developer-community-auditor` instead. The Community Health Report works exactly the same way: gates, owners, backlog.
 
+**Want to know whether AI agents can use what you built?** Same three steps, different skill:
+
+1. Install the plugin (commands above).
+2. Ask Claude: "run `agent-native-dx` on this repo."
+3. Read the readiness report.
+
+It scores nineteen agent-facing surfaces, grouped by the three questions that decide whether an agent can work in your repository at all: can it find its way around, can it operate the product, can it do the work. You get a percentage, a band, and a per-surface list of what is missing.
+
+Measured across fifteen public repositories in six ecosystems, scores ran from 79 percent down to 21 percent, so a low score means something. The most common substantive gap was CI parity: thirteen of fifteen gave no way to tell that a green local run predicts a green CI run. A human notices the CI email. An unattended agent does not, so it either ships broken work or burns cycles guessing.
+
 ## Skills by surface
 
 Pick the surface you're building today.

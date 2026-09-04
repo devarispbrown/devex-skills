@@ -4,7 +4,7 @@ description: Maintain explicit performance budgets for CLIs, APIs, SDKs, builds,
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and benchmarking/profiling tooling.
 metadata:
-  version: "2.7.0"
+  version: "2.7.1"
 ---
 
 # Performance Engineering: Budgets, Benchmarks, and Gates

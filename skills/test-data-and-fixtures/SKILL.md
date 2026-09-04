@@ -4,7 +4,7 @@ description: Author fixtures, seed data, factories, fake services, mock servers,
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and test tooling.
 metadata:
-  version: "2.7.0"
+  version: "2.7.1"
 ---
 
 # Test Data and Fixtures

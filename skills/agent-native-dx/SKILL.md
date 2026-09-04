@@ -1,10 +1,10 @@
 ---
 name: agent-native-dx
-description: Make a product excellent for coding agents: AGENTS.md/CLAUDE.md quality, machine-readable schemas, structured CLI output, stable error codes, OpenAPI, MCP, Agent Skills, deterministic scripts, repository structure, and test discoverability. Human DX and agent DX are both first-class. For the human-facing documentation use developer-docs.
+description: Answer "is my repository ready for AI agents?" and fix what is not. Scores 19 agent-facing surfaces across three questions: can an agent find its way around, operate the product, and do the work. Covers AGENTS.md/CLAUDE.md, MCP servers, machine-readable schemas, structured CLI output, stable error codes, setup and test commands, CI parity, pinned toolchains, and destructive-operation guardrails. Use for agent readiness audits, AI-readiness reviews, making a repo or API consumable by coding agents, and preparing a codebase for agent-authored changes. For human-facing documentation use developer-docs.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.7.0"
+  version: "2.7.1"
 ---
 
 # Agent-Native DX
@@ -30,20 +30,37 @@ For the human-facing documentation use the `developer-docs` skill if available. 
 
 ## Agent-native DX workflow
 
-### 1. Audit agent entry points
+### 1. Score the repository and report
 
-Run `scripts/check_agent_readiness.py` on the repository root for a first-pass inventory
-of every agent-facing surface, grouped by the three questions that decide whether an
-agent can work in a repository at all: can it find its way around, can it operate the
-product, and can it do the work. The third group is the one that decides whether an agent
-can finish a change: a setup command that works from a clean clone, a discoverable test
-command, a declared lint or format tool, CI configuration, whether CI runs the same test
-command the docs give, a pinned toolchain, an architecture document, and a documented
-destructive-operation guardrail. It prints a readiness percentage and a band. The output is heuristic and never a verdict.
+Start here on every invocation. Run the inventory, then read the gaps back to the user in
+plain language before doing anything else.
 
 ```
 python3 scripts/check_agent_readiness.py /path/to/repo
 ```
+
+It scores 19 surfaces grouped by the three questions that decide whether an agent can work
+in a repository at all, and prints a readiness percentage with a band:
+
+- **Can an agent find its way around**: an entry file, machine-readable schemas, documented
+  structured output and exit codes, discoverable tests, a README, a build manifest.
+- **Can an agent operate the product**: an exposed MCP server, MCP documented for users,
+  shipped agent skills, `llms.txt`.
+- **Can an agent do the work**: a setup command that works from a clean clone, a
+  discoverable test command, a declared lint or format tool, CI configuration, whether CI
+  runs the same test command the docs give, a pinned toolchain, an architecture document,
+  a documented destructive-operation guardrail.
+
+The score is an inventory signal, never a verdict. Add `--strict` to exit non-zero on any
+gap, which is the form to use in CI.
+
+Measured across fifteen public repositories in six ecosystems, scores ran from 79 percent
+to 21 percent, so a low score is a real signal rather than an artifact of a harsh checklist.
+The most common substantive gap was CI parity: thirteen of fifteen gave no way to tell that
+a green local run predicts a green CI run, which is the property an agent depends on most
+because without it the agent cannot know whether its change is finished.
+
+### 2. Audit agent entry points
 
 Read `references/agent-entry-files.md` when auditing or writing AGENTS.md/CLAUDE.md entry files.
 
@@ -57,7 +74,7 @@ Verify:
 - commands are complete, copy-pasteable, and current
 - the entry file is the single source for agent guidance, not a duplicate of the docs
 
-### 2. Audit machine-readable surfaces
+### 3. Audit machine-readable surfaces
 
 Read `references/machine-surfaces.md` when auditing OpenAPI, JSON Schema, structured CLI output, stable error codes, MCP servers, or Agent Skills.
 
@@ -68,7 +85,7 @@ Verify:
 - error codes are stable, documented, and machine-distinguishable from prose messages
 - MCP and Agent Skills surfaces exist where they pay off, per the reference
 
-### 3. Audit automation safety
+### 4. Audit automation safety
 
 Read `references/automation-safety.md` when auditing determinism, idempotency, non-interactive modes, destructive-operation guardrails, or secrets handling.
 
@@ -79,7 +96,7 @@ Verify:
 - destructive operations require explicit opt-in; nothing destructive is the default
 - secrets never appear in output, logs, or example commands
 
-### 4. Audit test discoverability
+### 5. Audit test discoverability
 
 Read `references/discoverability.md` when auditing repository structure, test discoverability, command discovery, or state inspectability.
 
@@ -90,7 +107,7 @@ Verify:
 - commands are discoverable through complete `--help` output
 - state is inspectable without mutation (status/describe/dry-run commands)
 
-### 5. Recommend agent-native improvements
+### 6. Recommend agent-native improvements
 
 For each gap, produce a prioritized improvement:
 
