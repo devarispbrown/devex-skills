@@ -4,7 +4,7 @@ description: Harden the security posture of an open-source project: SECURITY.md,
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and CI/security tooling.
 metadata:
-  version: "2.9.0"
+  version: "2.9.2"
 ---
 
 # Security Supply Chain

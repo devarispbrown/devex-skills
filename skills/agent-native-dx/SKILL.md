@@ -1,10 +1,10 @@
 ---
 name: agent-native-dx
-description: Answer "is my repository ready for AI agents?" and fix what is not. Scores 19 agent-facing surfaces across three questions: can an agent find its way around, operate the product, and do the work. Covers AGENTS.md/CLAUDE.md, MCP servers, machine-readable schemas, structured CLI output, stable error codes, setup and test commands, CI parity, pinned toolchains, and destructive-operation guardrails. Use for agent readiness audits, AI-readiness reviews, making a repo or API consumable by coding agents, and preparing a codebase for agent-authored changes. For human-facing documentation use developer-docs.
+description: Answer "is my repository ready for AI agents?" and fix what is not. Scores 19 agent-facing surfaces across three questions: can an agent find its way around, operate the product, and do the work. Covers AGENTS.md/CLAUDE.md, MCP servers, machine-readable schemas, structured CLI output, stable error codes, setup and test commands, CI parity, pinned toolchains, and destructive-operation guardrails. Use for agent readiness audits, AI-readiness reviews, making a repo or API consumable by coding agents, and preparing a codebase for agent-authored changes. For designing the tool definitions themselves, their names, descriptions and argument schemas, use agent-integration-dx. For human-facing documentation use developer-docs.
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and agent tooling context.
 metadata:
-  version: "2.9.0"
+  version: "2.9.2"
 ---
 
 # Agent-Native DX

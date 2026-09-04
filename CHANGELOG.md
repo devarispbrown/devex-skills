@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.9.2 - 2026-09-03
+
+- Namespace detection excludes verbs. A repeated first token was treated as a namespace, so on a verb-first surface such as `get_user`, `get_org`, `list_users` the verb itself was stripped and every check depending on it went silent. A four-tool surface that the previous version flagged correctly was reported clean, which made this a regression rather than an unfixed edge.
+- The dangling-reference check requires the token to be shaped like a tool rather than merely sharing a namespace prefix. `user_id`, `git_dir`, `config_json` and `slack_app_token` were all reported as nonexistent tools.
+- "Use this for reading a user record" no longer counts as a boundary. It names no sibling, which is what a boundary has to do.
+
+- `check_tool_surface.py` pairs tools by intent rather than string distance. A threshold on lexical similarity flagged `create_user` against `create_org`, which is the pair the script's own docstring names as never confused, while the real separator is whether two tools act on the same object with interchangeable verbs.
+- The boundary check no longer accepts a documentation cross-reference as a boundary. A description reading "See the API docs" satisfied it, which is the fix `selection-review.md` explicitly forbids.
+- Namespace detection buckets per prefix instead of requiring every tool to share one. Adding a single unnamespaced tool to a namespaced surface previously turned every finding off, so multi-product servers, the shape this skill's own guidance recommends, were reported clean.
+- Added two checks traceable to a cited normative source and decidable from the file: tool names must match the naming rule from the cited MCP naming SEP, and a description naming a tool the surface does not expose is a dead end.
+- Removed `--strict`, which was documented and never read.
+- `read_tools` handles `OSError` rather than emitting a traceback, matching the fix already made across the suite.
+- `SKILL.md` no longer claims a checker verifies untrusted-content declarations. No checker does, and no gate constant covers them; the section now says the boundary is unautomated.
+- `agent-native-dx` names `agent-integration-dx` in its description. Routing was one-directional, so "review my MCP server" matched the audit skill.
+- The clean fixture routed to a tool that does not exist on its own surface. The new dangling-reference check caught it, which is the first time a fixture in this suite was corrected by a check added alongside it.
+
+## 2.9.1 - 2026-09-03
+
+- `check_tool_surface.py` only reports a missing boundary when the tool has a near sibling, because confusability is a property of pairs, which the skill's own reference already said and the checker did not implement. Run against the reference MCP git server it had produced a candidate on 12 of 12 tools, which is noise.
+- Sibling detection is namespace aware. A surface named `git_status`, `git_diff`, `git_commit` is namespaced on `git`, and treating that shared prefix as the verb made every tool a synonym of every other. The prefix is stripped when every tool shares it.
+- Duplicate tool names are reported as duplicates rather than as a confusable pair with themselves.
+- Against Anthropic's reference git server the output drops from 13 candidates to 6, and the surviving finding is real: `git_diff`, `git_diff_staged` and `git_diff_unstaged` all describe showing changes and none states when to choose another, so an agent asked to show what changed picks among three with no stated boundary.
+- `agent-integration-dx` documents that most servers declare tools in source and return them from `tools/list` rather than shipping a file, so the captured response is what to pass.
+
 ## 2.9.0 - 2026-09-03
 
 - Added the `UNVERIFIABLE_CI_PARITY` gate (P1): the documented local check command does not appear in CI configuration, so a green local run does not predict a green CI run. `contributor-experience` has always called a local-versus-CI divergence a P1 defect, but prose cannot fail a release. It is promoted to a constant because the failure mode is worse for an unattended caller than for a person: a developer sees the CI email and iterates, while an agent either ships work it believes is finished or spends cycles guessing.

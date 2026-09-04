@@ -4,7 +4,7 @@ description: Design and audit tool definitions and MCP servers as shipped produc
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access to the tool definitions or MCP server source.
 metadata:
-  version: "2.9.0"
+  version: "2.9.2"
 ---
 
 # Agent Integration DX
@@ -49,11 +49,16 @@ to prove the agent will pick the wrong tool, and a check that reports candidates
 
 ### 1. Inventory the tool surface
 
-Run the inventory over the file that defines the tools:
+Run the inventory over the tool definitions:
 
 ```
 python3 scripts/check_tool_surface.py path/to/tools.json
 ```
+
+Most servers do not ship their tool definitions as a file. They declare them in source and
+return them from `tools/list` at runtime, so capture that response and pass it. The
+checker accepts a `tools/list` result, a bare array of tool objects, or an object with a
+`tools` key.
 
 It reports candidates only and never issues a verdict, following the same convention as
 `guessability_check.py` in `api-design-reviewer`. It exits non-zero when it emits
@@ -115,8 +120,10 @@ agent's context. Treat the boundary as product surface: declare which response f
 carry third-party data and state the labeling contract for them. A product that cannot
 say which fields are attacker-influenced cannot claim the boundary is handled.
 
-This is a disclosure requirement, not a safety proof. A checker can verify that the
-declaration covers the schema. It cannot verify that the labeling works.
+This is a disclosure requirement, not a safety proof, and it is currently unautomated.
+No checker in this suite reads untrusted-content declarations, and no gate constant
+covers them. Treat the absence of a declaration as a finding recorded by a human reviewer,
+not as something the tooling will catch.
 
 ## Required output
 

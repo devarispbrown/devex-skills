@@ -1,7 +1,7 @@
 {
   "name": "developer-docs-skills",
   "description": "Forty-three Agent Skills for building and enforcing world-class developer experience across six domains - Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve - including docs authoring and auditing, end-to-end adversarial DX testing, community design and health, onboarding, API review, local development, SDK engineering, error experience, quality and release engineering, workflow feedback loops, sandboxes, architecture comprehension, discoverability, support, permissions, extensibility, economics, environments, change awareness, operational trust, fixtures, IDE, policy, console, experimentation, accessibility, and reference applications, all backed by a shared dx-standards constitution.",
-  "version": "2.9.0",
+  "version": "2.9.2",
   "license": "MIT",
   "repository": "https://github.com/devarispbrown/devex-skills",
   "skills": [

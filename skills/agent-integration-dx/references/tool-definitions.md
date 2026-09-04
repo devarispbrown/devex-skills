@@ -26,6 +26,13 @@ The third is the one most often missing and the one that most often decides sele
 - Two tools whose names differ only by a synonym are one tool with a parameter, or two
   tools with descriptions that say which is which.
 
+## Namespaces are not verbs
+
+A surface named `git_status`, `git_diff`, `git_commit` is namespaced on `git`. The verb is
+the token after the namespace. Treating the shared prefix as the verb makes every tool a
+synonym of every other, which is a mistake the checker made against the reference git
+server until it was taught to strip a prefix shared by every tool.
+
 ## Confusability is a property of pairs
 
 Lexical similarity does not predict confusion. `create_user` and `create_org` are almost
