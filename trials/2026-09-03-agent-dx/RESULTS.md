@@ -78,6 +78,17 @@ Spending them would buy passes, not information.
 That is a different registration. This one stands as a published negative result for this
 task set rather than being edited after the fact.
 
+## What happened next
+
+The remaining six repositories were never run. `agent-integration-dx` was built anyway, on
+evidence gathered a different way: a static audit of fifteen public repositories found that
+none exposed an MCP server, that `MCP` appeared in two of five hundred and seventy-eight
+files in this repository, and that no checker looked for one.
+
+That means the decision rule in `AGENT-DX-PROPOSAL.md` was bypassed rather than satisfied.
+The resolution section at the top of that document records it as such. This trial's own
+verdict stands unchanged: `TOO-FEW-FAILURES`, no share reported.
+
 ## Limits
 
 Two repositories, one model, one harness, one date, one rater. The protocol requires a

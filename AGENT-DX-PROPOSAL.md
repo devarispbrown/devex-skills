@@ -1,7 +1,50 @@
 # Agent DX: proposal
 
-Status: proposed. Nothing here is adopted. No file in `dx-standards/` or `skills/`
-changes on the strength of this document.
+Status: **resolved 2026-09-03, and not in the way this document specified.** The sections
+below are preserved as written. Read this resolution first.
+
+## Resolution
+
+`agent-integration-dx` was built. The suite is at forty-three skills.
+
+**The decision rule below was not satisfied. It was bypassed.** The trial ran as a
+two-repository pilot and returned `TOO-FEW-FAILURES`: one distinct failure mode against a
+pre-registered minimum of fifteen, so no uncovered share was ever computed and the
+`u >= 0.40` gate that this document made the skill conditional on was never met. The
+remaining six repositories were not run, for the reasons in
+`trials/2026-09-03-agent-dx/RESULTS.md`.
+
+The skill was built on different evidence, gathered afterwards: a static audit of fifteen
+public repositories in six ecosystems found that none exposed an MCP server, that `MCP`
+appeared in two of five hundred and seventy-eight files in this repository, and that no
+checker in the suite looked for one. That is a coverage gap with no owner, which is a
+legitimate reason to write a skill. It is not the reason this document said would count.
+
+The distinction matters and is recorded rather than smoothed over. The trial asked whether
+agents fail in ways existing standards miss. The audit asked whether a surface exists that
+the suite does not cover at all. Those are different questions, and the second one was
+answered first because it was cheaper and did not need the trial to conclude.
+
+Anyone reading this document as a record of how the decision was made should know that the
+pre-registered mechanism did not make it. A maintainer did, on other grounds, and wrote
+that down here instead of editing the gate to match the outcome.
+
+## What else changed
+
+- `agent-native-dx` remains the agent auditor and was reframed around the question a
+  developer actually asks, with the readiness inventory extended from seven surfaces to
+  nineteen.
+- The trial machinery it describes exists and works: `agent_trial_driver.py`,
+  `agent_trial_scorer.py`, and `references/trial-protocol.md` in `agent-native-dx`.
+- The five cut skills stayed cut. Nothing in the audit argued for reinstating them.
+- The augmentation half of this proposal is still open: promoting agent-facing
+  requirements from mentioned to gated inside the skills that already own them. The audit
+  named the highest-value one, CI parity, missing in thirteen of fifteen repositories.
+
+---
+
+Status of the original document below: proposed. Nothing in it was adopted on its own
+strength. No file in `dx-standards/` changed because of it.
 
 Owner: repository maintainer. Review by 2026-12-01. If the trial described under
 "The experiment" has not run by that date, withdraw this proposal rather than leave

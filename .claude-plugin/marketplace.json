@@ -12,7 +12,7 @@
     {
       "name": "developer-docs-skills",
       "source": "./",
-      "description": "Forty-two Agent Skills for building and enforcing world-class developer experience across six domains - Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve - all backed by a shared dx-standards constitution.",
+      "description": "Forty-three Agent Skills for building and enforcing world-class developer experience across six domains - Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve - all backed by a shared dx-standards constitution.",
       "license": "MIT",
       "homepage": "https://github.com/devarispbrown/devex-skills",
       "keywords": [
