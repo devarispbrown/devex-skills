@@ -4,7 +4,7 @@ description: Design and audit tool definitions and MCP servers as shipped produc
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access to the tool definitions or MCP server source.
 metadata:
-  version: "2.9.0"
+  version: "2.9.1"
 ---
 
 # Agent Integration DX
@@ -49,11 +49,16 @@ to prove the agent will pick the wrong tool, and a check that reports candidates
 
 ### 1. Inventory the tool surface
 
-Run the inventory over the file that defines the tools:
+Run the inventory over the tool definitions:
 
 ```
 python3 scripts/check_tool_surface.py path/to/tools.json
 ```
+
+Most servers do not ship their tool definitions as a file. They declare them in source and
+return them from `tools/list` at runtime, so capture that response and pass it. The
+checker accepts a `tools/list` result, a bare array of tool objects, or an object with a
+`tools` key.
 
 It reports candidates only and never issues a verdict, following the same convention as
 `guessability_check.py` in `api-design-reviewer`. It exits non-zero when it emits

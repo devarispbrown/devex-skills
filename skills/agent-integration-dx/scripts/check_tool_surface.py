@@ -51,8 +51,23 @@ def read_tools(path):
     return [t for t in data if isinstance(t, dict)]
 
 
-def verb(name):
-    return re.split(r'[_\-.]', name.strip().lower())[0] if name else ''
+def common_prefix(names):
+    """The namespace every tool shares, if there is one.
+
+    A surface like git_status, git_diff, git_commit is namespaced on git. Treating that
+    shared token as the verb makes every tool a synonym of every other, which is how a
+    first version produced a boundary candidate on 12 of 12 tools in the reference git
+    server. The namespace is not the verb.
+    """
+    heads = [re.split(r'[_\-.]', n.strip().lower())[0] for n in names if n]
+    return heads[0] if heads and len(set(heads)) == 1 and len(heads) > 1 else None
+
+
+def verb(name, namespace=None):
+    parts = [x for x in re.split(r'[_\-.]', name.strip().lower()) if x]
+    if namespace and parts and parts[0] == namespace:
+        parts = parts[1:]
+    return parts[0] if parts else ''
 
 
 def main():
@@ -68,22 +83,38 @@ def main():
         raise SystemExit(0)
 
     names = [str(t.get('name', '')) for t in tools]
+    ns = common_prefix(names)
     descs = {n: str(t.get('description', '') or '') for n, t in zip(names, tools)}
     candidates = []
+    for n in sorted({x for x in names if names.count(x) > 1}):
+        candidates.append(f'candidate: {n} is defined more than once in this surface')
+
+    # Confusability is a property of pairs, which this skill's own reference says. A tool
+    # with no near-sibling needs no boundary statement, and flagging one produces a
+    # candidate on every tool in a surface. Run against the reference git server it fired
+    # on 12 of 12 tools, which is noise rather than signal.
+    def near_siblings(n):
+        return [m for m in names if m != n and (
+            (verb(m, ns) and verb(m, ns) == verb(n, ns))
+            or difflib.SequenceMatcher(None, n.lower(), m.lower()).ratio() >= 0.7)]
 
     for n in names:
         d = descs[n]
         if not d.strip():
             candidates.append(f'candidate: {n} has no description; selection is left to the name alone')
-        elif not BOUNDARY_RE.search(d):
-            candidates.append(f'candidate: {n} states no boundary; nothing says when to choose a sibling instead')
+            continue
+        sibs = near_siblings(n)
+        if sibs and not BOUNDARY_RE.search(d):
+            shown = ', '.join(sorted(sibs)[:3])
+            candidates.append(f'candidate: {n} states no boundary against {shown}; '
+                              'nothing says when to choose the sibling instead')
         if len(d) > 1024:
             candidates.append(f'candidate: {n} description is {len(d)} chars; it is read on every selection')
 
     # verb drift across the surface
     used = {}
     for n in names:
-        v = verb(n)
+        v = verb(n, ns)
         for i, g in enumerate(SYNONYM_GROUPS):
             if v in g:
                 used.setdefault(i, set()).add(v)
@@ -95,6 +126,8 @@ def main():
     # near-duplicate names, reported as pairs to review by intent
     for i, x in enumerate(names):
         for y in names[i + 1:]:
+            if x == y:
+                continue
             r = difflib.SequenceMatcher(None, x.lower(), y.lower()).ratio()
             if r >= 0.8:
                 candidates.append(f'candidate: {x} and {y} are lexically close; '

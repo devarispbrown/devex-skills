@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.9.1 - 2026-09-03
+
+- `check_tool_surface.py` only reports a missing boundary when the tool has a near sibling, because confusability is a property of pairs, which the skill's own reference already said and the checker did not implement. Run against the reference MCP git server it had produced a candidate on 12 of 12 tools, which is noise.
+- Sibling detection is namespace aware. A surface named `git_status`, `git_diff`, `git_commit` is namespaced on `git`, and treating that shared prefix as the verb made every tool a synonym of every other. The prefix is stripped when every tool shares it.
+- Duplicate tool names are reported as duplicates rather than as a confusable pair with themselves.
+- Against Anthropic's reference git server the output drops from 13 candidates to 6, and the surviving finding is real: `git_diff`, `git_diff_staged` and `git_diff_unstaged` all describe showing changes and none states when to choose another, so an agent asked to show what changed picks among three with no stated boundary.
+- `agent-integration-dx` documents that most servers declare tools in source and return them from `tools/list` rather than shipping a file, so the captured response is what to pass.
+
 ## 2.9.0 - 2026-09-03
 
 - Added the `UNVERIFIABLE_CI_PARITY` gate (P1): the documented local check command does not appear in CI configuration, so a green local run does not predict a green CI run. `contributor-experience` has always called a local-versus-CI divergence a P1 defect, but prose cannot fail a release. It is promoted to a constant because the failure mode is worse for an unattended caller than for a person: a developer sees the CI email and iterates, while an agent either ships work it believes is finished or spends cycles guessing.
