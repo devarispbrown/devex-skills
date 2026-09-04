@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0 - 2026-09-03
+
+- `check_agent_readiness.py` now inventories the surfaces a repository exposes to agents at runtime, not just the ones a coding agent reads: an exposed MCP server (detected from `.mcp.json` and similar manifests, and from an MCP SDK dependency in the build manifest), whether MCP is documented for users, shipped agent skills, and `llms.txt`. Nothing in the suite looked for MCP before, which left the surface the question is most often about entirely unmeasured.
+- Output is a readable report rather than a wall of paths: three examples per surface plus a count, and a closing readiness percentage with a band of agent-ready, partly agent-ready, or not agent-ready.
+- Fixture `assets/mcp-sample` exercises the new surfaces, wired into smoke.
+
 ## 2.5.2 - 2026-09-03
 
 - `agent_trial_driver.py` refuses a task whose `verify` command reads the trial scratch directory. A verify that executes a command the agent wrote hands the agent control of its own grading. Found by running the 2026-09-03 pilot: every agent that recorded the project's real test command failed, and the one that recorded a command testing nothing passed, so the defect converts a real failure into a pass in exactly the cell where the honest answer fails. The driver now refuses the registration that pilot ran under.

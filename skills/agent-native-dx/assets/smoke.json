@@ -23,5 +23,14 @@
     "broken": [
       "trial-log.unregistered.json"
     ]
+  },
+  "check_agent_readiness.py": {
+    "clean": [
+      "mcp-sample"
+    ],
+    "broken": [
+      "agent-sample",
+      "--strict"
+    ]
   }
 }

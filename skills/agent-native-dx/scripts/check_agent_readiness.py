@@ -16,6 +16,18 @@ IGNORE_DIRS = {
 
 ENTRY_FILE_NAMES = {"agents.md", "claude.md", "agents.txt", "claude.txt"}
 
+# An MCP server is how a product exposes itself to an agent at runtime. Nothing in the
+# suite looked for one before, which left the surface the question is most often about
+# entirely unmeasured.
+MCP_FILE_NAMES = {
+    "mcp.json", ".mcp.json", "mcp-server.json", "server.json",
+    "claude_desktop_config.json", "mcp_config.json",
+}
+MCP_DEP_RE = re.compile(r"modelcontextprotocol|\bmcp[-_]?server\b|fastmcp", re.IGNORECASE)
+MCP_DOC_RE = re.compile(r"\bMCP\b|model context protocol", re.IGNORECASE)
+LLMS_TXT_NAMES = {"llms.txt", "llms-full.txt"}
+SKILL_FILE_NAMES = {"skill.md"}
+
 SCHEMA_FILE_NAMES = {
     "openapi.json", "openapi.yaml", "openapi.yml",
     "swagger.json", "swagger.yaml", "swagger.yml",
@@ -86,10 +98,24 @@ def main() -> int:
         raise SystemExit(f"not a directory: {root}")
 
     entry_files, schemas, docs, tests, manifests, readmes = [], [], [], [], [], []
+    mcp_files, mcp_deps, skills, llms = [], [], [], []
     for p in walk(root):
         low = p.name.lower()
         if low in ENTRY_FILE_NAMES:
             entry_files.append(p)
+        if low in MCP_FILE_NAMES:
+            mcp_files.append(p)
+        if low in SKILL_FILE_NAMES:
+            skills.append(p)
+        if low in LLMS_TXT_NAMES:
+            llms.append(p)
+        if low in {"package.json", "pyproject.toml", "cargo.toml", "go.mod",
+                   "requirements.txt"}:
+            try:
+                if MCP_DEP_RE.search(p.read_text(encoding="utf-8", errors="replace")):
+                    mcp_deps.append(p)
+            except OSError:
+                pass
         if is_schema(p):
             schemas.append(p)
         if is_doc(p):
@@ -101,7 +127,7 @@ def main() -> int:
         if is_test(p, root):
             tests.append(p)
 
-    json_flagged, exit_coded = [], []
+    json_flagged, exit_coded, mcp_docs = [], [], []
     for d in docs:
         try:
             text = d.read_text(encoding="utf-8", errors="replace")
@@ -111,12 +137,18 @@ def main() -> int:
             json_flagged.append(d)
         if EXIT_CODE_RE.search(text):
             exit_coded.append(d)
+        if MCP_DOC_RE.search(text):
+            mcp_docs.append(d)
 
     def rel(p: Path) -> str:
         return str(p.relative_to(root))
 
-    def names(paths, limit=10) -> str:
-        return ", ".join(rel(p) for p in sorted(paths)[:limit]) or "none found"
+    def names(paths, limit=3) -> str:
+        if not paths:
+            return "none found"
+        shown = [rel(p) for p in sorted(paths)[:limit]]
+        extra = len(paths) - len(shown)
+        return ", ".join(shown) + (f" (+{extra} more)" if extra > 0 else "")
 
     checks = [
         ("agent entry file (AGENTS.md/CLAUDE.md)", bool(entry_files), names(entry_files)),
@@ -126,6 +158,10 @@ def main() -> int:
         ("test discoverability markers", bool(tests), names(tests)),
         ("README present", bool(readmes), names(readmes)),
         ("build/config manifest present", bool(manifests), names(manifests)),
+        ("MCP server exposed", bool(mcp_files or mcp_deps), names(mcp_files + mcp_deps)),
+        ("MCP documented for users", bool(mcp_docs), names(mcp_docs)),
+        ("agent skills shipped", bool(skills), names(skills)),
+        ("llms.txt for doc retrieval", bool(llms), names(llms)),
     ]
 
     print(f"Agent-native readiness inventory: {root}")
@@ -134,10 +170,14 @@ def main() -> int:
     for label, ok, detail in checks:
         if not ok:
             gaps += 1
-        print(f"[{'OK ' if ok else 'GAP'}] {label}: {detail}")
+        print(f"[{'OK ' if ok else 'GAP'}] {label:34} {detail}")
 
+    passed = len(checks) - gaps
+    pct = round(100 * passed / len(checks))
+    band = ("agent-ready" if pct >= 80 else
+            "partly agent-ready" if pct >= 50 else "not agent-ready")
     print()
-    print(f"Summary: {len(checks) - gaps} of {len(checks)} checks pass, {gaps} gap(s).")
+    print(f"Agent readiness: {passed}/{len(checks)} surfaces present ({pct}%) - {band}")
     if gaps:
         print("This is an inventory signal, not a verdict. Inspect each gap before acting.")
     print("Exits 0 by default (informational); pass --strict to exit 1 on gaps.")
