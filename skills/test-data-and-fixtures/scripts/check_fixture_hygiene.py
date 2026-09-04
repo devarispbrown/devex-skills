@@ -42,8 +42,29 @@ def luhn_ok(digits):
         total+=n
     return total%10==0
 
+VERSION_CONTEXT_RE=re.compile(r'(?:version|v|release|>=|<=|==|~=|\^|@|=|-)\s*$', re.I)
+VERSION_LINE_RE=re.compile(r'\bversion\b|[=~^]=\s*\d|\b(?:>=|<=|~=)\s*\d', re.I)
+VERSIONY_FILES=('lock','changelog','changes','news','requirements','.lock','.sum')
+
+
+def looks_like_version(line, start):
+    """A dotted quad in a version context is not an address.
+
+    3.10.0.1 is a typing-extensions version and 1.12.1.2 is a lockfile pin; both have
+    valid octets. 472 such strings were reported as public IP addresses across fifteen
+    repositories, which drowned the real finding this check exists for.
+    """
+    # Either the quad sits directly after a version operator, or the line as a whole
+    # is talking about versions. Both shapes appeared in real repositories: a Dockerfile
+    # ARG assignment, and a Rust test table pairing a version with its constraint.
+    return bool(VERSION_CONTEXT_RE.search(line[:start]) or VERSION_LINE_RE.search(line))
+
+
 def private_or_doc_ip(o):
     a,b,c,d=(int(x) for x in o)
+    # An octet above 255 is not an address at all. 223.264.47.556 was reported as a
+    # public IP.
+    if any(int(x) > 255 for x in o): return True
     if a in (10,127,0,255): return True
     if a==172 and 16<=b<=31: return True
     if a==192 and b==168: return True
@@ -81,10 +102,14 @@ def check_card(line):
             return ('card','Luhn-valid credit-card pattern')
     return None
 
-def check_prod(line):
+def check_prod(line, path=''):
     if PROD_RE.search(line) or PROD_RE2.search(line):
         return ('prod','unsanitized production marker')
     m=IP_RE.search(line)
+    if m and looks_like_version(line, m.start()):
+        m=None
+    if m and any(k in str(path).lower() for k in VERSIONY_FILES):
+        m=None
     if m and not private_or_doc_ip(m.groups()):
         return ('prod','public IP address (looks like real infrastructure)')
     return None
@@ -101,7 +126,7 @@ def scan_file(path):
         return findings
     for i,line in enumerate(text.splitlines(),1):
         for kind,fn in CHECKS:
-            r=fn(line)
+            r=fn(line, path) if fn is check_prod else fn(line)
             if r: findings.append('%s:%d: %s: %s' % (path,i,r[0],r[1]))
     return findings
 

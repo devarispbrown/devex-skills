@@ -31,7 +31,18 @@ def _read_json(path, what):
     except _j.JSONDecodeError as e:
         raise SystemExit(f'{path} is not valid JSON: {e}\nExpected {what}.')
 
-def matches(path, globs): return any(fnmatch.fnmatch(path, g) for g in globs)
+def matches(path, globs): return any(_match_glob(path, g) for g in globs)
+
+def _match_glob(rel, pattern):
+    """fnmatch has no ** semantics: _match_glob('top.md', '**/*.md') is False, so the shipped
+    policy silently skipped every root-level document including README.md."""
+    import fnmatch
+    if _match_glob(rel, pattern):
+        return True
+    if pattern.startswith('**/'):
+        return fnmatch._match_glob(rel, pattern[3:])
+    return False
+
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('policy'); ap.add_argument('--root', default='.')

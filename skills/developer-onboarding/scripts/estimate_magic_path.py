@@ -105,11 +105,18 @@ def main() -> int:
         else:
             print(f"  {label:20} {value:3} / {target:3}  ok")
 
-    if buffer < 0 and over_budget:
-        print(f"\nRESULT: FAIL - estimated total exceeds {MAGIC_PATH_MAX_MIN}-minute budget (BROKEN_QUICKSTART risk)")
+    # The count targets were counted into flags and then never consulted, so a
+    # plan at 2.5x the command budget still printed PASS.
+    if (buffer < 0 and over_budget) or flags:
+        if buffer < 0 and over_budget:
+            print(f"\nRESULT: FAIL - estimated total exceeds {MAGIC_PATH_MAX_MIN}-minute "
+                  "budget (BROKEN_QUICKSTART risk)")
+        else:
+            print(f"\nRESULT: FAIL - within the {MAGIC_PATH_MAX_MIN}-minute budget but "
+                  f"{flags} count target(s) over")
         print("Cut steps or file product changes; an estimate cannot prove the gate passes.")
         raise SystemExit(1)
-    print(f"\nRESULT: PASS (estimated) - within budget, {flags} count target(s) over")
+    print("\nRESULT: PASS (estimated) - within budget and all count targets met")
     print("Estimated timing cannot prove the gate. Have developer-docs-auditor time the path if available.")
     return 0
 
