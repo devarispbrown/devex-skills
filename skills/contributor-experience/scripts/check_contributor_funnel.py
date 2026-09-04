@@ -48,6 +48,11 @@ def find_first(root, names):
 
 
 def text_has(path, regex):
+    # Accepts a compiled pattern or a raw string. One call site passed a string and
+    # crashed on every repository that has a pull request template, which is every
+    # repository the checker had never been run against.
+    if isinstance(regex, str):
+        regex = re.compile(regex)
     try:
         return bool(regex.search(path.read_text(encoding="utf-8", errors="replace")))
     except OSError:
@@ -189,11 +194,41 @@ def main():
         local_cmd, local_src = "make test", "Makefile"
     elif pkg.is_file() and package_test_command(pkg):
         local_cmd, local_src = "npm test", "package.json"
+    else:
+        # Make and npm are not the only two ecosystems. Checking only those reported a
+        # false gap on every repository in the first external audit: two Python projects
+        # configured through pyproject.toml and one Rust project with Cargo.toml.
+        # Markers are deliberately loose. A first pass keyed on [tool.pytest] and
+        # [package] still reported false gaps: llm declares pytest as a dependency
+        # without a [tool.pytest] section, and uv's root manifest is a [workspace]
+        # with no [package].
+        for fname, marker, cmd in (
+                ("pyproject.toml", "pytest", "pytest"),
+                ("pyproject.toml", "[tool.tox", "tox"),
+                ("pyproject.toml", "[tool.hatch.envs", "hatch run test"),
+                ("tox.ini", "[testenv", "tox"),
+                ("Cargo.toml", "", "cargo test"),
+                ("go.mod", "module ", "go test ./..."),
+                ("Gemfile", "rspec", "bundle exec rspec"),
+                ("pom.xml", "<project", "mvn test"),
+                ("build.gradle", "", "gradle test"),
+                ("build.gradle.kts", "", "gradle test")):
+            f = root / fname
+            if f.is_file():
+                try:
+                    body = f.read_text(encoding="utf-8", errors="replace")
+                except OSError:
+                    continue
+                if marker and marker not in body:
+                    continue
+                local_cmd, local_src = cmd, fname
+                break
     if local_cmd:
         print(f"[OK]   Local test target: {local_cmd} ({local_src})")
     else:
-        print("[GAP]  Local test target: no Makefile test target and no package.json test script")
-        gaps.append("No local test target (Makefile test target or package.json test script)")
+        print("[GAP]  Local test target: none found in Makefile, package.json, "
+              "pyproject.toml, tox.ini, Cargo.toml, go.mod, Gemfile, pom.xml or gradle build")
+        gaps.append("No local test target discoverable from the repository's build files")
 
     ci_cmds = ci_test_commands(ci_files)
     if local_cmd:
