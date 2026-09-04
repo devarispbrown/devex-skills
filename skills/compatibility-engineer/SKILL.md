@@ -4,7 +4,7 @@ description: Maintain and verify the compatibility matrix: runtime versions, dat
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and CI matrix configuration.
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # Compatibility Matrix Engineering

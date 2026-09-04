@@ -4,7 +4,7 @@ description: Review an API as a product beyond OpenAPI syntax: resource modeling
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and the API contract (OpenAPI/Proto).
 metadata:
-  version: "2.7.1"
+  version: "2.8.0"
 ---
 
 # API Design Reviewer
@@ -16,6 +16,9 @@ Review an API as a product, not as a schema. The contract is an interface; devel
 Guessability is the test. **Can a developer with the product's domain vocabulary predict the endpoint, the path parameters, the response shape, the error, and the enum values without reading the docs?** An API that needs documentation for every call has a design defect, not a documentation gap.
 
 Do not repair a confusing API by documenting it. Flag the underlying API defect and attribute it to the surface that owns the fix.
+
+For a surface exposed to agents as tool definitions or an MCP server, hand the tool-surface
+review to `agent-integration-dx` if available. This skill owns the HTTP contract beneath it.
 
 Read `references/standards.md` for the canonical thresholds, severity vocabulary, and release gates.
 

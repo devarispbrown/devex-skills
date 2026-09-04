@@ -1,0 +1,10 @@
+{
+  "check_tool_surface.py": {
+    "clean": [
+      "tools.clean.json"
+    ],
+    "broken": [
+      "tools.broken.json"
+    ]
+  }
+}

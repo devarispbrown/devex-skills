@@ -1,0 +1,59 @@
+{
+  "tools": [
+    {
+      "name": "calendar_create_event",
+      "description": "Create a calendar event on a named calendar. Use this when the caller supplies a specific time. If the caller wants the system to pick a time, use calendar_propose_slots instead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "calendar_id": {
+            "type": "string",
+            "description": "Calendar to write to, from calendar_list."
+          },
+          "start": {
+            "type": "string",
+            "description": "RFC3339 start time."
+          },
+          "visibility": {
+            "type": "string",
+            "description": "Event visibility.",
+            "enum": [
+              "public",
+              "private"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "calendar_propose_slots",
+      "description": "Propose open time slots for a set of attendees. Use this when no time has been chosen yet. Do not use it to write an event; that is calendar_create_event.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attendees": {
+            "type": "array",
+            "description": "Attendee email addresses."
+          },
+          "duration_minutes": {
+            "type": "integer",
+            "description": "Length of the proposed slot."
+          }
+        }
+      }
+    },
+    {
+      "name": "calendar_list",
+      "description": "List calendars the caller can write to. Use this first when a calendar id is needed; it is not for reading events, which is calendar_list_events.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "description": "Pagination cursor from a previous response."
+          }
+        }
+      }
+    }
+  ]
+}

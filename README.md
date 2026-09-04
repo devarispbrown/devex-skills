@@ -1,6 +1,6 @@
 # Developer Experience Skills Suite
 
-Forty-two Agent Skills that build, audit, and gate every surface of a developer tool. Onboarding, the API, the CLI, SDKs, docs, errors, your community, releases, operations: all of it, backed by one shared constitution of measurable DX standards.
+Forty-three Agent Skills that build, audit, and gate every surface of a developer tool. Onboarding, the API, the CLI, SDKs, docs, errors, your community, releases, operations: all of it, backed by one shared constitution of measurable DX standards.
 
 ## Why I built this
 
@@ -19,7 +19,7 @@ The frustrating part: these failures are predictable. I've seen the same handful
 
 ## The methodology
 
-All forty-two skills share one constitution, `dx-standards/`, synced into every skill's `references/standards.md`. Four rules hold it together:
+All forty-three skills share one constitution, `dx-standards/`, synced into every skill's `references/standards.md`. Four rules hold it together:
 
 - **Named SLOs, each with an owner.** Magic path ≤15 min, clone-to-productive ≤10 min, community onboarding ≤30 min, Time to Recovery ≤5 min, explicit feedback budgets. Every constant has one home and one owning skill; skills cite constants by name, never restate values.
 - **Named gates.** `BROKEN_QUICKSTART`, `UNEXPLAINED_ERROR`, `UNDOCUMENTED_BREAKING_API`, `NO_CONTRIBUTING_WHILE_WELCOMING`, and the rest. A failing gate fails the release; a score never averages it away.
@@ -44,7 +44,7 @@ No verdict can be **world-class** while this gate fails, regardless of how good 
 
 ## Install
 
-The repository is packaged as a Claude Code plugin (`developer-docs-skills`) that installs all forty-two skills at once:
+The repository is packaged as a Claude Code plugin (`developer-docs-skills`) that installs all forty-three skills at once:
 
 ```bash
 claude plugin marketplace add devarispbrown/devex-skills
@@ -70,7 +70,7 @@ Don't read the rest of this page yet. Three steps:
 2. Ask Claude: "run `developer-experience-auditor` on this repo."
 3. Read the DX Report.
 
-That's the lay of the land. You do not need to learn forty-two skills. You need one. The report gives you a verdict, magic-path timing, per-area scores, and a prioritized backlog of gate failures, and every P1 names the skill that fixes it. That's how you discover the rest of the suite: by the problem in front of you, not by the catalog.
+That's the lay of the land. You do not need to learn forty-three skills. You need one. The report gives you a verdict, magic-path timing, per-area scores, and a prioritized backlog of gate failures, and every P1 names the skill that fixes it. That's how you discover the rest of the suite: by the problem in front of you, not by the catalog.
 
 Then it's a loop:
 
@@ -127,6 +127,15 @@ Tools: `check_openapi_shape.py`, `guessability_check.py`, `check_parity.py`, `ch
 | `accessibility-dx` | Audit | No red/green-only errors; terminal output consumable by screen readers |
 
 Tools: `check_cli_surface.py`, `check_config_surface.py`, `check_cli_colors.py`
+
+### Agents
+
+| Skill | Role | One-liner |
+|---|---|---|
+| `agent-native-dx` | Audit | Is this repo ready for AI agents? Scores 19 surfaces across finding your way, operating the product, and doing the work |
+| `agent-integration-dx` | Build | Tool definitions and MCP servers as shipped artifacts: naming, description-as-prompt, argument schemas, response shaping |
+
+Tools: `check_agent_readiness.py`, `check_tool_surface.py`
 
 ### Errors and support
 
@@ -248,7 +257,7 @@ devex-skills/
 │   └── smoke_skills.py           # per-skill fixture smoke tests
 ├── .github/workflows/ci.yml      # drift + structure + smoke enforcement
 ├── trials/                       # pre-registered agent trials and their logs
-└── skills/                       # 42 self-contained skill directories
+└── skills/                       # 43 self-contained skill directories
 ```
 
 ## Shared standards and sync

@@ -1,12 +1,13 @@
 {
   "name": "developer-docs-skills",
-  "description": "Forty-two Agent Skills for building and enforcing world-class developer experience across six domains - Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve - including docs authoring and auditing, end-to-end adversarial DX testing, community design and health, onboarding, API review, local development, SDK engineering, error experience, quality and release engineering, workflow feedback loops, sandboxes, architecture comprehension, discoverability, support, permissions, extensibility, economics, environments, change awareness, operational trust, fixtures, IDE, policy, console, experimentation, accessibility, and reference applications, all backed by a shared dx-standards constitution.",
-  "version": "2.7.1",
+  "description": "Forty-three Agent Skills for building and enforcing world-class developer experience across six domains - Learn & Adopt, Build, Validate, Ship & Operate, Participate & Extend, Measure & Improve - including docs authoring and auditing, end-to-end adversarial DX testing, community design and health, onboarding, API review, local development, SDK engineering, error experience, quality and release engineering, workflow feedback loops, sandboxes, architecture comprehension, discoverability, support, permissions, extensibility, economics, environments, change awareness, operational trust, fixtures, IDE, policy, console, experimentation, accessibility, and reference applications, all backed by a shared dx-standards constitution.",
+  "version": "2.8.0",
   "license": "MIT",
   "repository": "https://github.com/devarispbrown/devex-skills",
   "skills": [
     "./skills/access-and-permissions-dx",
     "./skills/accessibility-dx",
+    "./skills/agent-integration-dx",
     "./skills/agent-native-dx",
     "./skills/api-design-reviewer",
     "./skills/architecture-experience",

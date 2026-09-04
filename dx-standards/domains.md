@@ -16,7 +16,7 @@ Canonical domain mapping for the suite. The README mirrors this table; skill dir
 | Domain | Skills |
 |---|---|
 | Learn & Adopt (7) | developer-docs, developer-onboarding, golden-path-scaffolder, architecture-experience, developer-discoverability, reference-application-engineer, developer-economics |
-| Build (11) | api-design-reviewer, sdk-engineer, cli-designer, configuration-dx, error-experience, local-development, ide-experience, test-data-and-fixtures, developer-workflow-auditor, accessibility-dx, agent-native-dx |
+| Build (12) | api-design-reviewer, sdk-engineer, cli-designer, configuration-dx, error-experience, local-development, ide-experience, test-data-and-fixtures, developer-workflow-auditor, accessibility-dx, agent-native-dx, agent-integration-dx |
 | Validate (6) | developer-docs-auditor, quality-engineer, integration-certifier, dependency-health, security-supply-chain, sandbox-experience |
 | Ship & Operate (10) | release-guardian, compatibility-engineer, observability-readiness, operational-trust, change-awareness, environment-lifecycle, developer-support, access-and-permissions-dx, policy-experience, web-console-dx |
 | Participate & Extend (3) | developer-community, contributor-experience, extensibility-engineer |
