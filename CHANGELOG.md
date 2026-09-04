@@ -4,6 +4,8 @@
 
 - `agent_trial_driver.py` refuses a task whose `verify` command reads the trial scratch directory. A verify that executes a command the agent wrote hands the agent control of its own grading. Found by running the 2026-09-03 pilot: every agent that recorded the project's real test command failed, and the one that recorded a command testing nothing passed, so the defect converts a real failure into a pass in exactly the cell where the honest answer fails. The driver now refuses the registration that pilot ran under.
 - `references/trial-protocol.md` states the rule: a verify command asserts an outcome the agent cannot trivially satisfy, and never executes agent-authored content.
+- `check_contributor_funnel.py` no longer crashes on any repository that has a pull request template. One of six `text_has` call sites passed a raw string where a compiled pattern was expected, so the checker only completed on repositories missing a PR template. Found on first contact with `astral-sh/uv`.
+- `check_contributor_funnel.py` detects local test targets beyond Make and npm: pyproject, tox, Cargo, go, Gemfile, Maven and Gradle. It previously reported a false gap on every repository in the first external audit, two Python projects and one Rust project, telling maintainers they had no local test target when they had pytest and cargo test respectively. A suite that tells a Python maintainer their test target does not exist is doing the thing it exists to prevent.
 
 ## 2.5.1 - 2026-09-02
 
