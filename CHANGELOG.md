@@ -2,6 +2,10 @@
 
 ## 2.9.2 - 2026-09-03
 
+- Namespace detection excludes verbs. A repeated first token was treated as a namespace, so on a verb-first surface such as `get_user`, `get_org`, `list_users` the verb itself was stripped and every check depending on it went silent. A four-tool surface that the previous version flagged correctly was reported clean, which made this a regression rather than an unfixed edge.
+- The dangling-reference check requires the token to be shaped like a tool rather than merely sharing a namespace prefix. `user_id`, `git_dir`, `config_json` and `slack_app_token` were all reported as nonexistent tools.
+- "Use this for reading a user record" no longer counts as a boundary. It names no sibling, which is what a boundary has to do.
+
 - `check_tool_surface.py` pairs tools by intent rather than string distance. A threshold on lexical similarity flagged `create_user` against `create_org`, which is the pair the script's own docstring names as never confused, while the real separator is whether two tools act on the same object with interchangeable verbs.
 - The boundary check no longer accepts a documentation cross-reference as a boundary. A description reading "See the API docs" satisfied it, which is the fix `selection-review.md` explicitly forbids.
 - Namespace detection buckets per prefix instead of requiring every tool to share one. Adding a single unnamespaced tool to a namespaced surface previously turned every finding off, so multi-product servers, the shape this skill's own guidance recommends, were reported clean.

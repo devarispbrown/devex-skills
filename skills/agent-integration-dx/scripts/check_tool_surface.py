@@ -30,7 +30,7 @@ SYNONYM_GROUPS = [
 # selection-review.md explicitly forbids, and an earlier version accepted it as a boundary.
 BOUNDARY_RE = re.compile(
     r"\b(?:instead|rather than|do not use|don't use|not for"
-    r"|use .{0,60}? (?:when|for)|prefer .{0,60}? when|if you (?:need|want))\b",
+    r"|use .{0,60}? when|prefer .{0,60}? when|if you (?:need|want))\b",
     re.IGNORECASE)
 TOOL_TOKEN_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
 # SEP-986 is cited as normative in references/upstream-specs.md. This is its one
@@ -66,13 +66,18 @@ def namespaces(names):
     unnamespaced tool to a namespaced surface turned every finding off. Multi-product
     servers, which is the shape this skill's own guidance recommends, were reported clean.
     """
+    known_verbs = {v for g in SYNONYM_GROUPS for v in g}
     heads = {}
     for n in names:
         if not n:
             continue
         h = re.split(r'[_\-.]', str(n).strip().lower())[0]
         heads[h] = heads.get(h, 0) + 1
-    return {h for h, c in heads.items() if c > 1}
+    # A repeated first token is only a namespace when it is not itself a verb. On a
+    # verb-first surface such as get_user, get_org, list_users the repeated token is the
+    # verb, and treating it as a namespace deleted the verb and silenced every check that
+    # depends on it, including drift that the previous version reported correctly.
+    return {h for h, c in heads.items() if c > 1 and h not in known_verbs}
 
 
 def split_name(name, ns):
@@ -216,7 +221,16 @@ def main():
     known = {str(n) for n in names}
     for n in names:
         for tok in TOOL_TOKEN_RE.findall(descs.get(n, '')):
-            if tok not in known and any(tok.startswith(p) for p in ns):
+            if tok in known:
+                continue
+            parts = [x for x in re.split(r'[_\-.]', tok) if x]
+            # A token is a candidate tool reference only when it is shaped like one: it
+            # carries a known verb. Requiring only a shared namespace prefix flagged
+            # ordinary parameter and config names such as user_id and config_json.
+            if not any(x in {v for g in SYNONYM_GROUPS for v in g} for x in parts):
+                continue
+            if any(tok.startswith(f'{p}_') for p in ns) or parts[0] in {
+                    v for g in SYNONYM_GROUPS for v in g}:
                 candidates.append(f'candidate: {n} names {tok}, which is not a tool on this '
                                   'surface')
 
