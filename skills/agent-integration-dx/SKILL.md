@@ -4,7 +4,7 @@ description: Design and audit tool definitions and MCP servers as shipped produc
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access to the tool definitions or MCP server source.
 metadata:
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Agent Integration DX

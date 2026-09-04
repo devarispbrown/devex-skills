@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.0 - 2026-09-03
+
+- Added the `UNVERIFIABLE_CI_PARITY` gate (P1): the documented local check command does not appear in CI configuration, so a green local run does not predict a green CI run. `contributor-experience` has always called a local-versus-CI divergence a P1 defect, but prose cannot fail a release. It is promoted to a constant because the failure mode is worse for an unattended caller than for a person: a developer sees the CI email and iterates, while an agent either ships work it believes is finished or spends cycles guessing.
+- The gate is decidable from committed files, and thirteen of the fifteen audited public repositories trip it.
+- `check_agent_readiness.py` now names the gate constant a gap trips, so a finding points at something that can fail a release rather than floating free. Missing setup and test commands name `NON_REPRODUCIBLE_BUILD`, which already covered them; no new constant was minted for those.
+
 ## 2.8.0 - 2026-09-03
 
 - Added `agent-integration-dx`, taking the suite to forty-three skills. It owns tool definitions and MCP servers as shipped product artifacts: tool naming, description-as-prompt authoring, argument schema design, response shaping against a context budget, pagination and truncation, and tool-level error surfaces. A tool description is read by a model at selection time with no chance to ask a clarifying question, so it is doing prompt work whether or not it was written that way.

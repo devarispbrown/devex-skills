@@ -4,7 +4,7 @@ description: Design and operate an open-source contribution system: governance m
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access and community data.
 metadata:
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Developer Community Design and Operations

@@ -4,7 +4,7 @@ description: Measure community health against the Community Health Score: contri
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with repository access, GitHub API access, and community data.
 metadata:
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Developer Community Auditor

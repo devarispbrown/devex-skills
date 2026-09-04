@@ -4,7 +4,7 @@ description: Make first meaningful open-source contribution take under 30 minute
 license: MIT
 compatibility: Claude Code and Agent Skills-compatible coding agents; best with git and repository access.
 metadata:
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Contributor Experience Audit and Repair
@@ -160,6 +160,7 @@ The contributor's local checks and CI must be the same product:
 - same versions: the CI toolchain versions match the documented local ones
 - same failures: a green local run predicts a green CI run
 - any divergence between local and CI results is a parity defect: P1 when it blocks the contributor, P2 when it only causes re-runs
+- when the documented local check command does not appear in CI configuration at all, a green local run predicts nothing and the release fails `UNVERIFIABLE_CI_PARITY`
 
 Never treat a passing CI as a substitute for a passing local check.
 

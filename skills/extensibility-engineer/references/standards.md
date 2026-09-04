@@ -77,3 +77,4 @@ A change is breaking if any documented consumer's behavior changes — not only 
 | `STALE_PUBLIC_REFERENCE` | P1 | generated reference observably disagrees with current behavior |
 | `UNSAFE_EXAMPLES` | P1 | security-sensitive examples encourage unsafe credential handling |
 | `BROKEN_CANONICAL_INSTALL` | P1 | canonical install/auth path is broken |
+| `UNVERIFIABLE_CI_PARITY` | P1 | the documented local check command does not appear in CI configuration, so a green local run does not predict a green CI run |

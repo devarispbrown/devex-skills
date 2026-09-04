@@ -215,12 +215,15 @@ def main() -> int:
         ("MCP documented for users", bool(mcp_docs), names(mcp_docs)),
         ("agent skills shipped", bool(skills), names(skills)),
         ("llms.txt for doc retrieval", bool(llms), names(llms)),
-        ("setup command documented", bool(setup_docs), names(setup_docs)),
-        ("test command documented", bool(test_docs), names(test_docs)),
+        ("setup command documented", bool(setup_docs),
+         names(setup_docs) if setup_docs else "none found - NON_REPRODUCIBLE_BUILD"),
+        ("test command documented", bool(test_docs),
+         names(test_docs) if test_docs else "none found - NON_REPRODUCIBLE_BUILD"),
         ("lint or format tool declared", bool(lint_docs), names(lint_docs)),
         ("CI config present", bool(ci_files), names(ci_files)),
         ("CI runs the documented test command", ci_parity,
-         "documented test command appears in CI" if ci_parity else "no shared command found"),
+         "documented test command appears in CI" if ci_parity
+         else "no shared command found - UNVERIFIABLE_CI_PARITY"),
         ("toolchain version pinned", bool(toolchains), names(toolchains)),
         ("architecture or internals doc", bool(arch_files), names(arch_files)),
         ("destructive-operation guardrail documented", bool(dryrun_docs), names(dryrun_docs)),
@@ -247,6 +250,8 @@ def main() -> int:
     print(f"Agent readiness: {passed}/{len(checks)} surfaces present ({pct}%) - {band}")
     if gaps:
         print("This is an inventory signal, not a verdict. Inspect each gap before acting.")
+    print("Gaps naming a gate constant are release-blocking when confirmed; see "
+          "references/standards.md.")
     print("Exits 0 by default (informational); pass --strict to exit 1 on gaps.")
 
     return 1 if (args.strict and gaps) else 0
