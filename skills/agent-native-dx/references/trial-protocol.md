@@ -58,6 +58,14 @@ Two properties matter for the result being evidence rather than opinion:
   status decides pass or fail. Nobody reads a transcript and forms a view about whether
   the agent succeeded. The driver refuses a task that has no verify command.
 
+  A verify command must assert an outcome the agent cannot trivially satisfy, and must
+  never execute a command the agent wrote. The 2026-09-03 pilot shipped a verify that
+  ran a command the agent recorded to a scratch file. Agents that recorded the project's
+  real test command failed; the one that recorded a command testing nothing passed. A
+  verify that executes agent-authored content hands the agent control of its own
+  grading, and it fails in the worst direction, turning a real failure into a pass
+  exactly where the honest answer would have failed. The driver now refuses such a task.
+
   This does not eliminate operator judgment, it relocates it. The operator still chooses
   what the command tests, and a weak command sets every outcome in the trial. What the
   design buys is the same thing pre-registration buys for prompts: the command is fixed

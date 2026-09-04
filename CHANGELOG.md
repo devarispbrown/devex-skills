@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.2 - 2026-09-03
+
+- `agent_trial_driver.py` refuses a task whose `verify` command reads the trial scratch directory. A verify that executes a command the agent wrote hands the agent control of its own grading. Found by running the 2026-09-03 pilot: every agent that recorded the project's real test command failed, and the one that recorded a command testing nothing passed, so the defect converts a real failure into a pass in exactly the cell where the honest answer fails. The driver now refuses the registration that pilot ran under.
+- `references/trial-protocol.md` states the rule: a verify command asserts an outcome the agent cannot trivially satisfy, and never executes agent-authored content.
+
 ## 2.5.1 - 2026-09-02
 
 - `agent_trial_driver.py` preflight now proves the harness can modify a working tree before spending any sessions, by asking it to create one file and checking the file exists. Found by a pilot run against a real repository: a headless agent CLI defaulted to blocking writes, exited 0, and changed nothing. Every session would have recorded a failure that was the harness rather than the product, and the trial would have reported a large uncovered share made entirely of artifact. Preflight already proved each verify command discriminates; that is not the same as proving the harness can do anything at all.

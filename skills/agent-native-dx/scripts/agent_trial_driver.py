@@ -16,6 +16,8 @@ from pathlib import Path
 
 SCHEMA = 'agent-trial-log/v1'
 ID_OK = re.compile(r'^[A-Za-z0-9._-]+$')
+# Scratch path a task might tell the agent to write. A verify must never read from it.
+TRIAL_DIR = '.trial/'
 REQUIRED_REG = ('repositories', 'task_prompts', 'model', 'checkpoint', 'temperature',
                 'harness', 'harness_command', 'tool_set', 'codebook_version',
                 'coverage_corpus', 'registered_at', 'registration_url')
@@ -62,6 +64,13 @@ def load_registration(path):
         if not ID_OK.match(str(t['id'])):
             die(f'{path}: task id {t["id"]!r} must match [A-Za-z0-9._-]+, because it '
                 'becomes part of a transcript filename')
+        joined = ' '.join(str(x) for x in t.get('verify', []))
+        if TRIAL_DIR in joined:
+            die(f'{path}: task {t["id"]!r} verify reads {TRIAL_DIR}, which the agent writes.\n'
+                'A verify that executes agent-authored content lets the agent choose how it '
+                'is graded. Observed in the 2026-09-03 pilot: agents that recorded the real '
+                'test command failed, and the one that recorded a command testing nothing '
+                'passed.\nAssert an outcome the agent cannot trivially satisfy instead.')
         if not isinstance(t['verify'], list):
             die(f'{path}: task {t["id"]!r} verify must be a list of arguments, so it can '
                 'run without a shell')
