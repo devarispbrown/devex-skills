@@ -88,7 +88,9 @@ Running an open-source project? Same pattern: start with `developer-community-au
 
 It scores nineteen agent-facing surfaces, grouped by the three questions that decide whether an agent can work in your repository at all: can it find its way around, can it operate the product, can it do the work. You get a percentage, a band, and a per-surface list of what is missing.
 
-Measured across fifteen public repositories in six ecosystems, scores ran from 79 percent down to 21 percent, so a low score means something. The most common substantive gap was CI parity: thirteen of fifteen gave no way to tell that a green local run predicts a green CI run. A human notices the CI email. An unattended agent does not, so it either ships broken work or burns cycles guessing.
+Measured across fifteen widely used repositories in six ecosystems, scores ran from 79 percent down to 21 percent, so a low score means something. The most common substantive gap was CI parity: thirteen of fifteen gave no way to tell that a green local run predicts a green CI run. A human notices the CI email. An unattended agent does not, so it either ships broken work or burns cycles guessing.
+
+Full per-repository scores, the commit each was measured at, and the command to reproduce them are in [`trials/2026-09-08-readiness/`](trials/2026-09-08-readiness/RESULTS.md).
 
 ## Skills by surface
 
